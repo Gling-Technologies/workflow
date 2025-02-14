@@ -9,10 +9,10 @@
       </mat-form-field>
   
       <mat-form-field>
-        <mat-label>Select Grid Background Color</mat-label>
+        <mat-label>Select Background Color</mat-label>
         <mat-select [(value)]="selectedColor" (selectionChange)="updateGridColor($event.value)">
           @for (color of colors; track color) {
-            <mat-option [value]="color.code">
+            <mat-option class="options" [value]="color.code">
               <span [style.background]="color.code" class="color-box"></span> {{ color.name }}
             </mat-option>
           }
@@ -25,8 +25,9 @@
         <mat-label>Enter YAML Data</mat-label>
         <input matInput [(ngModel)]="yamlInput" placeholder="Type something...">
       </mat-form-field>
+
       <div class="button-container">
-        <button mat-fab aria-label="Download YAML" (click)="downloadYaml()">
+        <button class="download-btn" mat-fab aria-label="Download YAML" (click)="downloadYaml()">
           <mat-icon>download</mat-icon>
         </button>
       </div>

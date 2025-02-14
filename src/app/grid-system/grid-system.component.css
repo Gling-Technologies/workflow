@@ -28,7 +28,7 @@
 .svg-grid-container {
     position: relative;
     width: fit-content;
-    margin: 0 auto;
+    margin: 3px auto;
     max-width: 100%;
     max-height: 100vh;
     overflow: auto; 
