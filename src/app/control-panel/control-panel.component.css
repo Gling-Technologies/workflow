@@ -1,24 +1,24 @@
 .control-panel-container{
-    background: linear-gradient(to right, #271b1b, #1b1818, #403544, #be9dc9);
-    margin-top: -21px;
-    padding-bottom: 20px;
-    /* border: 1px solid #af55ca; */
-    box-shadow: 5px 5px 15px #000000;
-    /* border-radius: 0 0 15px 15px; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, #271b1b, #1b1818, #403544, #b69bbe);
+    padding: 10px 25px;
+    box-shadow: 5px 5px 15px #000;
 }
 
 h1{
     font-weight: 700;
     color: #f8f8f8;
     padding: 25px;
-    /* margin-top: 25px; */
+    margin: 0; 
 }
 
 .controls {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
-    padding: 0 25px 20px 25px;
+    gap: 15px;
+    /* padding: 0 25px 20px 25px; */
 }
 
 .color-box {
@@ -40,9 +40,6 @@ mat-label{
     color: #fff;
 }
 
-::ng-deep .mat-input-element {
-    color: #fff;
-  }
 /* 
 users-grid-input mat-label{
     color: white;
@@ -50,15 +47,6 @@ users-grid-input mat-label{
 
 mat-label:focus{
     color: black;
-}
-
-.users-grid-input, .yml-container {
-    display: flex;
-    gap: 15px;
-}
-
-.yml-container{
-    margin-right: 20px;
 }
 
 .download-btn{

@@ -9,18 +9,30 @@ import { MaterialModule } from '../material.module';
 })
 export class SidebarCategoriesComponent {
   readonly panelOpenState = signal(false);
+  badgeVisible = false;
+  badgeVisibility: { [key: string]: boolean } = {};
+
   categories: { [key: string]: string[] }  = {
-    "Control Operators": ["condition", "apply_to_each", "do_until", "scope", "switch", "terminate"], "Variables Operators": ["append_to_array", "append_to_string", "merge_array", "decrement", "increment", "initializer", "set_var"], 
-    "Web Operators": ["existence", "click", "write", "extract_data", "css_property", "visibility"], 
-    "Browser Operators": ["window_resize", "load"], 
-    "System Operators": ["wait"]
+    "Control Operators": ["condition", "for_each", "run_until", "scope", "switch", "terminate"], 
+    "Variables Operators": ["append_to_array", "append_to_string", "merge_array", "decrement", "increment","initializer", "set_var", "fliter", "deduplicate"], 
+    "Web Operators": ["existence", "click", "write", "select", "hover", "extract_data", "css_property", "visibility", "snippet", "wait_until"], 
+    "Browser Operators": ["window_resize", "load", "refresh_tab", "wait_for_download"], 
+    "System Operators": ["wait", "run", "delete_file", "move_file"]
   }
 
   get keys() {
     return Object.keys(this.categories);
   }
 
-  getRange(n: number): number[] {
-    return Array.from({ length: n }, (_, i) => i);
+  constructor() {
+    Object.keys(this.categories).forEach(key => {
+      this.categories[key].forEach(operator => {
+        this.badgeVisibility[operator] = true; // Initially hidden
+      });
+    });
+  }
+
+  toggleBadgeVisibility(operator: string, hidden: boolean) {
+    this.badgeVisibility[operator] = hidden;
   }
 }

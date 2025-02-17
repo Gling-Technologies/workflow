@@ -12,7 +12,7 @@ export class ControlPanelComponent {
   @Output() cellSizeChange = new EventEmitter<number>();
   @Output() colorChange = new EventEmitter<string>();
 
-  yamlInput: string = '';
+  // yamlInput: string = '';
   colors = [
     { name: 'Gray', code: '#8f8e8e' },
     { name: 'Charcoal Gray', code: '#5a5959' },
@@ -39,11 +39,11 @@ export class ControlPanelComponent {
   }
 
   downloadYaml() {
-    if (!this.yamlInput.trim()) {
-      alert("Please enter some data before downloading.");
-      return;
-    }
-    const yamlContent = `data:\n  user_input: "${this.yamlInput}"\n  cell_size: ${this.cellSize}`;
+    // if (!this.yamlInput.trim()) {
+    //   alert("Please enter some data before downloading.");
+    //   return;
+    // }
+    const yamlContent = `data:\n cell_size: ${this.cellSize}\n grid_color: "${this.selectedColor}"`;
     const blob = new Blob([yamlContent], { type: 'text/yaml' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

@@ -6,10 +6,14 @@
             </mat-expansion-panel-header>
 
             <div class="catergories-container">
-                @for (i of getRange(categories[key].length); track $index) {
+                @for (operator of categories[key]; track $index) {
                     
                     <div class="button-container">
-                        <button mat-fab aria-label="category">
+                        <button matBadge="{{ operator }}" matBadgePosition="after" 
+                        [matBadgeHidden]="badgeVisibility[operator]" 
+                        (mouseenter)="toggleBadgeVisibility(operator, false)" 
+                        (mouseleave)="toggleBadgeVisibility(operator, true)"
+                        mat-fab aria-label="category" class="badge-button custom-badge">
                             <mat-icon>
                                 <span class="material-symbols-outlined"> add </span>
                             </mat-icon>
