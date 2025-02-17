@@ -1,0 +1,36 @@
+mat-expansion-panel{
+    background: #ffffff33;
+    backdrop-filter: blur(5px);
+    color: #ffffff;
+    border: 1px solid #525151;
+}
+
+.mat-panel-title{
+    color: #ffffff;
+}
+
+.catergories-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+button {
+    background: linear-gradient(to left, #b798c0, #8e79ad);
+    color: white;
+}
+
+::ng-deep .mat-badge-content { 
+    background: #3f2c41 !important; 
+    padding: 0 7px !important;
+    font-size: 12px !important;
+    z-index: 10 !important;
+    overflow-y: visible !important;
+}
+  
+  
+
+::ng-deep .mat-expansion-panel-header svg {
+    fill: #e9e7e7 !important;
+}

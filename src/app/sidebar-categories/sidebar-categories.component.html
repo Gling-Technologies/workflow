@@ -1,0 +1,28 @@
+<mat-accordion >
+    @for (key of keys; track $index) {
+        <mat-expansion-panel style="border-radius: 0; margin: 0;" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+            <mat-expansion-panel-header>
+            <mat-panel-title style="color: #e9e7e7;"> {{ key }} </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="catergories-container">
+                @for (operator of categories[key]; track $index) {
+                    
+                    <div class="button-container">
+                        <button matBadge="{{ operator }}" matBadgePosition="after" 
+                        [matBadgeHidden]="badgeVisibility[operator]" 
+                        (mouseenter)="toggleBadgeVisibility(operator, false)" 
+                        (mouseleave)="toggleBadgeVisibility(operator, true)"
+                        mat-fab aria-label="category" class="badge-button custom-badge">
+                            <mat-icon>
+                                <span class="material-symbols-outlined"> add </span>
+                            </mat-icon>
+                        </button>
+                    </div>
+                }
+            </div>
+           
+        </mat-expansion-panel>
+    }
+</mat-accordion>
+

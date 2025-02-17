@@ -1,4 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { height: 100%; background-color: #464040; }
+body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+::-webkit-scrollbar {
+    width: 7px; 
+    height: 6px;
+}
+  
+::-webkit-scrollbar-track {
+    background: transparent; 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(184, 151, 197, 0.6); 
+    border-radius: 40px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(129, 103, 139, 0.986);
+}
