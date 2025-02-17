@@ -5,12 +5,12 @@
     <div class="users-grid-input">
       <mat-form-field>
         <mat-label>Inner Grid Cell Size (px)</mat-label>
-        <input matInput type="number" [value]="cellSize" (input)="updateCellSize($event)" min="7">
+        <input style="color: #f3f2f2;" matInput type="number" [value]="cellSize" (input)="updateCellSize($event)" min="7">
       </mat-form-field>
   
       <mat-form-field>
         <mat-label>Select Background Color</mat-label>
-        <mat-select [(value)]="selectedColor" (selectionChange)="updateGridColor($event.value)">
+        <mat-select style="color: #f3f2f2;" [(value)]="selectedColor" (selectionChange)="updateGridColor($event.value)">
           @for (color of colors; track color) {
             <mat-option class="options" [value]="color.code">
               <span [style.background]="color.code" class="color-box"></span> {{ color.name }}
@@ -23,7 +23,7 @@
     <div class="yml-container">
       <mat-form-field>
         <mat-label>Enter YAML Data</mat-label>
-        <input matInput [(ngModel)]="yamlInput" placeholder="Type something...">
+        <input style="color: #f3f2f2;" matInput [(ngModel)]="yamlInput">
       </mat-form-field>
 
       <div class="button-container">

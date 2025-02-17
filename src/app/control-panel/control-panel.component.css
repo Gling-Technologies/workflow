@@ -1,9 +1,9 @@
 .control-panel-container{
-    background: linear-gradient(to left, #bc92c9, #b5a9c7);
+    background: linear-gradient(to right, #271b1b, #1b1818, #403544, #be9dc9);
     margin-top: -21px;
     padding-bottom: 20px;
     /* border: 1px solid #af55ca; */
-    box-shadow: 5px 5px 15px #af55ca;
+    box-shadow: 5px 5px 15px #000000;
     /* border-radius: 0 0 15px 15px; */
 }
 
@@ -37,13 +37,19 @@ mat-form-field{
 }
 
 mat-label{
-    color: #000;
-
+    color: #fff;
 }
+
+::ng-deep .mat-input-element {
+    color: #fff;
+  }
+/* 
+users-grid-input mat-label{
+    color: white;
+} */
 
 mat-label:focus{
     color: black;
-    border: 1px solid black;
 }
 
 .users-grid-input, .yml-container {
