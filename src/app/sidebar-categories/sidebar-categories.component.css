@@ -18,7 +18,7 @@ mat-expansion-panel{
 
 button {
     background: linear-gradient(to left, #b798c0, #8e79ad);
-    color: white;
+    color: #ffffff;
 }
 
 ::ng-deep .mat-badge-content { 

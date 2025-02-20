@@ -14,7 +14,7 @@ export class SidebarCategoriesComponent {
 
   categories: { [key: string]: string[] }  = {
     "Control Operators": ["condition", "for_each", "run_until", "scope", "switch", "terminate"], 
-    "Variables Operators": ["append_to_array", "append_to_string", "merge_array", "decrement", "increment","initializer", "set_var", "fliter", "deduplicate"], 
+    "Variables Operators": ["append_to_array", "append_to_string", "merge_array", "decrement", "increment","initializer", "set_var", "filter", "deduplicate"], 
     "Web Operators": ["existence", "click", "write", "select", "hover", "extract_data", "css_property", "visibility", "snippet", "wait_until"], 
     "Browser Operators": ["window_resize", "load", "refresh_tab", "wait_for_download"], 
     "System Operators": ["wait", "run", "delete_file", "move_file"]

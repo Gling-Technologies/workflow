@@ -14,9 +14,9 @@
                         (mouseenter)="toggleBadgeVisibility(operator, false)" 
                         (mouseleave)="toggleBadgeVisibility(operator, true)"
                         mat-fab aria-label="category" class="badge-button custom-badge">
-                            <mat-icon>
-                                <span class="material-symbols-outlined"> add </span>
-                            </mat-icon>
+                            
+                        <img [src]="'assets/svg/' + operator + '.svg'" alt="{{ operator }}" style="width: 27px; display: flex; align-items: center; justify-content: center;">
+                            
                         </button>
                     </div>
                 }
