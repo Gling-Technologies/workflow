@@ -10,5 +10,5 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'flow_chart';
+  title = 'work_flow';
 }

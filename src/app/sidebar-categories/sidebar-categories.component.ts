@@ -35,4 +35,8 @@ export class SidebarCategoriesComponent {
   toggleBadgeVisibility(operator: string, hidden: boolean) {
     this.badgeVisibility[operator] = hidden;
   }
+
+  getFormattedOperator(operator: string): string {
+    return operator ? operator.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase()) : '';
+  }
 }

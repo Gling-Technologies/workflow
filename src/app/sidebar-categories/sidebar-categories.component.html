@@ -8,15 +8,12 @@
             <div class="catergories-container">
                 @for (operator of categories[key]; track $index) {
                     
-                    <div class="button-container">
-                        <button matBadge="{{ operator }}" matBadgePosition="after" 
-                        [matBadgeHidden]="badgeVisibility[operator]" 
-                        (mouseenter)="toggleBadgeVisibility(operator, false)" 
-                        (mouseleave)="toggleBadgeVisibility(operator, true)"
-                        mat-fab aria-label="category" class="badge-button custom-badge">
-                            
-                        <img [src]="'assets/svg/' + operator + '.svg'" alt="{{ operator }}" style="width: 27px; display: flex; align-items: center; justify-content: center;">
-                            
+                    <div class="button-container" >
+                        <button mat-fab extended aria-label="category" class="badge-button">
+                            <div class="div-button">
+                                <img [src]="'assets/svg/' + operator + '.svg'">
+                                <span>{{ getFormattedOperator(operator) }}</span>
+                            </div>           
                         </button>
                     </div>
                 }
