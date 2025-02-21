@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SidebarComponent } from "../sidebar/sidebar.component";
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-grid-system',
   templateUrl: './grid-system.component.html',
   styleUrls: ['./grid-system.component.css'],
-  imports: [SidebarComponent]
+  imports: [SidebarComponent, DragDropModule]
 })
 export class GridSystemComponent implements OnInit {
   @Input() outerGridSize: number = 20;
@@ -15,6 +16,7 @@ export class GridSystemComponent implements OnInit {
 
   items: number[] = [];
   innerGridItems: number[] = [];
+  dropedItem: any = []
 
   ngOnInit() {
     this.generateGrid();

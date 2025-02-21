@@ -13,12 +13,9 @@ mat-expansion-panel{
     display: flex;
     flex-wrap: wrap;
     /* gap: 10px; */
-    margin-bottom: -15px;
-}
-
-.button-container{
-    display: flex;
-    margin-left: -25px;
+    margin-bottom: -15px; 
+    margin-left: -25px; 
+    margin-right: -25px; 
 
 }
 

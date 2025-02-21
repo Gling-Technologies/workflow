@@ -1,9 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { MaterialModule } from '../material.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 @Component({
   selector: 'app-sidebar-categories',
-  imports: [MaterialModule],
+  imports: [MaterialModule, DragDropModule],
   templateUrl: './sidebar-categories.component.html',
   styleUrl: './sidebar-categories.component.css'
 })

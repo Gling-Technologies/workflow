@@ -5,20 +5,18 @@
             <mat-panel-title style="color: #e9e7e7;"> {{ key }} </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <div class="catergories-container">
-                @for (operator of categories[key]; track $index) {
-                    
-                    <div class="button-container" >
-                        <button mat-fab extended aria-label="category" class="badge-button">
+            <div class="catergories-container button-container">
+                <div cdkDropList [cdkDropListData]="categories[key]">
+                    @for (operator of categories[key]; track $index) {                    
+                        <button mat-fab extended aria-label="category" class="badge-button" cdkDrag >
                             <div class="div-button">
                                 <img [src]="'assets/svg/' + operator + '.svg'">
                                 <span>{{ getFormattedOperator(operator) }}</span>
                             </div>           
                         </button>
-                    </div>
-                }
-            </div>
-           
+                    }
+                </div>
+            </div>           
         </mat-expansion-panel>
     }
 </mat-accordion>
