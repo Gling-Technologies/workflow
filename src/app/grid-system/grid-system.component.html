@@ -1,4 +1,4 @@
-<div class="grid-layout">
+<div class="grid-layout" cdkDropListGroup>
     <div class="sidebar">
         <app-sidebar></app-sidebar>
     </div>
@@ -13,11 +13,20 @@
                     [style.grid-template-rows]="'repeat(' + innerGridSize + ', ' + cellSize + 'px)'">
                     @for (innerItem of innerGridItems; track innerItem) {
                     <div class="inner-grid-item"></div>
+                   
                     }
+                   
                 </div>
                 </div>
             }
         </div>
+        
+       <div class="invisble-box" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="dropedItem">
+        @for (item of dropedItem; track item) {
+            <div class="example-box" cdkDrag cdkDragBoundary=".invisble-box">
+                {{getFormattedOperator(item)}}</div>
+            }
+       </div>
     </div>
 </div>
 

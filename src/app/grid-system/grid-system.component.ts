@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SidebarComponent } from "../sidebar/sidebar.component";
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DragDropModule, CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-grid-system',
@@ -31,5 +31,26 @@ export class GridSystemComponent implements OnInit {
   generateInnerGridItems() {
     const totalInnerItems = this.innerGridSize * this.innerGridSize;
     this.innerGridItems = Array.from({ length: totalInnerItems }, (_, i) => i + 1);
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      copyArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+  }
+
+  getFormattedOperator(operator: string): string {
+    return operator ? operator.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase()) : '';
   }
 }
