@@ -12,7 +12,11 @@
                             <div class="div-button">
                                 <img [src]="'assets/svg/' + operator + '.svg'">
                                 <span>{{ getFormattedOperator(operator) }}</span>
-                            </div>           
+                            </div>   
+                              
+                            <div *cdkDragPreview class="dropped-item">
+                                {{getFormattedOperator(operator)}}
+                            </div>       
                         </button>
                     }
                 </div>

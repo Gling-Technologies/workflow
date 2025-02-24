@@ -21,10 +21,11 @@
             }
         </div>
         
-       <div class="invisble-box" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="dropedItem">
-        @for (item of dropedItem; track item) {
-            <div class="example-box" cdkDrag cdkDragBoundary=".invisble-box">
-                {{getFormattedOperator(item)}}</div>
+       <div class="invisble-container" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="dropedItem">
+            @for (item of dropedItem; track item) {
+                <div class="dropped-item" cdkDrag cdkDragBoundary=".invisble-container">
+                    {{getFormattedOperator(item)}}
+                </div>
             }
        </div>
     </div>
