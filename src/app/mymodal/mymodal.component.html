@@ -1,0 +1,73 @@
+<div class="modal-container">
+    <span class="close-badge" (click)="close()">✖</span>
+    <h2>{{ getFormattedOperator(data.item) }}</h2>
+    
+    <div class="dropdown-container">
+        <div class="main-content">
+            <div class="left-modal">
+                <!-- Condition -->
+                <label for="condition">Condition:</label>
+                <select id="condition" [(ngModel)]="selectedCondition">
+                    <option value="" disabled selected>Select Condition</option>
+                    @for (option of conditionOptions; track $index) {
+                        <option [value]="option">
+                            {{ option }}
+                        </option>
+                    }
+                </select>
+            </div>
+            
+            <div class="right-modal">
+                <!-- Run Dropdown -->
+                <label for="run">Run:</label>
+                <select id="run" [(ngModel)]="selectedRun">
+                    <option value="" disabled selected>Select Run</option>
+                    @for(option of runOptions; track $index){
+                        <option [value]="option">
+                            {{ option }}
+                        </option>
+                    }
+                </select>
+
+                <!-- Fallback Dropdown -->
+                <label for="fallback">Fallback:</label>
+                <select id="fallback" [(ngModel)]="selectedFallback">
+                    <option value="" disabled selected>Select fallback</option>
+                    @for(option of fallbackOptions; track $index){
+                    <option [value]="option">
+                        {{ option }}
+                    </option>
+                }
+                </select>
+
+                <!-- Fallback Dropdown -->
+                <label for="fallback">Fallback:</label>
+                <select id="fallback" [(ngModel)]="selectedFallback">
+                    <option value="" disabled selected>Select fallback</option>
+                    @for(option of fallbackOptions; track $index){
+                    <option [value]="option">
+                        {{ option }}
+                    </option>
+                }
+                </select>
+                <!-- Fallback Dropdown -->
+                <label for="fallback">Fallback:</label>
+                <select id="fallback" [(ngModel)]="selectedFallback">
+                    <option value="" disabled selected>Select fallback</option>
+                    @for(option of fallbackOptions; track $index){
+                    <option [value]="option">
+                        {{ option }}
+                    </option>
+                }
+                </select>
+            </div>
+        </div>
+
+        
+        <div class="button-container">
+            <button mat-fab extended class="save-button"> Save </button>
+            <button mat-fab extended class="delete-button"> Delete </button>
+        </div>
+    </div>
+</div>
+  

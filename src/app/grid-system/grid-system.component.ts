@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { SidebarComponent } from "../sidebar/sidebar.component";
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { DragDropModule, CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
+
+import { SidebarComponent } from "../sidebar/sidebar.component";
+import { MymodalComponent } from '../mymodal/mymodal.component';
 
 @Component({
   selector: 'app-grid-system',
@@ -9,6 +12,8 @@ import { DragDropModule, CdkDragDrop, copyArrayItem, moveItemInArray } from '@an
   imports: [SidebarComponent, DragDropModule]
 })
 export class GridSystemComponent implements OnInit {
+  private dialog = inject(MatDialog)
+
   @Input() outerGridSize: number = 20;
   @Input() innerGridSize: number = 4;
   @Input() cellSize: number = 10;
@@ -52,5 +57,13 @@ export class GridSystemComponent implements OnInit {
 
   getFormattedOperator(operator: string): string {
     return operator ? operator.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase()) : '';
+  }
+
+  openModal(item: any): void {
+    this.dialog.open(MymodalComponent, {
+      width: '800px',  
+      maxWidth: '90vw',  
+      data: { item },
+    });
   }
 }
