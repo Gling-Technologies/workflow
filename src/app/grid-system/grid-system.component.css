@@ -7,12 +7,15 @@
     position: relative;
 }
 
-
 .invisble-container {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
     position: absolute;
-    width: 500px;
-    height: 500px;
-    background-color: white;
+    flex-wrap: wrap;
+    min-width: 540px;
+    min-height: 540px; 
+    background-color: transparent;
     top: 0;
     left: 0;
     padding: 10px;
@@ -83,7 +86,7 @@
     max-width: 100%;
     max-height: 100vh;
     overflow: auto; 
-    z-index: 0;
+    z-index: 0; 
 }
 
 .svg-grid-container::before {
