@@ -24,6 +24,7 @@
                 <div class="dropped-item" cdkDrag cdkDragBoundary=".invisble-container" 
                 (dblclick)="openModal(item)">
                     {{getFormattedOperator(item)}}
+                    <!-- REPETETIVE CODE -->
                     <span class="close-btn" (click)="removeItem(index)">✖</span>
                 </div>
             }

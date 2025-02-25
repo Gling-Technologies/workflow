@@ -14,7 +14,7 @@ export class MymodalComponent {
   selectedRun: string = '';
   selectedFallback: string = '';
 
-  conditionOptions: string[] = ['condition1'];
+  conditionOptions: string[] = ['== (equals)', '!= (notEquals)', '> (greater)', '>= (greaterOrEquals)', '< (less)', '<= (lessOrEquals)', 'x.startswith(y)', 'x.endswith(y)', 'x in y (contains)', '!(x in y) (notContains)'];
   runOptions: string[] = [];
   fallbackOptions: string[] = [];
 
@@ -29,6 +29,16 @@ export class MymodalComponent {
 
   getFormattedOperator(operator: string): string {
     return operator ? operator.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase()) : '';
+  }
+
+  inputBox: any[] =  [{ selectedCondition: '' }]; ;
+
+  addCondition(){
+    this.inputBox.push({ selectedCondition: '' }); 
+  }
+
+  removeCondition(index: number){
+    this.inputBox.splice(index, 1)
   }
 }
 

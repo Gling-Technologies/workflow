@@ -2,8 +2,8 @@
     position: relative;
     width: 100%;
     max-width: 760px;
-    height: 300px;
-    max-height: 900px;
+    /* height: 300px; */
+    max-height: 350px;
     padding: 20px;
     /* padding-bottom: 30px; */
     background: linear-gradient(to bottom left, #cea4d1, #353435);
@@ -54,6 +54,7 @@ h2 {
     gap: 65px;
     text-align: left;
     position: relative;
+    height: 200px;
     /* background-color: #fff; */
 }
 
@@ -63,16 +64,20 @@ h2 {
     flex-direction: column;
     position: relative; 
     gap: 10px;
+    padding: 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
 }
 
 .right-modal::before {
     content: "";
     position: absolute;
-    left: -32.5px; 
+    right: -32.5px; 
     top: 0;
-    width: 1px;
+    width: 10px;
     height: 100%;
-    max-height: 200px;
+    max-height: 900px;
     background-color: #c3a6cc;
 }
 
@@ -93,20 +98,25 @@ label {
 button{
     width: 80px;
     height: 45px;
+    color: white;
+    background: linear-gradient(to right, #744fc9, #c386d4);
 }
 
 .save-button{
-    color: white;
-    background: linear-gradient(to right, rgb(4, 197, 4), #c386d4);
+    background: linear-gradient(to right, #04c504, #c386d4);
 }
 
 .delete-button{
-    color: white;
     background: linear-gradient(to right, #f54c4c, #c386d4);
 }
 
-/* Styling the dropdowns */
-select {
+.input-group{
+    display: flex;
+    gap: 3px;
+    position: relative;
+}
+
+select, input {
     padding: 10px;
     width: 100%;
     border: 1px solid #ccc;
@@ -115,9 +125,17 @@ select {
     font-size: 14px;
     background-color: white;
     color: black;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none; 
+    margin: 0;
+}
+ 
+/* Add a custom arrow */
+select {
     appearance: none; /* Removes default styling */
-    
-    /* Add a custom arrow */
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M7 10l5 5 5-5z"/></svg>');
     background-repeat: no-repeat;
     background-position: right 10px center;
@@ -141,10 +159,28 @@ select:focus {
 option {
     background-color: white;
     color: black;
+    border-radius: 20px;
 }
 
-/* Selected option styling */
-select option:checked {
-    background-color: #cea4d1;
+.close-btn {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4d4d;
     color: white;
+    border-radius: 50%;
+    border: 1px solid #ff4d4d;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.2s ease-in-out;
+}
+
+.input-group:hover .close-btn{
+    opacity: 1;
 }

@@ -55,7 +55,7 @@ export class GridSystemComponent implements OnInit {
     }
   }
 
-  // REPETETIVE FUNCTIONA
+  // REPETETIVE CODE
   getFormattedOperator(operator: string): string {
     return operator ? operator.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase()) : '';
   }

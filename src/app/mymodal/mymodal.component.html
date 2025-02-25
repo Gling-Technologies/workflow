@@ -7,14 +7,24 @@
             <div class="left-modal">
                 <!-- Condition -->
                 <label for="condition">Condition:</label>
-                <select id="condition" [(ngModel)]="selectedCondition">
-                    <option value="" disabled selected>Select Condition</option>
-                    @for (option of conditionOptions; track $index) {
-                        <option [value]="option">
-                            {{ option }}
-                        </option>
-                    }
-                </select>
+                @for(i of inputBox; let index= $index; track $index){
+                    <span class="input-group">
+                        <input type="number" name="" id="" placeholder="operand 1">
+                        <select id="condition" [(ngModel)]="inputBox[index].selectedCondition">
+                            <option value="" disabled selected>Operators</option>
+                            @for (option of conditionOptions; track $index) {
+                                <option [value]="option">
+                                    {{ option }}
+                                </option>
+                            }
+                        </select>
+                        <input type="number" name="" id="" placeholder="operand 2">
+                        <!-- REPETETIVE CODE -->
+                        <button class="close-btn" (click)="removeCondition(index)">x</button>
+
+                    </span>
+                }
+                <button  mat-fab extended (click)="addCondition()">Add</button>
             </div>
             
             <div class="right-modal">
@@ -34,32 +44,11 @@
                 <select id="fallback" [(ngModel)]="selectedFallback">
                     <option value="" disabled selected>Select fallback</option>
                     @for(option of fallbackOptions; track $index){
-                    <option [value]="option">
-                        {{ option }}
-                    </option>
-                }
-                </select>
-
-                <!-- Fallback Dropdown -->
-                <label for="fallback">Fallback:</label>
-                <select id="fallback" [(ngModel)]="selectedFallback">
-                    <option value="" disabled selected>Select fallback</option>
-                    @for(option of fallbackOptions; track $index){
-                    <option [value]="option">
-                        {{ option }}
-                    </option>
-                }
-                </select>
-                <!-- Fallback Dropdown -->
-                <label for="fallback">Fallback:</label>
-                <select id="fallback" [(ngModel)]="selectedFallback">
-                    <option value="" disabled selected>Select fallback</option>
-                    @for(option of fallbackOptions; track $index){
-                    <option [value]="option">
-                        {{ option }}
-                    </option>
-                }
-                </select>
+                        <option [value]="option">
+                            {{ option }}
+                        </option>
+                    }
+                </select>    
             </div>
         </div>
 
