@@ -415,6 +415,14 @@ export class WorkflowService {
     }
   }
 
+  getName(type: "steps" | "flows"){
+    return Object.values(this.workflow[type]).map((item: any) => item.name);
+  }
+
+  getNext(type: "steps" | "flows"){
+    return Object.values(this.workflow[type]).map((item: any) => item.next).filter((next) => next !== "");
+  }
+
   getFormatted(operator: string): string {
     return operator ? operator.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase()) : '';
   }

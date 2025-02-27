@@ -45,6 +45,16 @@ mat-expansion-panel{
     align-items: center;
 }
 
+.right-div-button span{
+    width: 250px;
+    padding-left: 50px;
+}
+
+.right-badge-button{
+    margin-left: -25px;
+}
+
+
 /* ::ng-deep .mat-badge-content { 
     background: #3f2c41 !important; 
     padding: 0 7px !important;

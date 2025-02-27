@@ -1,27 +1,71 @@
 <mat-accordion>
-    @for (key of keys; track $index) {
-        <mat-expansion-panel style="border-radius: 0; margin: 0; margin-left: -15px" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
-            <mat-expansion-panel-header>
-            <mat-panel-title style="color: #e9e7e7;"> {{ key }} </mat-panel-title>
-            </mat-expansion-panel-header>
+    @if(position=='left'){
+        @for (key of getKeys(leftCategories); track $index) {
+            <mat-expansion-panel style="border-radius: 0; margin: 0; margin-left: -15px">
+          
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="color: #e9e7e7;"> {{ key }} </mat-panel-title>
+                </mat-expansion-panel-header>
 
-            <div class="catergories-container button-container">
-                <div cdkDropList [cdkDropListData]="categories[key]">
-                    @for (operator of categories[key]; track $index) {                    
-                        <button mat-fab extended aria-label="category" class="badge-button" cdkDrag >
-                            <div class="div-button">
-                                <img [src]="'assets/svg/' + operator + '.svg'">
-                                <span>{{ getFormattedOperator(operator) }}</span>
-                            </div>   
-                              
-                            <div *cdkDragPreview class="dropped-item">
-                                {{getFormattedOperator(operator)}}
-                            </div>       
-                        </button>
-                    }
-                </div>
-            </div>           
-        </mat-expansion-panel>
+                <div class="catergories-container button-container">
+                    <div cdkDropList [cdkDropListData]="leftCategories[key]">
+                        @for (operator of leftCategories[key]; track $index) {                    
+                            <button mat-fab extended aria-label="category" class="badge-button" cdkDrag >
+                                <div class="div-button">
+                                    <img [src]="'assets/svg/' + operator + '.svg'">
+                                    <span>{{ getFormattedOperator(operator) }}</span>
+                                </div>   
+                                
+                                <div *cdkDragPreview class="dropped-item">
+                                    {{getFormattedOperator(operator)}}
+                                </div>       
+                            </button>
+                        }
+                    </div>
+                </div>    
+            </mat-expansion-panel>
+        }      
     }
+    @else {
+        @for (key of getKeys(rightCategories); track $index) {
+            <mat-expansion-panel style="border-radius: 0; margin: 0;">
+        
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="color: #e9e7e7;"> {{ key }} </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="catergories-container button-container">
+                    <div>
+                        <mat-expansion-panel style="border-radius: 0; margin: 0;">            
+                            <mat-expansion-panel-header>
+                                <mat-panel-title style="color: #e9e7e7;"> Name </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            @for (operator of stepNames; track $index) {                    
+                                <button mat-fab extended aria-label="category" class="right-badge-button badge-button" >
+                                    <div class="next-name-btn">
+                                        <span>{{ getFormattedOperator(operator) }}</span>
+                                    </div>        
+                                </button>
+                            }
+                        </mat-expansion-panel>
+
+                        <mat-expansion-panel style="border-radius: 0; margin: 0; margin-bottom: 0;">            
+                            <mat-expansion-panel-header>
+                                <mat-panel-title style="color: #e9e7e7; width: 175px;"> Next </mat-panel-title>
+                            </mat-expansion-panel-header>
+
+                            @for (operator of stepNext; track $index) {                    
+                                <button mat-fab extended aria-label="category" class="badge-button right-badge-button " >
+                                    <div class="next-name-btn">
+                                        <span>{{ getFormattedOperator(operator) }}</span>
+                                    </div>        
+                                </button>
+                            }  
+                        </mat-expansion-panel>
+                    </div>
+                </div>    
+            </mat-expansion-panel>
+        }
+    } 
 </mat-accordion>
 

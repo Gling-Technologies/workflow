@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { MaterialModule } from '../material.module';
 import { SidebarCategoriesComponent } from '../sidebar-categories/sidebar-categories.component';
 
@@ -9,5 +9,5 @@ import { SidebarCategoriesComponent } from '../sidebar-categories/sidebar-catego
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-
+  @Input() position: 'left' | 'right' = 'left'; 
 }
