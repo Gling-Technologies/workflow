@@ -7,10 +7,10 @@
             <div class="left-modal">
                 <!-- Condition -->
                 <label for="condition">Condition:</label>
-                @for(i of inputBox; let index= $index; track $index){
+                @for(i of inputBox; let index= $index; track i.id){
                     <span class="input-group">
-                        <input type="number" name="" id="" placeholder="operand 1">
-                        <select id="condition" [(ngModel)]="inputBox[index].selectedCondition">
+                        <input type="number" name="" id="" placeholder="operand 1"  [(ngModel)]="inputBox[index].operand1" required>
+                        <select id="condition" [(ngModel)]="inputBox[index].selectedCondition" required>
                             <option value="" disabled selected>Operators</option>
                             @for (option of conditionOptions; track $index) {
                                 <option [value]="option">
@@ -18,9 +18,9 @@
                                 </option>
                             }
                         </select>
-                        <input type="number" name="" id="" placeholder="operand 2">
+                        <input type="number" name="" id="" placeholder="operand 2"  [(ngModel)]="inputBox[index].operand2" required>
                         <!-- REPETETIVE CODE -->
-                        <button class="close-btn" (click)="removeCondition(index)">x</button>
+                        <button class="close-btn" (click)="removeCondition(index)" [ngClass]="{'hidden': inputBox.length===1}">x</button>
 
                     </span>
                 }
@@ -54,7 +54,7 @@
 
         
         <div class="button-container">
-            <button mat-fab extended class="save-button"> Save </button>
+            <button mat-fab extended class="save-button" (click)="saveData()"> Save </button>
             <button mat-fab extended class="delete-button"> Delete </button>
         </div>
     </div>

@@ -184,3 +184,8 @@ option {
 .input-group:hover .close-btn{
     opacity: 1;
 }
+
+.input-group:hover .hidden{
+    opacity: 0;
+    pointer-events: none;
+}

@@ -1,15 +1,21 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { MaterialModule } from '../material.module';
+import { WorkflowService } from '../workflow.service';
 
 @Component({
   selector: 'app-mymodal',
-  imports: [FormsModule, MaterialModule],
+  imports: [FormsModule, MaterialModule, CommonModule],
   templateUrl: './mymodal.component.html',
   styleUrl: './mymodal.component.css'
 })
 export class MymodalComponent {
+  private workflowService = inject(WorkflowService)
+  private _snackBar = inject(MatSnackBar);
+
   selectedCondition: string = '';
   selectedRun: string = '';
   selectedFallback: string = '';
@@ -28,17 +34,36 @@ export class MymodalComponent {
   }
 
   getFormattedOperator(operator: string): string {
-    return operator ? operator.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase()) : '';
+    return this.workflowService.getFormatted(operator);
   }
 
-  inputBox: any[] =  [{ selectedCondition: '' }]; ;
+  inputBox: any[] =  [{id: 1, operand1: null, operand2: null, selectedCondition: '' }]; 
+  idCounter: number = 2;
 
   addCondition(){
-    this.inputBox.push({ selectedCondition: '' }); 
+    this.inputBox.push({id: this.idCounter++, selectedCondition: '' }); 
   }
 
-  removeCondition(index: number){
-    this.inputBox.splice(index, 1)
+  removeCondition(index: number){    
+    if(this.inputBox.length > 1){
+      this.inputBox.splice(index, 1);
+    }
+  }
+
+  saveData() {
+    const dataToSave = {
+      conditions: this.inputBox.map(item => ({
+        operand1: item.operand1,
+        operator: item.selectedCondition,
+        operand2: item.operand2
+      })),
+      run: this.selectedRun,
+      fallback: this.selectedFallback
+    };
+
+    console.log("Saved Data:", dataToSave);
+    this.dialogRef.close(dataToSave);
+    this._snackBar.open("Data Saved", "close");
   }
 }
 

@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { MymodalComponent } from '../mymodal/mymodal.component';
+import { WorkflowService } from '../workflow.service';
 
 @Component({
   selector: 'app-grid-system',
@@ -13,6 +14,7 @@ import { MymodalComponent } from '../mymodal/mymodal.component';
 })
 export class GridSystemComponent implements OnInit {
   private dialog = inject(MatDialog)
+  private workflowService = inject(WorkflowService)
 
   @Input() outerGridSize: number = 20;
   @Input() innerGridSize: number = 4;
@@ -55,9 +57,8 @@ export class GridSystemComponent implements OnInit {
     }
   }
 
-  // REPETETIVE CODE
   getFormattedOperator(operator: string): string {
-    return operator ? operator.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase()) : '';
+    return this.workflowService.getFormatted(operator);
   }
 
   openModal(item: any): void {

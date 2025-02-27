@@ -1,7 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MaterialModule } from '../material.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
+import { WorkflowService } from '../workflow.service';
 
 @Component({
   selector: 'app-sidebar-categories',
@@ -10,6 +10,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   styleUrl: './sidebar-categories.component.css'
 })
 export class SidebarCategoriesComponent {
+  private workflowService = inject(WorkflowService)
+
   readonly panelOpenState = signal(false);
   badgeVisible = false;
   badgeVisibility: { [key: string]: boolean } = {};
@@ -39,6 +41,6 @@ export class SidebarCategoriesComponent {
   }
 
   getFormattedOperator(operator: string): string {
-    return operator ? operator.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase()) : '';
+    return this.workflowService.getFormatted(operator);
   }
 }
