@@ -23,7 +23,7 @@ export class GridSystemComponent implements OnInit {
 
   items: number[] = [];
   innerGridItems: number[] = [];
-  droppedItem: any = []
+  droppedItems: any = []
 
   ngOnInit() {
     this.generateGrid();
@@ -61,16 +61,16 @@ export class GridSystemComponent implements OnInit {
     return this.workflowService.getFormatted(operator);
   }
 
-  openModal(item: any): void {
+  openModal(dropItem: any): void {
     this.dialog.open(MymodalComponent, {
       width: '800px',  
       maxWidth: '90vw',  
-      data: { item },
+      data: { dropItem },
     });
   }
 
   removeItem(index: number){
-    this.droppedItem.splice(index, 1);
+    this.droppedItems.splice(index, 1);
     // this.dropedItem = [...this.dropedItem]; it forces Angular to detect changes by creating a new reference to the array.
     // when using functions like filter(), it returns a entierly new array which force angular change detection so there is no use of this.dropedItem = [...this.dropedItem]; 
     // Normally, Angular's change detection doesn't detect in-place mutations (using .splice(), .push(), .pop()), but in your case: The component si inside a cdkDropList, which triggers change detection automatically.

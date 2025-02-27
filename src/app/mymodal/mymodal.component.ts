@@ -39,6 +39,7 @@ export class MymodalComponent {
 
   inputBox: any[] =  [{id: 1, operand1: null, operand2: null, selectedCondition: '' }]; 
   idCounter: number = 2;
+  errorMessage: string = ''
 
   addCondition(){
     this.inputBox.push({id: this.idCounter++, selectedCondition: '' }); 
@@ -50,8 +51,30 @@ export class MymodalComponent {
     }
   }
 
-  saveData() {
+  saveData(name: string) {
+    const isValid = this.inputBox.every(item => 
+      item.operand1 !== null && item.operand1 !== undefined && item.operand1 !== '' &&
+      item.operand2 !== null && item.operand2 !== undefined && item.operand2 !== '' &&
+      item.selectedCondition !== null && item.selectedCondition !== undefined && item.selectedCondition !== ''
+    );
+  
+    if (!isValid) {
+      this.errorMessage = "Please enter all the required data.";
+      return;
+    }
+  
+    // if (!this.selectedRun || !this.selectedFallback) {
+    //   alert("Please select both Run and Fallback options.");
+    //   return;
+    // }
+  
     const dataToSave = {
+      action: {
+        type: name,
+        kind: ''
+      },
+      // type: run
+      // kind: system
       conditions: this.inputBox.map(item => ({
         operand1: item.operand1,
         operator: item.selectedCondition,

@@ -19,11 +19,11 @@
             }
         </div>
         
-       <div class="invisble-container" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="droppedItem">
-            @for (item of droppedItem; let index= $index; track item) {
+       <div class="invisble-container" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="droppedItems">
+            @for (dropItem of droppedItems; let index= $index; track dropItem) {
                 <div class="dropped-item" cdkDrag cdkDragBoundary=".invisble-container" 
-                (dblclick)="openModal(item)">
-                    {{getFormattedOperator(item)}}
+                (dblclick)="openModal(dropItem)">
+                    {{getFormattedOperator(dropItem)}}
                     <!-- REPETETIVE CODE -->
                     <span class="close-btn" (click)="removeItem(index)">✖</span>
                 </div>

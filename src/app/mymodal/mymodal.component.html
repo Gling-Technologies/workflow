@@ -1,6 +1,6 @@
 <div class="modal-container">
     <span class="close-badge" (click)="close()">✖</span>
-    <h2>{{ getFormattedOperator(data.item) }}</h2>
+    <h2>{{ getFormattedOperator(data.dropItem) }}</h2>
     
     <div class="dropdown-container">
         <div class="main-content">
@@ -23,8 +23,12 @@
                         <button class="close-btn" (click)="removeCondition(index)" [ngClass]="{'hidden': inputBox.length===1}">x</button>
 
                     </span>
+                    @if (errorMessage) {
+                        <p class="error">{{errorMessage}}</p>
+                    }
                 }
                 <button  mat-fab extended (click)="addCondition()">Add</button>
+
             </div>
             
             <div class="right-modal">
@@ -51,10 +55,9 @@
                 </select>    
             </div>
         </div>
-
         
         <div class="button-container">
-            <button mat-fab extended class="save-button" (click)="saveData()"> Save </button>
+            <button mat-fab extended class="save-button" (click)="saveData(data.dropItem)"> Save </button>
             <button mat-fab extended class="delete-button"> Delete </button>
         </div>
     </div>
