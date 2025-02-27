@@ -64,24 +64,27 @@ export class MymodalComponent {
     }
   
     // if (!this.selectedRun || !this.selectedFallback) {
-    //   alert("Please select both Run and Fallback options.");
-    //   return;
+    //    this.errorMessage = "Please enter all the required data.";    
+    //    return;
     // }
   
     const dataToSave = {
+      name: "",
+      next: "",
       action: {
         type: name,
-        kind: ''
+        kind: this.workflowService.getCategoryByOperator(name),
+        conditions: this.inputBox.map(item => ({
+          operand1: item.operand1,
+          operator: item.selectedCondition,
+          operand2: item.operand2
+        })),
+        run: this.selectedRun,
+        fallback: this.selectedFallback
       },
       // type: run
       // kind: system
-      conditions: this.inputBox.map(item => ({
-        operand1: item.operand1,
-        operator: item.selectedCondition,
-        operand2: item.operand2
-      })),
-      run: this.selectedRun,
-      fallback: this.selectedFallback
+
     };
 
     console.log("Saved Data:", dataToSave);
