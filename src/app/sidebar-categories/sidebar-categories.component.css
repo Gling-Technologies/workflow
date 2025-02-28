@@ -87,13 +87,29 @@ mat-expansion-panel{
     justify-content: space-between;
     width: 80%;
     gap: 16px; 
-  }
+}
   
-  .expansion-header-content {
+.expansion-header-content {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
+}
   
-  
+.step-info {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff; 
+    background: linear-gradient(to right, #6f4c79, #331c3a);
+    border: 1px solid #cc85dd41;
+    padding: 10px 20px;
+}
+
+.step-container{
+    background-color: black;
+    margin: 0 -25px;
+}
+   
   

@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { MaterialModule } from '../material.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { WorkflowService } from '../workflow.service';
@@ -9,7 +9,7 @@ import { WorkflowService } from '../workflow.service';
   templateUrl: './sidebar-categories.component.html',
   styleUrl: './sidebar-categories.component.css'
 })
-export class SidebarCategoriesComponent {
+export class SidebarCategoriesComponent implements OnInit{
   @Input() position: 'left' | 'right' = 'left'; 
   private workflowService = inject(WorkflowService)
 
@@ -19,16 +19,14 @@ export class SidebarCategoriesComponent {
 
   leftCategories: { [key: string]: string[] }  = {}
   rightCategories: { [key: string]: string[] } = {'steps':[], 'flows':[]}
+  stepData: any 
+  flowData: any
 
-  stepNames: string[] = this.workflowService.getName('steps');
-  stepNext: string[] = this.workflowService.getNext('steps'); 
-  stepKeys: string[] = this.workflowService.getKey('steps')
+  ngOnInit(): void {
+    this.stepData = this.workflowService.getKeyAndNext('steps'); 
+    this.flowData = this.workflowService.getKeyAndNext('flows'); 
+  }
 
-  flowNames: string[] = this.workflowService.getName('flows');
-  flowNext: string[] = this.workflowService.getNext('flows'); 
-  flowKeys: string[] = this.workflowService.getKey('flows')
-
-x= ['', '', '']
   constructor() {
     this.leftCategories = this.workflowService.getCategories()
 
