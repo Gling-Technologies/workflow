@@ -18,14 +18,17 @@ export class SidebarCategoriesComponent {
   badgeVisibility: { [key: string]: boolean } = {};
 
   leftCategories: { [key: string]: string[] }  = {}
-  rightCategories: { [key: string]: string[] } = {'STEPS':[], 'FLOWS':[]}
+  rightCategories: { [key: string]: string[] } = {'steps':[], 'flows':[]}
 
-  stepNames = this.workflowService.getName('steps');
-  stepNext = this.workflowService.getNext('steps'); 
+  stepNames: string[] = this.workflowService.getName('steps');
+  stepNext: string[] = this.workflowService.getNext('steps'); 
+  stepKeys: string[] = this.workflowService.getKey('steps')
 
-  flowNames = this.workflowService.getName('flows');
-  flowNext = this.workflowService.getNext('flows'); 
+  flowNames: string[] = this.workflowService.getName('flows');
+  flowNext: string[] = this.workflowService.getNext('flows'); 
+  flowKeys: string[] = this.workflowService.getKey('flows')
 
+x= ['', '', '']
   constructor() {
     this.leftCategories = this.workflowService.getCategories()
 
@@ -36,7 +39,7 @@ export class SidebarCategoriesComponent {
     });
   }
 
-  getKeys(obj: { [key: string]: string[] }): string[] {
+  getCategoryKeys(obj: { [key: string]: string[] }): string[] {
     return Object.keys(obj);
   } 
 
@@ -46,5 +49,9 @@ export class SidebarCategoriesComponent {
 
   getFormattedOperator(operator: string): string {
     return this.workflowService.getFormatted(operator);
+  }
+
+  getNames(key: 'steps' | 'flows'): string[] {
+    return this.workflowService.getName(key);
   }
 }

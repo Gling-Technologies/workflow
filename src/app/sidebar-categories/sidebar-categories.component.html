@@ -1,7 +1,7 @@
 <mat-accordion>
     @if(position=='left'){
-        @for (key of getKeys(leftCategories); track $index) {
-            <mat-expansion-panel style="border-radius: 0; margin: 0; margin-left: -15px">
+        @for (key of getCategoryKeys(leftCategories); track $index) {
+            <mat-expansion-panel style="border-radius: 0; margin: 0; margin-left: -15px;">
           
                 <mat-expansion-panel-header>
                     <mat-panel-title style="color: #e9e7e7;"> {{ key }} </mat-panel-title>
@@ -27,45 +27,52 @@
         }      
     }
     @else {
-        @for (key of getKeys(rightCategories); track $index) {
+        <!-- @for (key of getCategoryKeys(rightCategories); track $index) { -->
+
+        <!-- STEPS -->
             <mat-expansion-panel style="border-radius: 0; margin: 0;">
-        
                 <mat-expansion-panel-header>
-                    <mat-panel-title style="color: #e9e7e7;"> {{ key }} </mat-panel-title>
-                </mat-expansion-panel-header>
+                    <mat-panel-title style="color: #e9e7e7;"> STEPS </mat-panel-title>
+                </mat-expansion-panel-header> 
+                @for (name of stepNames; track $index) {
+                    <mat-expansion-panel style="width: 250px; border-radius: 0; margin-left: -25px;">
+                        <mat-expansion-panel-header class="expansion-header" style="margin-bottom: 0;"  
+                        [matTooltip]="getFormattedOperator(name)" matTooltipPosition="left">
+                            <div class="expansion-header-content">{{ getFormattedOperator(name) }}</div>
+                    </mat-expansion-panel-header>
+                        
+                        @for (item of x; track $index) {
+                            <button mat-fab extended aria-label="category" class="badge-button" >
+                                <div class="div-button">helo</div>
+                            </button>
+                        }
+                    </mat-expansion-panel>
+                }
+              
+            </mat-expansion-panel>
 
-                <div class="catergories-container button-container">
-                    <div>
-                        <mat-expansion-panel style="border-radius: 0; margin: 0;">            
-                            <mat-expansion-panel-header>
-                                <mat-panel-title style="color: #e9e7e7;"> Name </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            @for (operator of stepNames; track $index) {                    
-                                <button mat-fab extended aria-label="category" class="right-badge-button badge-button" >
-                                    <div class="next-name-btn">
-                                        <span>{{ getFormattedOperator(operator) }}</span>
-                                    </div>        
-                                </button>
-                            }
-                        </mat-expansion-panel>
-
-                        <mat-expansion-panel style="border-radius: 0; margin: 0; margin-bottom: 0;">            
-                            <mat-expansion-panel-header>
-                                <mat-panel-title style="color: #e9e7e7; width: 175px;"> Next </mat-panel-title>
-                            </mat-expansion-panel-header>
-
-                            @for (operator of stepNext; track $index) {                    
-                                <button mat-fab extended aria-label="category" class="badge-button right-badge-button " >
-                                    <div class="next-name-btn">
-                                        <span>{{ getFormattedOperator(operator) }}</span>
-                                    </div>        
-                                </button>
-                            }  
-                        </mat-expansion-panel>
-                    </div>
-                </div>    
+        <!-- FLOWS -->
+            <mat-expansion-panel style="border-radius: 0; margin: 0;">
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="color: #e9e7e7;"> FLOWS </mat-panel-title>
+                </mat-expansion-panel-header> 
+                @for (name of flowNames; track $index) {
+                    <mat-expansion-panel style="width: 250px; border-radius: 0; margin-left: -25px;">
+                        <mat-expansion-panel-header style="margin-bottom: 0" class="expansion-header" 
+                        [matTooltip]="getFormattedOperator(name)" matTooltipPosition="left">
+                            <div class="expansion-header-content">{{ getFormattedOperator(name) }}</div>
+                    </mat-expansion-panel-header>
+                        
+                        @for (item of x; track $index) {
+                            <button mat-fab extended aria-label="category" class="badge-button" >
+                                <div class="div-button">helo</div>
+                            </button>
+                        }
+                    </mat-expansion-panel>
+                }
+              
             </mat-expansion-panel>
         }
-    } 
+    <!-- }  -->
 </mat-accordion>
 

@@ -415,12 +415,16 @@ export class WorkflowService {
     }
   }
 
-  getName(type: "steps" | "flows"){
+  getName(type: 'steps' | 'flows'): string[]{
     return Object.values(this.workflow[type]).map((item: any) => item.name);
   }
 
-  getNext(type: "steps" | "flows"){
+  getNext(type: 'steps' | 'flows'){
     return Object.values(this.workflow[type]).map((item: any) => item.next).filter((next) => next !== "");
+  }
+
+  getKey(type: 'steps' | 'flows'){
+    return Object.keys(this.workflow[type]);
   }
 
   getFormatted(operator: string): string {
