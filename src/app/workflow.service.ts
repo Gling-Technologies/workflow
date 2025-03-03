@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Workflow } from './workflow.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,20 @@ export class WorkflowService {
     return ''
   }
 
+
+  // Action
+  // Step
+  // Flow
+  // Workflow
+  // Selector
+
+  // interface Action {
+  //   type: string;
+  //   kind: string;
+  //   selector: Select
+  // }
+
+  // interface 
   // workflow = {
   //   "name": "",
   //   "vars": "",
@@ -33,7 +48,7 @@ export class WorkflowService {
   //   "flow": {}
   // }
 
-  workflow = {
+  workflow: Workflow = {
     "name": "Customer Emails",
     "vars": {
       "customers": []
