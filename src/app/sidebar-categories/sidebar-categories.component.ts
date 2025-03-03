@@ -1,7 +1,10 @@
 import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+
 import { MaterialModule } from '../material.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { WorkflowService } from '../workflow.service';
+import { EditmodalComponent } from '../editmodal/editmodal.component';
 
 @Component({
   selector: 'app-sidebar-categories',
@@ -11,8 +14,8 @@ import { WorkflowService } from '../workflow.service';
 })
 export class SidebarCategoriesComponent implements OnInit{
   @Input() position: 'left' | 'right' = 'left'; 
+  public dialog = inject(MatDialog); 
   private workflowService = inject(WorkflowService)
-
   readonly panelOpenState = signal(false);
   badgeVisible = false;
   badgeVisibility: { [key: string]: boolean } = {};
@@ -41,15 +44,23 @@ export class SidebarCategoriesComponent implements OnInit{
     return Object.keys(obj);
   } 
 
-  toggleBadgeVisibility(operator: string, hidden: boolean) {
-    this.badgeVisibility[operator] = hidden;
-  }
+  // toggleBadgeVisibility(operator: string, hidden: boolean) {
+  //   this.badgeVisibility[operator] = hidden;
+  // }
 
   getFormattedOperator(operator: string): string {
     return this.workflowService.getFormatted(operator);
   }
 
-  getNames(key: 'steps' | 'flows'): string[] {
-    return this.workflowService.getName(key);
+  // getNames(key: 'steps' | 'flows'): string[] {
+  //   return this.workflowService.getName(key);
+  // }
+
+  openEditModal(variable: any): void {
+    this.dialog.open(EditmodalComponent, {
+      width: '800px',  
+      maxWidth: '90vw', 
+      data: { variable }, 
+    });
   }
 }

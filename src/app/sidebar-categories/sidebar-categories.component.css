@@ -87,12 +87,14 @@ mat-expansion-panel{
     justify-content: space-between;
     width: 80%;
     gap: 16px; 
+    position: relative;
 }
   
 .expansion-header-content {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 90%;
 }
   
 .step-info {
@@ -112,4 +114,14 @@ mat-expansion-panel{
     margin: 0 -25px;
 }
    
+.expansion-header {
+    .edit-icon {
+      opacity: 0; 
+      transition: opacity 0.3s ease-in-out;
+      cursor: pointer;
+    }
   
+    &:hover .edit-icon {
+      opacity: 1;
+    }
+}

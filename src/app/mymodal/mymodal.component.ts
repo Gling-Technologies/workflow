@@ -1,4 +1,4 @@
-import { Component, inject, Inject } from '@angular/core';
+import { Component, inject, Inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -13,6 +13,7 @@ import { WorkflowService } from '../workflow.service';
   styleUrl: './mymodal.component.css'
 })
 export class MymodalComponent {
+  @Input() component: any;
   private workflowService = inject(WorkflowService)
   private _snackBar = inject(MatSnackBar);
 

@@ -5,16 +5,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { MymodalComponent } from '../mymodal/mymodal.component';
 import { WorkflowService } from '../workflow.service';
+import { MaterialModule } from '../material.module';
 
 @Component({
   selector: 'app-grid-system',
   templateUrl: './grid-system.component.html',
   styleUrls: ['./grid-system.component.css'],
-  imports: [SidebarComponent, DragDropModule]
+  imports: [SidebarComponent, DragDropModule, MaterialModule]
 })
 export class GridSystemComponent implements OnInit {
   private dialog = inject(MatDialog)
   private workflowService = inject(WorkflowService)
+  comp: string = '';
 
   @Input() outerGridSize: number = 20;
   @Input() innerGridSize: number = 4;
@@ -62,6 +64,7 @@ export class GridSystemComponent implements OnInit {
   }
 
   openModal(dropItem: any): void {
+    this.comp = 'operator'
     this.dialog.open(MymodalComponent, {
       width: '800px',  
       maxWidth: '90vw',  

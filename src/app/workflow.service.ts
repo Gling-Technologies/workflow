@@ -415,17 +415,17 @@ export class WorkflowService {
     }
   }
 
-  getName(type: 'steps' | 'flows'): string[]{
-    return Object.values(this.workflow[type]).map((item: any) => item.name);
-  }
+  // getName(type: 'steps' | 'flows'): string[]{
+  //   return Object.values(this.workflow[type]).map((item: any) => item.name);
+  // }
 
-  getNext(type: 'steps' | 'flows'){
-    return Object.values(this.workflow[type]).map((item: any) => item.next).filter((next) => next !== "");
-  }
+  // getNext(type: 'steps' | 'flows'){
+  //   return Object.values(this.workflow[type]).map((item: any) => item.next).filter((next) => next !== "");
+  // }
 
-  getKey(type: 'steps' | 'flows'){
-    return Object.keys(this.workflow[type]);
-  }
+  // getKey(type: 'steps' | 'flows'){
+  //   return Object.keys(this.workflow[type]);
+  // }
 
   getKeyAndNext(type: 'steps' | 'flows') {
     return Object.entries(this.workflow[type])

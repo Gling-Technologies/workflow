@@ -1,0 +1,66 @@
+.modal-container {
+    position: relative;
+    width: 100%;
+    max-width: 760px;
+    /* height: 300px; */
+    max-height: 350px;
+    padding: 20px;
+    /* padding-bottom: 30px; */
+    background: linear-gradient(to bottom left, #cea4d1, #353435);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px #0000001a;
+    text-align: center;
+}
+
+h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+
+.close-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #6e6d6d;
+    /* padding: 3px; */
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.close-badge:hover {
+    background-color: #070707;
+}
+
+.button-container {
+    display: flex;
+    justify-content: end;
+    width: 99%;
+    gap: 20px;
+    /* background-color: #fff; */
+}
+
+button{
+    width: 80px;
+    height: 45px;
+    color: white;
+    background: linear-gradient(to right, #744fc9, #c386d4);
+}
+
+.save-button{
+    background: linear-gradient(to right, #04c504, #c386d4);
+}
+
+.cancle-button{
+    background: linear-gradient(to right, #f54c4c, #c386d4);
+}
