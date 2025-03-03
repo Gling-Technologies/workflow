@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { Component, inject, Input, OnInit, Optional, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { MaterialModule } from '../material.module';
@@ -56,11 +56,11 @@ export class SidebarCategoriesComponent implements OnInit{
   //   return this.workflowService.getName(key);
   // }
 
-  openEditModal(variable: any): void {
+  openEditModal(variable: any, varName?: string): void {
     this.dialog.open(EditmodalComponent, {
-      width: '800px',  
+      width: '450px',  
       maxWidth: '90vw', 
-      data: { variable }, 
+      data: { variable, vari: varName }, 
     });
   }
 }

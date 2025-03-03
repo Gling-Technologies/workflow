@@ -1,8 +1,21 @@
 <div class="modal-container">
     <span class="close-badge" (click)="close()">✖</span>
-    <h2>Edit Data</h2>
+    <h2>Edit {{ getFormattedName(data.vari) }}</h2>
 
-    <div>
+    <div class="main-content">
+        <div class="modal-content">
+            <div>
+                <label for="name">Name:</label>
+                <input id="name" type="text" [(ngModel)]="data.variable.name" placeholder="{{ getFormattedName(data.variable.name) }}" />
+    
+                <label for="key">Key:</label>
+                <input id="key" type="text" [(ngModel)]="data.variable.key" placeholder="{{ getFormattedName(data.variable.key)}}" />
+            
+                <!-- @if (data.variable.next) { -->
+                    <label for="next">Next:</label>
+                    <input id="next" type="text" [value]="getFormattedName(data.variable.next)" readonly />    
+                <!-- } -->
+            </div>
         <div class="button-container">
             <button mat-fab extended class="save-button"> Save </button>
             <button mat-fab extended class="cancle-button" (click)="close()"> Cancle </button>
