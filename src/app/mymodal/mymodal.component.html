@@ -30,7 +30,6 @@
                 <button  mat-fab extended (click)="addCondition()">Add</button>
 
             </div>
-            
             <div class="right-modal">
                 <!-- Run Dropdown -->
                 <label for="run">Run:</label>
@@ -42,23 +41,65 @@
                         </option>
                     }
                 </select>
+   
+                @if (data.dropItem != 'run_until' && data.dropItem != 'for_each') {
+                    <!-- Fallback Dropdown -->
+                    <label for="fallback">Fallback:</label>
+                    <select id="fallback" [(ngModel)]="selectedFallback">
+                        <option value="" disabled selected>Select fallback</option>
+                        @for(option of fallbackOptions; track $index){
+                            <option [value]="option">
+                                {{ option }}
+                            </option>
+                        }
+                    </select>   
+                }
 
-                <!-- Fallback Dropdown -->
-                <label for="fallback">Fallback:</label>
-                <select id="fallback" [(ngModel)]="selectedFallback">
-                    <option value="" disabled selected>Select fallback</option>
-                    @for(option of fallbackOptions; track $index){
+                <div class="toggle-container">
+                    @if (data.dropItem === 'for_each' || data.dropItem === 'run_until') {
+                        <!-- Supress -->
+                        <mat-slide-toggle labelPosition="before"><p class="label">Supress</p></mat-slide-toggle>
+                        @if (data.dropItem === 'run_until') {
+                            <!-- Pre run -->
+                            <mat-slide-toggle labelPosition="before"><p class="label">Pre run</p></mat-slide-toggle>
+                        }
+                    }
+                </div>
+
+
+                <!-- Provider -->
+                <label for="provider">Provider:</label>
+                <select id="provider" [(ngModel)]="selectedProvider">
+                    <option value="" disabled selected>Select Provider</option>
+                    @for(option of providerOptions; track $index){
                         <option [value]="option">
                             {{ option }}
                         </option>
                     }
-                </select>    
+                </select> 
+        
+                <!-- Requires -->
+                <label for="requires">Requires:</label>
+                <input type="text" id="requires" [(ngModel)]="selectedRequires" [disabled]="!selectedProvider" placeholder="Please enter requires">
+
+                <!-- Run Type -->
+                <label for="runType">Run Type:</label>
+                <select id="runType" [(ngModel)]="selectedRuntype">
+                    <option value="" disabled selected>Select Run Type</option>
+                    @for(option of runtypeOptions; track $index){
+                        <option [value]="option">
+                            {{ option }}
+                        </option>
+                    }
+                </select>
+
+                
             </div>
         </div>
         
         <div class="button-container">
             <button mat-fab extended class="save-button" (click)="saveData(data.dropItem)"> Save </button>
-            <button mat-fab extended class="delete-button"> Delete </button>
+            <button mat-fab extended class="cancle-button" (click)="close()"> Cancle </button>
         </div>
     </div>
 

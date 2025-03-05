@@ -20,11 +20,16 @@ export class MymodalComponent {
   selectedCondition: string = '';
   selectedRun: string = '';
   selectedFallback: string = '';
+  selectedProvider: string = '';
+  selectedRequires: string = '';
+  selectedRuntype: string = '';
 
-  conditionOptions: string[] = ['== (equals)', '!= (notEquals)', '> (greater)', '>= (greaterOrEquals)', '< (less)', '<= (lessOrEquals)', 'x.startswith(y)', 'x.endswith(y)', 'x in y (contains)', '!(x in y) (notContains)'];
+  conditionOptions: string[] = ['equals', 'notEquals', 'greater', 'greaterOrEquals', 'less', 'lessOrEquals', 'x.startswith(y)', 'x.endswith(y)', 'contains', 'notContains'];
   runOptions: string[] = [];
   fallbackOptions: string[] = [];
-
+  providerOptions: string[] = ['identity', 'variable', 'secret', 'date'];
+  runtypeOptions: string[] = ["workflow", "flow", "step"]
+  
   constructor(
     public dialogRef: MatDialogRef<MymodalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any

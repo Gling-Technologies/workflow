@@ -448,7 +448,7 @@ export class WorkflowService {
       .map(([key, item]) => ({
         name: item.name,
         key,
-        next: item.next || '',
+        next: item.next || 'N/A',
     }));
   }
 

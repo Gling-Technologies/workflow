@@ -87,6 +87,20 @@ label {
     color: white;
 }
 
+.toggle-container{
+    display: flex; 
+    width: 100%; 
+    gap: 50px;
+    margin-bottom: -15px;
+}
+
+.label{
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+    padding: 10px 0;
+}
+
 .button-container {
     display: flex;
     justify-content: end;
@@ -106,7 +120,7 @@ button{
     background: linear-gradient(to right, #04c504, #c386d4);
 }
 
-.delete-button{
+.cancle-button{
     background: linear-gradient(to right, #f54c4c, #c386d4);
 }
 
@@ -125,6 +139,10 @@ select, input {
     font-size: 14px;
     background-color: white;
     color: black;
+}
+
+input[type="text"]{
+    width: 94%;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
