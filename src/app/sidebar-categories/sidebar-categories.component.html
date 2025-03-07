@@ -31,8 +31,9 @@
 
         <!-- STEPS -->
             <mat-expansion-panel style="border-radius: 0; margin: 0;">
-                <mat-expansion-panel-header>
+                <mat-expansion-panel-header class="panel-title">
                     <mat-panel-title style="color: #e9e7e7;"> STEPS </mat-panel-title>
+                    <mat-icon aria-hidden="true" aria-label="add icon" fontIcon="add" class="add-icon" (click)="openAddModal('Step')"></mat-icon>                
                 </mat-expansion-panel-header> 
 
                 <div style="margin-bottom: -17px;">
@@ -67,8 +68,9 @@
 
         <!-- FLOWS -->
             <mat-expansion-panel style="border-radius: 0; margin: 0;">
-                <mat-expansion-panel-header>
+                <mat-expansion-panel-header class="panel-title">
                     <mat-panel-title style="color: #e9e7e7;"> FLOWS </mat-panel-title>
+                    <mat-icon aria-hidden="true" aria-label="add icon" fontIcon="add" class="add-icon"  (click)="openAddModal('Flow')"></mat-icon>
                 </mat-expansion-panel-header> 
 
                 <div style="margin-bottom: -17px;">

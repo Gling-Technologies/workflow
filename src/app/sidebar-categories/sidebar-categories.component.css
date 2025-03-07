@@ -81,7 +81,7 @@ mat-expansion-panel{
     fill: #e9e7e7 !important;
 }
 
-.expansion-header {
+.expansion-header, .panel-title {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -124,4 +124,16 @@ mat-expansion-panel{
     &:hover .edit-icon {
       opacity: 1;
     }
+}
+
+.panel-title{
+    .add-icon {
+        opacity: 0; 
+        transition: opacity 0.3s ease-in-out;
+        cursor: pointer;
+      }
+    
+      &:hover .add-icon {
+        opacity: 1;
+      }
 }

@@ -1,0 +1,22 @@
+<div class="modal-container">
+    <span class="close-badge" (click)="close()">✖</span>
+    <h2>Add a {{ data }}</h2>
+
+    <div class="main-content">
+        <div class="modal-content">
+            <div>
+                <label for="name">Name:</label>
+                <input id="name" type="text" [(ngModel)]="name" required />
+    
+                <label for="key">Key:</label>
+                <input id="key" type="text" [(ngModel)]="key" required />
+    
+                <label for="next">Next:</label>
+                <input id="next" type="text" [(ngModel)]="next" />    
+            </div>
+        <div class="button-container">
+            <button mat-fab extended class="save-button" (click)="save()"> Save </button>
+            <button mat-fab extended class="cancle-button" (click)="close()"> Cancle </button>
+        </div>
+    </div>
+</div>

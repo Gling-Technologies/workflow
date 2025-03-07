@@ -5,6 +5,7 @@ import { MaterialModule } from '../material.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { WorkflowService } from '../workflow.service';
 import { EditmodalComponent } from '../editmodal/editmodal.component';
+import { AddmodalComponent } from '../addmodal/addmodal.component';
 
 @Component({
   selector: 'app-sidebar-categories',
@@ -61,6 +62,22 @@ export class SidebarCategoriesComponent implements OnInit{
       width: '450px',  
       maxWidth: '90vw', 
       data: { variable, vari: varName }, 
+    });
+  }
+
+  openAddModal(data?: string): void {
+    const dialogRef = this.dialog.open(AddmodalComponent, {
+      width: '450px',  
+      maxWidth: '90vw', 
+      data: data, 
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (data === 'Step') {
+        this.stepData.push(result); 
+      }else{
+        this.flowData.push(result);
+      }
     });
   }
 }
