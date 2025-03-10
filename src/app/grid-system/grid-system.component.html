@@ -23,7 +23,7 @@
             @for (dropItem of droppedItems; let index= $index; track dropItem) {
                 <div class="dropped-item" cdkDrag cdkDragBoundary=".invisble-container" 
                 (dblclick)="openModal(dropItem)">
-                    {{getFormattedOperator(dropItem)}}
+                    {{ getFormattedOperator(dropItem) }}
                     <!-- REPETETIVE CODE -->
                     <span class="close-btn" (click)="removeItem(index)">✖</span>
                 </div>

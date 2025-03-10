@@ -16,7 +16,7 @@ export class MymodalComponent {
   @Input() component: any;
   private workflowService = inject(WorkflowService)
   private _snackBar = inject(MatSnackBar);
-
+  
   selectedCondition: string = '';
   selectedRun: string = '';
   selectedFallback: string = '';
@@ -65,14 +65,9 @@ export class MymodalComponent {
     );
   
     if (!isValid) {
-      this.errorMessage = "Please enter all the required data.";
+      this._snackBar.open("Enter all the field", "close", { duration: 3000 });
       return;
     }
-  
-    // if (!this.selectedRun || !this.selectedFallback) {
-    //    this.errorMessage = "Please enter all the required data.";    
-    //    return;
-    // }
   
     const dataToSave = {
       name: "",

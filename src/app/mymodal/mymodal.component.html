@@ -4,6 +4,7 @@
     
     <div class="dropdown-container">
         <div class="main-content">
+            @if (data.dropItem != 'for_each') {
             <div class="left-modal">
                 <!-- Condition -->
                 <label for="condition">Condition:</label>
@@ -23,14 +24,23 @@
                         <button class="close-btn" (click)="removeCondition(index)" [ngClass]="{'hidden': inputBox.length===1}">x</button>
 
                     </span>
-                    @if (errorMessage) {
-                        <p class="error">{{errorMessage}}</p>
-                    }
                 }
                 <button  mat-fab extended (click)="addCondition()">Add</button>
 
             </div>
+        }
             <div class="right-modal">
+                <!-- Run Type -->
+                <label for="runType">Run Type:</label>
+                <select id="runType" [(ngModel)]="selectedRuntype">
+                    <option value="" disabled selected>Select Run Type</option>
+                    @for(option of runtypeOptions; track $index){
+                        <option [value]="option">
+                            {{ option }}
+                        </option>
+                    }
+                </select>
+
                 <!-- Run Dropdown -->
                 <label for="run">Run:</label>
                 <select id="run" [(ngModel)]="selectedRun">
@@ -81,19 +91,6 @@
                 <!-- Requires -->
                 <label for="requires">Requires:</label>
                 <input type="text" id="requires" [(ngModel)]="selectedRequires" [disabled]="!selectedProvider" placeholder="Please enter requires">
-
-                <!-- Run Type -->
-                <label for="runType">Run Type:</label>
-                <select id="runType" [(ngModel)]="selectedRuntype">
-                    <option value="" disabled selected>Select Run Type</option>
-                    @for(option of runtypeOptions; track $index){
-                        <option [value]="option">
-                            {{ option }}
-                        </option>
-                    }
-                </select>
-
-                
             </div>
         </div>
         

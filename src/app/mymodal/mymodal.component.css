@@ -1,9 +1,10 @@
 .modal-container {
     position: relative;
-    width: 100%;
-    max-width: 760px;
+    width: 95%;
+    min-width: 400px;
+    max-width: 800px;
     /* height: 300px; */
-    max-height: 350px;
+    height: 500px;
     padding: 20px;
     /* padding-bottom: 30px; */
     background: linear-gradient(to bottom left, #cea4d1, #353435);
@@ -54,7 +55,7 @@ h2 {
     gap: 65px;
     text-align: left;
     position: relative;
-    height: 200px;
+    height: 350px;
     /* background-color: #fff; */
 }
 
@@ -67,7 +68,18 @@ h2 {
     padding: 5px;
     overflow-y: scroll;
     overflow-x: hidden;
-
+    
+    select, input {
+        box-sizing: border-box;
+        padding: 10px;
+        width: 100%;
+        border: 1px solid #ccc;
+        outline: none;
+        border-radius: 5px;
+        font-size: 14px;
+        background-color: white;
+        color: black;
+    }
 }
 
 .right-modal::before {
@@ -130,17 +142,6 @@ button{
     position: relative;
 }
 
-select, input {
-    padding: 10px;
-    width: 100%;
-    border: 1px solid #ccc;
-    outline: none;
-    border-radius: 5px;
-    font-size: 14px;
-    background-color: white;
-    color: black;
-}
-
 input[type="text"]{
     width: 94%;
 }
@@ -150,35 +151,34 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none; 
     margin: 0;
 }
- 
-/* Add a custom arrow */
+ /* 
 select {
-    appearance: none; /* Removes default styling */
+    appearance: none; 
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M7 10l5 5 5-5z"/></svg>');
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 17px;
-    padding-right: 30px; /* Make space for the arrow */
+    padding-right: 30px; 
     cursor: pointer;
 }
 
-/* Hover effect */
+ Hover effect 
 select:hover {
     background-color: #f0f0f0;
 }
 
-/* Focus effect */
+Focus effect 
 select:focus {
     border-color: #cea4d1;
     box-shadow: 0 0 5px #cea4d1cc;
 }
 
-/* Style dropdown options */
+ Style dropdown options 
 option {
     background-color: white;
     color: black;
     border-radius: 20px;
-}
+} */
 
 .close-btn {
     position: absolute;

@@ -438,9 +438,9 @@ export class WorkflowService {
   //   return Object.values(this.workflow[type]).map((item: any) => item.next).filter((next) => next !== "");
   // }
 
-  // getKey(type: 'steps' | 'flows'){
-  //   return Object.keys(this.workflow[type]);
-  // }
+  getKey(type: 'steps' | 'flows'){
+    return Object.keys(this.workflow[type]);
+  }
 
   getKeyAndNext(type: 'steps' | 'flows') {
     return Object.entries(this.workflow[type])
@@ -448,7 +448,7 @@ export class WorkflowService {
       .map(([key, item]) => ({
         name: item.name,
         key,
-        next: item.next || 'N/A',
+        next: item.next,
     }));
   }
 

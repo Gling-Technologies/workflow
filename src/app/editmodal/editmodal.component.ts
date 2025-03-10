@@ -37,4 +37,8 @@ export class EditmodalComponent {
   getFormattedName(operator: string): string {
     return this.workflowService.getFormatted(operator);
   }
+
+  getAllKeys(operator: 'steps' | 'flows'){
+    return this.workflowService.getKey(operator);
+  }
 }

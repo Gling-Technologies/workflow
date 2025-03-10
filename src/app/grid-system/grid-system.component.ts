@@ -66,11 +66,12 @@ export class GridSystemComponent implements OnInit {
   openModal(dropItem: any): void {
     this.comp = 'operator'
     this.dialog.open(MymodalComponent, {
-      width: '800px',  
+      width: "800px", 
       maxWidth: '90vw',  
       data: { dropItem },
     });
   }
+
 
   removeItem(index: number){
     this.droppedItems.splice(index, 1);
