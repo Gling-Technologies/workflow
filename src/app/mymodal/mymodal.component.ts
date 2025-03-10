@@ -95,7 +95,7 @@ export class MymodalComponent {
 
     console.log("Saved Data:", dataToSave);
     this.dialogRef.close(dataToSave);
-    this._snackBar.open("Data Saved", "close");
+    this._snackBar.open("Data Saved", "close", {duration: 3000});
   }
 }
 

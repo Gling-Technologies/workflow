@@ -58,10 +58,16 @@ export class SidebarCategoriesComponent implements OnInit{
   // }
 
   openEditModal(variable: any, varName?: string): void {
-    this.dialog.open(EditmodalComponent, {
+    const dialogRef = this.dialog.open(EditmodalComponent, {
       width: '450px',  
       maxWidth: '90vw', 
       data: { variable, vari: varName }, 
+    });
+
+    dialogRef.afterClosed().subscribe(updatedData => {
+      if (updatedData) {
+        console.log("Updated Data:", updatedData);
+      }
     });
   }
 
@@ -73,10 +79,12 @@ export class SidebarCategoriesComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (data === 'Step') {
-        this.stepData.push(result); 
-      }else{
-        this.flowData.push(result);
+      if (result) {  
+        if (data === 'Step') {
+          this.stepData.push(result); 
+        }else{
+          this.flowData.push(result);
+        }
       }
     });
   }

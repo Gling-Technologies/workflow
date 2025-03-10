@@ -24,17 +24,16 @@ export class AddmodalComponent {
   ) {}
 
   close(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(null);
   }
-
 
   save(): void {
     if (!this.name || !this.key){
-      this._snackBar.open("Enter all the field", "close");
+      this._snackBar.open("Enter all the field", "close", { duration: 3000 });
       return;
     }  
 
-    this._snackBar.open("Data Saved", "close");
+    this._snackBar.open("Data Saved", "close", { duration: 3000 });
     const newStep = { name: this.name, key: this.key, next: this.next || null };
     this.dialogRef.close(newStep); 
   }
