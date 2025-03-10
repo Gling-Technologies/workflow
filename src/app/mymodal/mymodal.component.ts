@@ -16,6 +16,8 @@ export class MymodalComponent {
   @Input() component: any;
   private workflowService = inject(WorkflowService)
   private _snackBar = inject(MatSnackBar);
+
+  categoryType: string = '';
   
   selectedCondition: string = '';
   selectedRun: string = '';
@@ -23,13 +25,17 @@ export class MymodalComponent {
   selectedProvider: string = '';
   selectedRequires: string = '';
   selectedRuntype: string = '';
-
+  selectedScope: string = '';
+  selectedVariable: string = '';
+  selectedValue: string = '';
+  
   conditionOptions: string[] = ['equals', 'notEquals', 'greater', 'greaterOrEquals', 'less', 'lessOrEquals', 'x.startswith(y)', 'x.endswith(y)', 'contains', 'notContains'];
   runOptions: string[] = [];
   fallbackOptions: string[] = [];
   providerOptions: string[] = ['identity', 'variable', 'secret', 'date'];
   runtypeOptions: string[] = ["workflow", "flow", "step"]
-  
+  ScopeOptions: string[] = ["global", "local"]
+
   constructor(
     public dialogRef: MatDialogRef<MymodalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -42,6 +48,10 @@ export class MymodalComponent {
   getFormattedOperator(operator: string): string {
     return this.workflowService.getFormatted(operator);
   }
+
+  whichCategory(operator: string){
+    this.categoryType = this.workflowService.getCategoryByOperator(operator);
+    }
 
   inputBox: any[] =  [{id: 1, operand1: null, operand2: null, selectedCondition: '' }]; 
   idCounter: number = 2;
