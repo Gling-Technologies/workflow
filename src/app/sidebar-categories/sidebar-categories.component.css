@@ -76,9 +76,21 @@ mat-expansion-panel{
     text-align: center; 
     cursor: pointer;
 }
-  
+ 
 ::ng-deep .mat-expansion-panel-header svg {
     fill: #e9e7e7 !important;
+}
+
+::ng-deep .step-flow-panel .mat-expansion-panel-header {
+    height: 45px !important;
+}
+
+::ng-deep .step-flow-expanstion .mat-expansion-panel-header svg {
+    fill: #000000 !important;
+}
+
+::ng-deep .step-flow-panel .mat-expansion-panel-header svg {
+    fill: #ffffff !important;
 }
 
 .expansion-header, .panel-title {
@@ -88,8 +100,9 @@ mat-expansion-panel{
     width: 80%;
     gap: 16px; 
     position: relative;
+    color: black;
 }
-  
+
 .expansion-header-content {
     white-space: nowrap;
     overflow: hidden;
@@ -115,14 +128,18 @@ mat-expansion-panel{
 }
    
 .expansion-header {
+    color: white ; 
+        
     .edit-icon {
-      opacity: 0; 
-      transition: opacity 0.3s ease-in-out;
-      cursor: pointer;
+        opacity: 0; 
+        transition: opacity 0.3s ease-in-out;
+        cursor: pointer;
+        color: #ffffff !important;
+
     }
   
     &:hover .edit-icon {
-      opacity: 1;
+        opacity: 1;
     }
 }
 

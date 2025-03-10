@@ -30,15 +30,15 @@
         <!-- @for (key of getCategoryKeys(rightCategories); track $index) { -->
 
         <!-- STEPS -->
-            <mat-expansion-panel style="border-radius: 0; margin: 0;">
-                <mat-expansion-panel-header class="panel-title">
-                    <mat-panel-title style="color: #e9e7e7;"> STEPS </mat-panel-title>
+            <mat-expansion-panel class="step-flow-expanstion" style="border-radius: 0; margin: 0;">
+                <mat-expansion-panel-header class="panel-title" style="background-color: #eedcf7;">
+                    <mat-panel-title> STEPS </mat-panel-title>
                     <mat-icon aria-hidden="true" aria-label="add icon" fontIcon="add" class="add-icon" (click)="openAddModal('Step')"></mat-icon>                
                 </mat-expansion-panel-header> 
 
                 <div style="margin-bottom: -17px;">
                     @for (step of stepData; track $index) {
-                        <mat-expansion-panel style="width: 250px; border-radius: 0; margin-left: -25px;">
+                        <mat-expansion-panel class="step-flow-panel" style="width: 250px; border-radius: 0; margin-left: -25px;">
                             <mat-expansion-panel-header class="expansion-header" style="margin-bottom: 0;"  
                             [matTooltip]="getFormattedOperator(step.name)" matTooltipPosition="left">
                                 <div class="expansion-header-content">{{ getFormattedOperator(step.name) }}</div>
@@ -67,15 +67,15 @@
             </mat-expansion-panel>
 
         <!-- FLOWS -->
-            <mat-expansion-panel style="border-radius: 0; margin: 0;">
-                <mat-expansion-panel-header class="panel-title">
-                    <mat-panel-title style="color: #e9e7e7;"> FLOWS </mat-panel-title>
+            <mat-expansion-panel class="step-flow-expanstion" style="border-radius: 0; margin: 0;">
+                <mat-expansion-panel-header class="panel-title" style="background-color: #eedcf7;">
+                    <mat-panel-title> FLOWS </mat-panel-title>
                     <mat-icon aria-hidden="true" aria-label="add icon" fontIcon="add" class="add-icon"  (click)="openAddModal('Flow')"></mat-icon>
                 </mat-expansion-panel-header> 
 
-                <div style="margin-bottom: -17px;">
+                <div style="margin-bottom: -17px; ">
                     @for (flow of flowData; track $index) {
-                        <mat-expansion-panel style="width: 250px; border-radius: 0; margin-left: -25px;">
+                        <mat-expansion-panel class="step-flow-panel" style="width: 250px; border-radius: 0; margin-left: -25px;">
                             <mat-expansion-panel-header style="margin-bottom: 0" class="expansion-header" 
                             [matTooltip]="getFormattedOperator(flow.name)" matTooltipPosition="left">
                                 <div class="expansion-header-content">{{ getFormattedOperator(flow.name) }}</div>
