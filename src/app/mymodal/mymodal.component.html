@@ -52,18 +52,19 @@
                 </div>
             }
             <div class="right-modal">
-                <!-- Run Type -->
-                <label for="runType">Run Type:</label>
-                <select id="runType" [(ngModel)]="selectedRuntype">
-                    <option value="" disabled selected>Select Run Type</option>
-                    @for(option of runtypeOptions; track $index){
-                        <option [value]="option">
-                            {{ option }}
-                        </option>
-                    }
-                </select>
-
-                <!-- Run Dropdown -->
+<!-- Run Type -->
+                @if (whichCategory(data.dropItem) === 'Control Operators') {
+                    <label for="runType">Run Type:</label>
+                    <select id="runType" [(ngModel)]="selectedRuntype">
+                        <option value="" disabled selected>Select Run Type</option>
+                        @for(option of runtypeOptions; track $index){
+                            <option [value]="option">
+                                {{ option }}
+                            </option>
+                        }
+                    </select>
+                }
+<!-- Run Dropdown -->
                 <label for="run">Run:</label>
                 <select id="run" [(ngModel)]="selectedRun">
                     <option value="" disabled selected>Select Run</option>
@@ -74,8 +75,8 @@
                     }
                 </select>
    
+<!-- Fallback Dropdown -->
                 @if (data.dropItem != 'run_until' && data.dropItem != 'for_each') {
-                    <!-- Fallback Dropdown -->
                     <label for="fallback">Fallback:</label>
                     <select id="fallback" [(ngModel)]="selectedFallback">
                         <option value="" disabled selected>Select fallback</option>
@@ -87,18 +88,21 @@
                     </select>   
                 }
 
-                <div class="toggle-container">
-                    @if (data.dropItem === 'for_each' || data.dropItem === 'run_until') {
-                        <!-- Supress -->
-                        <mat-slide-toggle labelPosition="before"><p class="label">Supress</p></mat-slide-toggle>
-                        @if (data.dropItem === 'run_until') {
-                            <!-- Pre run -->
-                            <mat-slide-toggle labelPosition="before"><p class="label">Pre run</p></mat-slide-toggle>
+<!-- toggle container -->
+                @if (whichCategory(data.dropItem) === 'Control Operators') {
+                    <div class="toggle-container">
+                        @if (data.dropItem === 'for_each' || data.dropItem === 'run_until') {
+                            <!-- Supress -->
+                            <mat-slide-toggle labelPosition="before"><p class="label">Supress</p></mat-slide-toggle>
+                            @if (data.dropItem === 'run_until') {
+                                <!-- Pre run -->
+                                <mat-slide-toggle labelPosition="before"><p class="label">Pre run</p></mat-slide-toggle>
+                            }
                         }
-                    }
-                </div>
+                    </div>
+                }
 
-                <!-- Provider -->
+<!-- Provider -->
                 <label for="provider">Provider:</label>
                 <select id="provider" [(ngModel)]="selectedProvider">
                     <option value="" disabled selected>Select Provider</option>
@@ -109,7 +113,7 @@
                     }
                 </select> 
         
-                <!-- Requires -->
+ <!-- Requires -->
                 <label for="requires" [ngClass]="{ 'disabled-label': !selectedProvider }">Requires:</label>
                 <input type="text" id="requires" [(ngModel)]="selectedRequires" [disabled]="!selectedProvider" placeholder="Please enter requires">
             </div>
