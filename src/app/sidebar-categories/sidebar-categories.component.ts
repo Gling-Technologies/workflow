@@ -57,16 +57,35 @@ export class SidebarCategoriesComponent implements OnInit{
   //   return this.workflowService.getName(key);
   // }
 
+  deepCopy<T>(obj: T): T {
+    return JSON.parse(JSON.stringify(obj));
+  }
+
   openEditModal(variable: any, varName?: string): void {
+    const variableCopy = this.deepCopy(variable);
     const dialogRef = this.dialog.open(EditmodalComponent, {
       width: '450px',  
       maxWidth: '90vw', 
-      data: { variable, vari: varName }, 
+      data: { variable: variableCopy, vari: varName }, 
     });
 
     dialogRef.afterClosed().subscribe(updatedData => {
       if (updatedData) {
+        if (varName === 'step') {
+          const index = this.stepData.findIndex((item: any) => item.key === variable.key);
+          if (index !== -1) {
+            this.stepData[index] = updatedData;
+          }
+        }
+        else if (varName === 'flow') {
+          const index = this.flowData.findIndex((item: any) => item.key === variable.key);
+          if (index !== -1) {
+            this.flowData[index] = updatedData;
+          }
+        }
         console.log("Updated Data:", updatedData);
+      }else {
+        console.log("Changes were discarded.");
       }
     });
   }
