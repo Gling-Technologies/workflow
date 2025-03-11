@@ -4,51 +4,53 @@
     
     <div class="dropdown-container">
         <div class="main-content">
-            <div class="left-modal">
-                <!-- @if (categoryType === 'Variables Operators') { -->
-                    <!-- scope?: global | local dropdown -->
-                    <label for="scope">Scope:</label>
-                    <select id="scope" [(ngModel)]="selectedScope">
-                        <option value="" disabled selected>Select Scope</option>
-                        @for(option of ScopeOptions; track $index){
-                            <option [value]="option">
-                                {{ option }}
-                            </option>
+            @if (data.dropItem != 'for_each') {
+                <div class="left-modal">
+                    @if (whichCategory(data.dropItem) === 'Variables Operators') {
+                        <!-- scope?: global | local dropdown -->
+                        <label for="scope">Scope:</label>
+                        <select id="scope" [(ngModel)]="selectedScope">
+                            <option value="" disabled selected>Select Scope</option>
+                            @for(option of ScopeOptions; track $index){
+                                <option [value]="option">
+                                    {{ option }}
+                                </option>
+                            }
+                        </select> 
+                        
+                        <!-- var?: string -->
+                        <label for="variable">Variable:</label>
+                        <input type="text" id="variable" [(ngModel)]="selectedVariable" placeholder="Please enter variable">
+
+                        <!-- value?: Any -->
+                        <label for="value">Value:</label>
+                        <input type="text" id="value" [(ngModel)]="selectedValue"placeholder="Please enter value">
+                    } 
+
+                    <!-- Condition -->
+                    <!-- @if (data.dropItem != 'for_each') { -->
+                        <label for="condition">Condition:</label>
+                        @for(i of inputBox; let index= $index; track i.id){
+                            <span class="input-group">
+                                <input type="number" name="" id="" placeholder="operand 1"  [(ngModel)]="inputBox[index].operand1" required>
+                                <select id="condition" [(ngModel)]="inputBox[index].selectedCondition" required>
+                                    <option value="" disabled selected>Operators</option>
+                                    @for (option of conditionOptions; track $index) {
+                                        <option [value]="option">
+                                            {{ option }}
+                                        </option>
+                                    }
+                                </select>
+                                <input type="number" name="" id="" placeholder="operand 2"  [(ngModel)]="inputBox[index].operand2" required>
+                                <!-- REPETETIVE CODE -->
+                                <button class="close-btn" (click)="removeCondition(index)" [ngClass]="{'hidden': inputBox.length===1}">x</button>
+
+                            </span>
                         }
-                    </select> 
-                    
-                    <!-- var?: string -->
-                    <label for="variable">Variable:</label>
-                    <input type="text" id="variable" [(ngModel)]="selectedVariable" placeholder="Please enter variable">
-
-                    <!-- value?: Any -->
-                    <label for="value">Value:</label>
-                    <input type="text" id="value" [(ngModel)]="selectedValue"placeholder="Please enter value">
-                <!-- } -->
-                <!-- Condition -->
-                @if (data.dropItem != 'for_each') {
-                    <label for="condition">Condition:</label>
-                    @for(i of inputBox; let index= $index; track i.id){
-                        <span class="input-group">
-                            <input type="number" name="" id="" placeholder="operand 1"  [(ngModel)]="inputBox[index].operand1" required>
-                            <select id="condition" [(ngModel)]="inputBox[index].selectedCondition" required>
-                                <option value="" disabled selected>Operators</option>
-                                @for (option of conditionOptions; track $index) {
-                                    <option [value]="option">
-                                        {{ option }}
-                                    </option>
-                                }
-                            </select>
-                            <input type="number" name="" id="" placeholder="operand 2"  [(ngModel)]="inputBox[index].operand2" required>
-                            <!-- REPETETIVE CODE -->
-                            <button class="close-btn" (click)="removeCondition(index)" [ngClass]="{'hidden': inputBox.length===1}">x</button>
-
-                        </span>
-                    }
-                    <button  mat-fab extended (click)="addCondition()">Add</button>
-                }
-            </div>
-       
+                        <button  mat-fab extended (click)="addCondition()">Add</button>
+                    <!-- } -->
+                </div>
+            }
             <div class="right-modal">
                 <!-- Run Type -->
                 <label for="runType">Run Type:</label>

@@ -49,9 +49,9 @@ export class MymodalComponent {
     return this.workflowService.getFormatted(operator);
   }
 
-  whichCategory(operator: string){
-    this.categoryType = this.workflowService.getCategoryByOperator(operator);
-    }
+  whichCategory(operator: any): string {
+    return this.categoryType = this.workflowService.getCategoryByOperator(operator);
+  }
 
   inputBox: any[] =  [{id: 1, operand1: null, operand2: null, selectedCondition: '' }]; 
   idCounter: number = 2;
