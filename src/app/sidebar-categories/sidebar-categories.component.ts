@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, Optional, signal } from '@angular/core';
+import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { MaterialModule } from '../material.module';
@@ -6,6 +6,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { WorkflowService } from '../workflow.service';
 import { EditmodalComponent } from '../editmodal/editmodal.component';
 import { AddmodalComponent } from '../addmodal/addmodal.component';
+import { workflowItem } from '../workflow.model';
 
 @Component({
   selector: 'app-sidebar-categories',
@@ -23,8 +24,8 @@ export class SidebarCategoriesComponent implements OnInit{
 
   leftCategories: { [key: string]: string[] }  = {}
   rightCategories: { [key: string]: string[] } = {'steps':[], 'flows':[]}
-  stepData: any 
-  flowData: any
+  stepData: workflowItem[] = []
+  flowData: workflowItem[] = []
 
   ngOnInit(): void {
     this.stepData = this.workflowService.getKeyAndNext('steps'); 
@@ -72,13 +73,13 @@ export class SidebarCategoriesComponent implements OnInit{
     dialogRef.afterClosed().subscribe(updatedData => {
       if (updatedData) {
         if (varName === 'step') {
-          const index = this.stepData.findIndex((item: any) => item.key === variable.key);
+          const index = this.stepData.findIndex((item: workflowItem) => item.key === variable.key);
           if (index !== -1) {
             this.stepData[index] = updatedData;
           }
         }
         else if (varName === 'flow') {
-          const index = this.flowData.findIndex((item: any) => item.key === variable.key);
+          const index = this.flowData.findIndex((item: workflowItem) => item.key === variable.key);
           if (index !== -1) {
             this.flowData[index] = updatedData;
           }

@@ -82,7 +82,7 @@ mat-expansion-panel{
 }
 
 ::ng-deep .step-flow-panel .mat-expansion-panel-header {
-    height: 45px;
+    height: 45px !important;
 }
 
 ::ng-deep .step-flow-expanstion .mat-expansion-panel-header svg {

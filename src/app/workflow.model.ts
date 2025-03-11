@@ -1,3 +1,9 @@
+export interface workflowItem {
+    key: string;
+    name: string;
+    next?: string;
+}
+
 export interface Workflow {
     name: string;
     vars: { [key: string]: any };
