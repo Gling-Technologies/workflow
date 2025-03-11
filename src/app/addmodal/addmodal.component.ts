@@ -4,6 +4,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 import { MaterialModule } from '../material.module';
 import { FormsModule } from '@angular/forms';
+import { WorkflowService } from '../workflow.service';
 
 @Component({
   selector: 'app-addmodal',
@@ -13,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class AddmodalComponent {
   private _snackBar = inject(MatSnackBar);
+  private workflowService = inject(WorkflowService);
   
   name: string = '';
   key: string = '';
@@ -36,5 +38,13 @@ export class AddmodalComponent {
     this._snackBar.open("Data Saved", "close", { duration: 3000 });
     const newStep = { name: this.name, key: this.key, next: this.next || null };
     this.dialogRef.close(newStep); 
+  }
+
+  getFormattedName(operator: string): string {
+    return this.workflowService.getFormatted(operator);
+  }
+
+  getAllKeys(operator: 'steps' | 'flows'){
+    return this.workflowService.getKey(operator);
   }
 }

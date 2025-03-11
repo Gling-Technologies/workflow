@@ -6,14 +6,20 @@
         <div class="modal-content">
             <div>
                 <label for="name">Name:</label>
-                <input id="name" type="text" [(ngModel)]="name" required />
+                <input id="name" type="text" [(ngModel)]="name" placeholder="Enter the name" required />
     
                 <label for="key">Key:</label>
-                <input id="key" type="text" [(ngModel)]="key" required />
+                <input id="key" type="text" [(ngModel)]="key" placeholder="Enter the key" required />
     
                 <label for="next">Next:</label>
-                <input id="next" type="text" [(ngModel)]="next" />    
-            </div>
+                <select id="condition" [(ngModel)]="next" required>
+                    <option value="" disabled selected>Select Run Type</option>
+                    @for (option of getAllKeys('steps'); track $index) {
+                        <option [value]="option">
+                            {{ getFormattedName(option) }}
+                        </option>
+                    }
+                </select>            </div>
         <div class="button-container">
             <button mat-fab extended class="save-button" (click)="save()"> Save </button>
             <button mat-fab extended class="cancel-button" (click)="close()"> cancel </button>
