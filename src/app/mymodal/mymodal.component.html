@@ -32,20 +32,22 @@
                         <label for="time-period">Time Period:</label>
                         <input type="number" id="time-period" [(ngModel)]="selectedTimePeriod" placeholder="Please enter time period (in sec)">
                     
+                        @if (data.dropItem != 'wait') {
     <!-- run: string = "" -->
     <!-- source?: string -->
-                        <label for="source">Source:</label>
-                        <input type="text" id="source" [(ngModel)]="selectedSource" placeholder="Please enter Source">
+                            <label for="source">Source:</label>
+                            <input type="text" id="source" [(ngModel)]="selectedSource" placeholder="Please enter Source">
 
     <!-- target?: string -->
-                        <label for="target">Target:</label>
-                        <input type="text" id="target" [(ngModel)]="selectedTarget" placeholder="Please enter Source">
+                            <label for="target">Target:</label>
+                            <input type="text" id="target" [(ngModel)]="selectedTarget" placeholder="Please enter Source">
 
     <!-- embedded: bool = False -->
-                        <mat-slide-toggle labelPosition="before"><p class="label">Embedded</p></mat-slide-toggle>
+                            <mat-slide-toggle labelPosition="before"><p class="label">Embedded</p></mat-slide-toggle>
+                        }
                     }
-                    <!-- Condition -->
-                    <!-- @if (data.dropItem != 'for_each') { -->
+    <!-- Condition -->
+                    @if (whichCategory(data.dropItem) !== 'System Operators') {
                         <label for="condition">Condition:</label>
                         @for(i of inputBox; let index= $index; track i.id){
                             <span class="input-group">
@@ -65,7 +67,7 @@
                             </span>
                         }
                         <button  mat-fab extended (click)="addCondition()">Add</button>
-                    <!-- } -->
+                    }
                 </div>
             }
             <div class="right-modal">
