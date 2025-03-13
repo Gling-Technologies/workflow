@@ -27,6 +27,23 @@
                         <input type="text" id="value" [(ngModel)]="selectedValue"placeholder="Please enter value">
                     } 
 
+                    @if (whichCategory(data.dropItem) === 'System Operators') {
+<!-- time_period: Number = 0 -->
+                        <label for="time-period">Time Period:</label>
+                        <input type="number" id="time-period" [(ngModel)]="selectedTimePeriod" placeholder="Please enter time period (in sec)">
+                    
+    <!-- run: string = "" -->
+    <!-- source?: string -->
+                        <label for="source">Source:</label>
+                        <input type="text" id="source" [(ngModel)]="selectedSource" placeholder="Please enter Source">
+
+    <!-- target?: string -->
+                        <label for="target">Target:</label>
+                        <input type="text" id="target" [(ngModel)]="selectedTarget" placeholder="Please enter Source">
+
+    <!-- embedded: bool = False -->
+                        <mat-slide-toggle labelPosition="before"><p class="label">Embedded</p></mat-slide-toggle>
+                    }
                     <!-- Condition -->
                     <!-- @if (data.dropItem != 'for_each') { -->
                         <label for="condition">Condition:</label>

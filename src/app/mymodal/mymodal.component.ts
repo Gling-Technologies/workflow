@@ -28,7 +28,10 @@ export class MymodalComponent {
   selectedScope: string = '';
   selectedVariable: string = '';
   selectedValue: string = '';
-  
+  selectedTimePeriod: string = '';
+  selectedSource: string = '';
+  selectedTarget: string = '';
+
   conditionOptions: string[] = ['equals', 'notEquals', 'greater', 'greaterOrEquals', 'less', 'lessOrEquals', 'x.startswith(y)', 'x.endswith(y)', 'contains', 'notContains'];
   runOptions: string[] = [];
   fallbackOptions: string[] = [];
