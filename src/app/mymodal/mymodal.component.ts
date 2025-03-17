@@ -33,7 +33,7 @@ export class MymodalComponent {
   selectedTarget: string = '';
 
   conditionOptions: string[] = ['equals', 'notEquals', 'greater', 'greaterOrEquals', 'less', 'lessOrEquals', 'x.startswith(y)', 'x.endswith(y)', 'contains', 'notContains'];
-  runOptions: string[] = [];
+  // runOptions: string[] = [];
   fallbackOptions: string[] = [];
   providerOptions: string[] = ['identity', 'variable', 'secret', 'date'];
   runtypeOptions: string[] = ["workflow", "flow", "step"]
@@ -68,6 +68,10 @@ export class MymodalComponent {
     if(this.inputBox.length > 1){
       this.inputBox.splice(index, 1);
     }
+  }
+
+  runOptions(type: 'steps' | 'flows'){
+    return this.workflowService.getKey(type)
   }
 
   saveData(name: string) {
