@@ -1,4 +1,4 @@
-import { Component, inject, Inject, Input } from '@angular/core';
+import { Component, inject, Inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -12,11 +12,12 @@ import { WorkflowService } from '../workflow.service';
   templateUrl: './mymodal.component.html',
   styleUrl: './mymodal.component.css'
 })
-export class MymodalComponent {
+export class MymodalComponent implements OnInit {
   @Input() component: any;
   private workflowService = inject(WorkflowService)
   private _snackBar = inject(MatSnackBar);
 
+  operatorConfig: { [key: string]: string[] } = {};
   categoryType: string = '';
   
   selectedCondition: string = '';
@@ -43,6 +44,10 @@ export class MymodalComponent {
     public dialogRef: MatDialogRef<MymodalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
+
+  ngOnInit(): void {
+    this.operatorConfig = this.workflowService.getOperatorConfig();  
+  }
 
   close(): void {
     this.dialogRef.close();
