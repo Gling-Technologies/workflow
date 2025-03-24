@@ -16,8 +16,12 @@ mat-expansion-panel{
     margin-bottom: -15px; 
     margin-left: -25px; 
     margin-right: -25px; 
-
 }
+
+/* .button-container{
+    display: flex;
+    margin-left: -25px;
+} */
 
 .badge-button {
     background: linear-gradient(to right, #6f4c79, #331c3a);
