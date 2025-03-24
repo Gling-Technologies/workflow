@@ -1,50 +1,11 @@
-<!-- controll panel -->
-<div class="controls">
-  <div class="users-grid-input">
-    <mat-form-field>
-      <mat-label>Inner Grid Cell Size (px)</mat-label>
-      <input matInput type="number" [value]="cellSize" (input)="updateCellSize($event)" min="10">
-    </mat-form-field>
-    
-     <mat-form-field>
-        <mat-label>Select Grid Background Color</mat-label>
-        <mat-select [(value)]="selectedColor" (selectionChange)="updateGridColor($event.value)">
-            @for (color of colors; track color) {
-                <mat-option [value]="color.code">
-                    <span [style.background]="color.code" class="color-box"></span> {{ color.name }}
-                  </mat-option>
-            }
-        </mat-select>
-      </mat-form-field>
-  </div>
+<app-control-panel 
+(cellSizeChange)="updateCellSize($event)" 
+(colorChange)="updateGridColor($event)">
+</app-control-panel>
 
-  <div class="yml-container">
-        <mat-form-field>
-            <mat-label>Enter YAML Data</mat-label>
-            <input matInput [(ngModel)]="yamlInput" placeholder="Type something...">
-        </mat-form-field>
-        
-        <!-- Download Button -->
-        <div class="example-button-container">
-            <button mat-fab aria-label="Download YAML" (click)="downloadYaml()">
-                <mat-icon>download</mat-icon>
-            </button>
-        </div>
-    </div>
-</div>
-  
-<!-- grid/graph -->
-<div class="svg-grid-container">
-    <div class="grid" [style.grid-template-columns]="'repeat(' + outerGridSize + ', 1fr)'"
-    [style.grid-template-rows]="'repeat(' + outerGridSize + ', 1fr)'" [style.background]="selectedColor">
-        @for (item of items; track item) {
-            <div class="grid-item">
-                <div class="inner-grid" [style.grid-template-columns]="'repeat(' + innerGridSize + ', ' + cellSize + 'px)'" [style.grid-template-rows]="'repeat(' + innerGridSize + ', ' + cellSize + 'px)'">
-                @for (innerItem of innerGridItems; track innerItem) {
-                    <div class="inner-grid-item"></div>
-                }
-            </div>
-        </div>
-    }
-    </div>
-</div>
+<app-grid-system 
+  [outerGridSize]="outerGridSize" 
+  [innerGridSize]="innerGridSize" 
+  [cellSize]="cellSize"
+  [selectedColor]="selectedColor">
+</app-grid-system>

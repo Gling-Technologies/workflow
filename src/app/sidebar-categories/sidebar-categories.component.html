@@ -1,0 +1,25 @@
+<mat-accordion >
+    @for (key of keys; track $index) {
+        <mat-expansion-panel style="border-radius: 0; margin: 0;" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+            <mat-expansion-panel-header>
+            <mat-panel-title style="color: #e9e7e7;"> {{ key }} </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="catergories-container">
+                @for (operator of categories[key]; track $index) {
+                    
+                    <div class="button-container" >
+                        <button mat-fab extended aria-label="category" class="badge-button">
+                            <div class="div-button">
+                                <img [src]="'assets/svg/' + operator + '.svg'">
+                                <span>{{ getFormattedOperator(operator) }}</span>
+                            </div>           
+                        </button>
+                    </div>
+                }
+            </div>
+           
+        </mat-expansion-panel>
+    }
+</mat-accordion>
+

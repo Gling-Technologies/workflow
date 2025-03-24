@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { GridsComponent } from "./grids/grids.component";
+import { SidebarComponent } from "./sidebar/sidebar.component";
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,5 @@ import { GridsComponent } from "./grids/grids.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'flow_chart';
+  title = 'work_flow';
 }
