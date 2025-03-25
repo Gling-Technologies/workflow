@@ -1,25 +1,109 @@
-<mat-accordion >
-    @for (key of keys; track $index) {
-        <mat-expansion-panel style="border-radius: 0; margin: 0;" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
-            <mat-expansion-panel-header>
-            <mat-panel-title style="color: #e9e7e7;"> {{ key }} </mat-panel-title>
-            </mat-expansion-panel-header>
+<mat-accordion>
+    @if(position=='left'){
+        @for (key of getCategoryKeys(leftCategories); track $index) {
+            <mat-expansion-panel style="border-radius: 0; margin: 0; margin-left: -15px;">
+          
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="color: #e9e7e7;"> {{ key }} </mat-panel-title>
+                </mat-expansion-panel-header>
 
-            <div class="catergories-container">
-                @for (operator of categories[key]; track $index) {
-                    
-                    <div class="button-container" >
-                        <button mat-fab extended aria-label="category" class="badge-button">
-                            <div class="div-button">
-                                <img [src]="'assets/svg/' + operator + '.svg'">
-                                <span>{{ getFormattedOperator(operator) }}</span>
-                            </div>           
-                        </button>
+                <div class="catergories-container button-container">
+                    <div cdkDropList [cdkDropListData]="leftCategories[key]">
+                        @for (operator of leftCategories[key]; track $index) {                    
+                            <button mat-fab extended aria-label="category" class="badge-button" cdkDrag>
+                                <div class="div-button">
+                                    <img [src]="'assets/svg/' + operator + '.svg'">
+                                    <span>{{ getFormattedOperator(operator) }}</span>
+                                </div>   
+                                
+                                <div *cdkDragPreview class="dropped-item">
+                                    {{getFormattedOperator(operator)}}
+                                </div>       
+                            </button>
+                        }
                     </div>
-                }
-            </div>
-           
-        </mat-expansion-panel>
+                </div>    
+            </mat-expansion-panel>
+        }      
     }
+    @else {
+        <!-- @for (key of getCategoryKeys(rightCategories); track $index) { -->
+
+        <!-- STEPS -->
+            <mat-expansion-panel class="step-flow-expanstion" style="border-radius: 0; margin: 0;">
+                <mat-expansion-panel-header class="panel-title" style="background-color: #eedcf7;">
+                    <mat-panel-title> STEPS </mat-panel-title>
+                    <mat-icon aria-hidden="true" aria-label="add icon" fontIcon="add" class="add-icon" (click)="openAddModal('Step')" (keyup)="openAddModal('Step')"></mat-icon>                
+                </mat-expansion-panel-header> 
+
+                <div style="margin-bottom: -17px;">
+                    @for (step of stepData; track $index) {
+                        <mat-expansion-panel class="step-flow-panel" style="width: 250px; border-radius: 0; margin-left: -25px;">
+                            <mat-expansion-panel-header class="expansion-header" style="margin-bottom: 0;"  
+                            [matTooltip]="getFormattedOperator(step.name)" matTooltipPosition="left">
+                                <div class="expansion-header-content">{{ getFormattedOperator(step.name) }}</div>
+                                <mat-icon aria-hidden="true" aria-label="edit icon" fontIcon="edit" class="edit-icon" (click)="openEditModal(step, 'step')" (keyup)="openEditModal(step, 'step')"></mat-icon>
+                            </mat-expansion-panel-header>
+                            <div class="step-container" style="margin-bottom: -17px">
+                                <span class="step-info">
+                                    <strong>KEY:</strong> 
+                                    <div class="steps-attribute">
+                                        {{ getFormattedOperator(step.key) }}
+                                    </div>
+                                </span>
+                            
+                                @if (step.next) {
+                                    <span class="step-info">
+                                        <strong>NEXT:</strong> 
+                                        <div class="steps-attribute">
+                                            {{ getFormattedOperator(step.next) }}
+                                        </div>
+                                    </span>
+                                }
+                            </div>
+                        </mat-expansion-panel>
+                    }
+                </div>
+            </mat-expansion-panel>
+
+        <!-- FLOWS -->
+            <mat-expansion-panel class="step-flow-expanstion" style="border-radius: 0; margin: 0;">
+                <mat-expansion-panel-header class="panel-title" style="background-color: #eedcf7;">
+                    <mat-panel-title> FLOWS </mat-panel-title>
+                    <mat-icon aria-hidden="true" aria-label="add icon" fontIcon="add" class="add-icon"  (click)="openAddModal('Flow')" (keyup)="openAddModal('Flow')"></mat-icon>
+                </mat-expansion-panel-header> 
+
+                <div style="margin-bottom: -17px; ">
+                    @for (flow of flowData; track $index) {
+                        <mat-expansion-panel class="step-flow-panel" style="width: 250px; border-radius: 0; margin-left: -25px;">
+                            <mat-expansion-panel-header style="margin-bottom: 0" class="expansion-header" 
+                            [matTooltip]="getFormattedOperator(flow.name)" matTooltipPosition="left">
+                                <div class="expansion-header-content">{{ getFormattedOperator(flow.name) }}</div>
+                                <mat-icon aria-hidden="true" aria-label="edit icon" fontIcon="edit" class="edit-icon" (click)="openEditModal(flow, 'flow')" (keyup)="openEditModal(flow, 'flow')"></mat-icon>
+                            </mat-expansion-panel-header>
+                            <div class="step-container" style="margin-bottom: -17px"> 
+                                <span class="step-info">
+                                    <strong>KEY:</strong> 
+                                    <div class="steps-attribute">
+                                        {{ getFormattedOperator(flow.key) }}
+                                    </div>
+                                </span>
+                            
+                                @if (flow.next) {
+                                    <span class="step-info">
+                                        <strong>NEXT:</strong> 
+                                        <div class="steps-attribute">
+                                            {{ getFormattedOperator(flow.next) }}
+                                        </div>
+                                    </span>
+                                }
+                            </div>
+                        </mat-expansion-panel>
+                    }
+                </div>
+              
+            </mat-expansion-panel>
+        }
+    <!-- }  -->
 </mat-accordion>
 

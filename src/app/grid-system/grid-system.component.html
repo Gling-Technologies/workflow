@@ -1,6 +1,6 @@
-<div class="grid-layout">
+<div class="grid-layout" cdkDropListGroup>
     <div class="sidebar">
-        <app-sidebar></app-sidebar>
+        <app-sidebar position="left"></app-sidebar>
     </div>
 
     <div class="svg-grid-container">
@@ -8,16 +8,31 @@
             [style.grid-template-rows]="'repeat(' + outerGridSize + ', 1fr)'" [style.background]="selectedColor">
             @for (item of items; track item) {
                 <div class="grid-item">
-                <div class="inner-grid"
-                    [style.grid-template-columns]="'repeat(' + innerGridSize + ', ' + cellSize + 'px)'"
-                    [style.grid-template-rows]="'repeat(' + innerGridSize + ', ' + cellSize + 'px)'">
-                    @for (innerItem of innerGridItems; track innerItem) {
-                    <div class="inner-grid-item"></div>
-                    }
-                </div>
+                    <div class="inner-grid"
+                        [style.grid-template-columns]="'repeat(' + innerGridSize + ', ' + cellSize + 'px)'"
+                        [style.grid-template-rows]="'repeat(' + innerGridSize + ', ' + cellSize + 'px)'">
+                        @for (innerItem of innerGridItems; track innerItem) {
+                            <div class="inner-grid-item"></div>
+                        }
+                    </div>
                 </div>
             }
         </div>
+        
+       <div class="invisble-container" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="droppedItems">
+            @for (dropItem of droppedItems; let index= $index; track dropItem) {
+                <div class="dropped-item" cdkDrag cdkDragBoundary=".invisble-container" 
+                (dblclick)="openModal(dropItem)">
+                    {{ getFormattedOperator(dropItem) }}
+                    <!-- REPETETIVE CODE -->
+                    <span class="close-btn" (click)="removeItem(index)" (keyup)="removeItem(index)">✖</span>
+                </div>
+            }
+       </div>
+    </div>
+
+    <div class="sidebar">
+        <app-sidebar position="right"></app-sidebar>
     </div>
 </div>
 

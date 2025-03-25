@@ -1,0 +1,107 @@
+.modal-container {
+    position: relative;
+    width: 100%;
+    max-width: 410px;
+    height: 390px;
+    /* min-height: 300px; */
+    padding: 20px;
+    /* padding-bottom: 30px; */
+    background: linear-gradient(to bottom left, #cea4d1, #353435);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px #0000001a;
+    text-align: center;
+
+    input, select {
+        box-sizing: border-box; 
+        padding: 10px;
+        width: 100%;
+        border: 1px solid #ccc;
+        outline: none;
+        border-radius: 5px;
+        font-size: 14px;
+        background-color: white;
+        color: black;
+        margin-bottom: 15px;
+        margin-top: 5px;
+    }
+}
+
+h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.close-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #6e6d6d;
+    /* padding: 3px; */
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.close-badge:hover {
+    background-color: #070707;
+}
+
+.button-container {
+    width: 100%;
+    gap: 20px;
+    display: flex;
+    justify-content: end;
+    padding: 20px 5px;
+    /* background-color: #fff; */
+}
+
+button{
+    width: 80px;
+    height: 45px;
+    /* margin-top: -20px; */
+    color: white;
+    background: linear-gradient(to right, #744fc9, #c386d4);
+}
+
+.save-button{
+    background: linear-gradient(to right, #04c504, #c386d4);
+}
+
+.cancel-button{
+    background: linear-gradient(to right, #f54c4c, #c386d4);
+}
+
+.main-content {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    /* position: r  elative; */
+    /* background-color: orange; */
+}
+
+.modal-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative; 
+    gap: 10px;
+    padding: 5px;
+    /* overflow-y: scroll;
+    overflow-x: hidden; */
+}
+
+label {
+    font-weight: 500;
+    color: white;
+}

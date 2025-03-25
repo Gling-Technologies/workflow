@@ -1,0 +1,32 @@
+<div class="modal-container">
+    <span class="close-badge" (click)="close()" (keyup)="close()">✖</span>
+    <h2>Edit {{ getFormattedName(data.vari) }}</h2>
+
+    <div class="main-content">
+        <div class="modal-content">
+            <div>
+                <label for="name">Name:</label>
+                <input id="name" type="text"[ngModel]="getFormattedName(data.variable.name)" 
+                (ngModelChange)="data.variable.name = $event" />
+    
+                <label for="key">Key:</label>
+                <input id="key" type="text" [ngModel]="getFormattedName(data.variable.key)" 
+                (ngModelChange)="data.variable.key = $event" />
+            
+                <label for="next">Next:</label>
+                <!-- <input id="next" type="text" [value]="getFormattedName(data.variable.next)"/> -->
+                <select id="condition" [(ngModel)]="data.variable.next" required>
+                    @for (option of getAllKeys('steps'); track $index) {
+                        <option [value]="option">
+                            {{ getFormattedName(option) }}
+                        </option>
+                    }
+                </select>
+            </div>
+        <div class="button-container">
+            <button mat-fab extended class="save-button" (click)="save()"> Save </button>
+            <button mat-fab extended class="cancel-button" (click)="close()"> cancel </button>
+        </div>
+    </div>
+</div>
+  

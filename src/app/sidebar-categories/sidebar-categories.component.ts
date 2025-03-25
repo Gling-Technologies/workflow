@@ -1,42 +1,111 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+
 import { MaterialModule } from '../material.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { WorkflowService } from '../workflow.service';
+import { EditmodalComponent } from '../editmodal/editmodal.component';
+import { AddmodalComponent } from '../addmodal/addmodal.component';
+import { workflowItem } from '../workflow.model';
 
 @Component({
   selector: 'app-sidebar-categories',
-  imports: [MaterialModule],
+  imports: [MaterialModule, DragDropModule],
   templateUrl: './sidebar-categories.component.html',
   styleUrl: './sidebar-categories.component.css'
 })
-export class SidebarCategoriesComponent {
+export class SidebarCategoriesComponent implements OnInit{
+  @Input() position: 'left' | 'right' = 'left'; 
+  public dialog = inject(MatDialog); 
+  private workflowService = inject(WorkflowService)
   readonly panelOpenState = signal(false);
   badgeVisible = false;
   badgeVisibility: { [key: string]: boolean } = {};
 
-  categories: { [key: string]: string[] }  = {
-    "Control Operators": ["condition", "for_each", "run_until", "scope", "switch", "terminate"], 
-    "Variables Operators": ["append_to_array", "append_to_string", "merge_array", "decrement", "increment","initializer", "set_var", "filter", "deduplicate"], 
-    "Web Operators": ["existence", "click", "write", "select", "hover", "extract_data", "css_property", "visibility", "snippet", "wait_until"], 
-    "Browser Operators": ["window_resize", "load", "refresh_tab", "wait_for_download"], 
-    "System Operators": ["wait", "run", "delete_file", "move_file"]
-  }
+  leftCategories: { [key: string]: string[] }  = {}
+  rightCategories: { [key: string]: string[] } = {'steps':[], 'flows':[]}
+  stepData: workflowItem[] = []
+  flowData: workflowItem[] = []
 
-  get keys() {
-    return Object.keys(this.categories);
+  ngOnInit(): void {
+    this.stepData = this.workflowService.getKeyAndNext('steps'); 
+    this.flowData = this.workflowService.getKeyAndNext('flows'); 
   }
 
   constructor() {
-    Object.keys(this.categories).forEach(key => {
-      this.categories[key].forEach(operator => {
+    this.leftCategories = this.workflowService.getCategories()
+
+    Object.keys(this.leftCategories).forEach(key => {
+      this.leftCategories[key].forEach(operator => {
         this.badgeVisibility[operator] = true; // Initially hidden
       });
     });
   }
 
-  toggleBadgeVisibility(operator: string, hidden: boolean) {
-    this.badgeVisibility[operator] = hidden;
-  }
+  getCategoryKeys(obj: { [key: string]: string[] }): string[] {
+    return Object.keys(obj);
+  } 
+
+  // toggleBadgeVisibility(operator: string, hidden: boolean) {
+  //   this.badgeVisibility[operator] = hidden;
+  // }
 
   getFormattedOperator(operator: string): string {
-    return operator ? operator.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase()) : '';
+    return this.workflowService.getFormatted(operator);
+  }
+
+  // getNames(key: 'steps' | 'flows'): string[] {
+  //   return this.workflowService.getName(key);
+  // }
+
+  deepCopy<T>(obj: T): T {
+    return JSON.parse(JSON.stringify(obj));
+  }
+
+  openEditModal(variable: any, varName?: string): void {
+    const variableCopy = this.deepCopy(variable);
+    const dialogRef = this.dialog.open(EditmodalComponent, {
+      width: '450px',  
+      maxWidth: '90vw', 
+      data: { variable: variableCopy, vari: varName }, 
+    });
+
+    dialogRef.afterClosed().subscribe(updatedData => {
+      if (updatedData) {
+        if (varName === 'step') {
+          const index = this.stepData.findIndex((item: workflowItem) => item.key === variable.key);
+          if (index !== -1) {
+            this.stepData[index] = updatedData;
+          }
+        }
+        else if (varName === 'flow') {
+          const index = this.flowData.findIndex((item: workflowItem) => item.key === variable.key);
+          if (index !== -1) {
+            this.flowData[index] = updatedData;
+          }
+        }
+        console.log("Updated Data:", updatedData);
+      }else {
+        console.log("Changes were discarded.");
+      }
+    });
+  }
+
+  openAddModal(data?: string): void {
+    const dialogRef = this.dialog.open(AddmodalComponent, {
+      width: '450px',  
+      maxWidth: '90vw', 
+      data: data, 
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {  
+        if (data === 'Step') {
+          this.stepData.push(result); 
+        }else{
+          this.flowData.push(result);
+        }
+      }
+    });
   }
 }
