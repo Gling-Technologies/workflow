@@ -25,7 +25,7 @@
                 (dblclick)="openModal(dropItem)">
                     {{ getFormattedOperator(dropItem) }}
                     <!-- REPETETIVE CODE -->
-                    <span class="close-btn" (click)="removeItem(index)">✖</span>
+                    <span class="close-btn" (click)="removeItem(index)" (keyup)="removeItem(index)">✖</span>
                 </div>
             }
        </div>

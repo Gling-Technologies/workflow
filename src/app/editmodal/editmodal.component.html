@@ -1,5 +1,5 @@
 <div class="modal-container">
-    <span class="close-badge" (click)="close()">✖</span>
+    <span class="close-badge" (click)="close()" (keyup)="close()">✖</span>
     <h2>Edit {{ getFormattedName(data.vari) }}</h2>
 
     <div class="main-content">

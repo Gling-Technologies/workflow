@@ -33,7 +33,7 @@
             <mat-expansion-panel class="step-flow-expanstion" style="border-radius: 0; margin: 0;">
                 <mat-expansion-panel-header class="panel-title" style="background-color: #eedcf7;">
                     <mat-panel-title> STEPS </mat-panel-title>
-                    <mat-icon aria-hidden="true" aria-label="add icon" fontIcon="add" class="add-icon" (click)="openAddModal('Step')"></mat-icon>                
+                    <mat-icon aria-hidden="true" aria-label="add icon" fontIcon="add" class="add-icon" (click)="openAddModal('Step')" (keyup)="openAddModal('Step')"></mat-icon>                
                 </mat-expansion-panel-header> 
 
                 <div style="margin-bottom: -17px;">
@@ -42,7 +42,7 @@
                             <mat-expansion-panel-header class="expansion-header" style="margin-bottom: 0;"  
                             [matTooltip]="getFormattedOperator(step.name)" matTooltipPosition="left">
                                 <div class="expansion-header-content">{{ getFormattedOperator(step.name) }}</div>
-                                <mat-icon aria-hidden="true" aria-label="edit icon" fontIcon="edit" class="edit-icon" (click)="openEditModal(step, 'step')"></mat-icon>
+                                <mat-icon aria-hidden="true" aria-label="edit icon" fontIcon="edit" class="edit-icon" (click)="openEditModal(step, 'step')" (keyup)="openEditModal(step, 'step')"></mat-icon>
                             </mat-expansion-panel-header>
                             <div class="step-container" style="margin-bottom: -17px">
                                 <span class="step-info">
@@ -70,7 +70,7 @@
             <mat-expansion-panel class="step-flow-expanstion" style="border-radius: 0; margin: 0;">
                 <mat-expansion-panel-header class="panel-title" style="background-color: #eedcf7;">
                     <mat-panel-title> FLOWS </mat-panel-title>
-                    <mat-icon aria-hidden="true" aria-label="add icon" fontIcon="add" class="add-icon"  (click)="openAddModal('Flow')"></mat-icon>
+                    <mat-icon aria-hidden="true" aria-label="add icon" fontIcon="add" class="add-icon"  (click)="openAddModal('Flow')" (keyup)="openAddModal('Flow')"></mat-icon>
                 </mat-expansion-panel-header> 
 
                 <div style="margin-bottom: -17px; ">
@@ -79,7 +79,7 @@
                             <mat-expansion-panel-header style="margin-bottom: 0" class="expansion-header" 
                             [matTooltip]="getFormattedOperator(flow.name)" matTooltipPosition="left">
                                 <div class="expansion-header-content">{{ getFormattedOperator(flow.name) }}</div>
-                                <mat-icon aria-hidden="true" aria-label="edit icon" fontIcon="edit" class="edit-icon" (click)="openEditModal(flow, 'flow')"></mat-icon>
+                                <mat-icon aria-hidden="true" aria-label="edit icon" fontIcon="edit" class="edit-icon" (click)="openEditModal(flow, 'flow')" (keyup)="openEditModal(flow, 'flow')"></mat-icon>
                             </mat-expansion-panel-header>
                             <div class="step-container" style="margin-bottom: -17px"> 
                                 <span class="step-info">
