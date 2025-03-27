@@ -130,26 +130,25 @@ mat-expansion-panel{
     color: white ; 
         
     .edit-icon {
-        opacity: 0; 
+        /* opacity: 0;  */
         transition: opacity 0.3s ease-in-out;
         cursor: pointer;
         color: #ffffff !important;
-
     }
   
-    &:hover .edit-icon {
+    /* &:hover .edit-icon {
         opacity: 1;
-    }
+    } */
 }
 
 .panel-title{
     .add-icon {
-        opacity: 0; 
+        /* opacity: 0;  */
         transition: opacity 0.3s ease-in-out;
         cursor: pointer;
-      }
-    
-      &:hover .add-icon {
+    }
+
+    /* &:hover .add-icon {
         opacity: 1;
-      }
+    } */
 }
