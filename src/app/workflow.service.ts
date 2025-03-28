@@ -13,6 +13,31 @@ export class WorkflowService {
     "System Operators": ["wait", "run", "delete_file", "move_file"]
   };
 
+  operatorConfig: { [key: string]: string[] }  = {
+      // control operator
+      "condition": ["condition", "runType", "run", "fallback", "provider", "requires"] ,
+      "for_each": ["runType", "run", "suppress", "provider", "requires"],
+      "run_until": ["condition", "runType", "run", "suppress", "preRun",  "provider", "requires"],
+      "scope": ["condition", "runType", "run", "fallback", "provider", "requires"] ,
+      "switch": ["condition", "runType", "run", "fallback", "provider", "requires"] ,
+      "terminate": ["condition", "runType", "run", "fallback", "provider", "requires"],
+      // variable operator 
+      "append_to_array": ["scope", "varibale", "value", "condition"],
+      "append_to_string" : ["scope", "variable", "value", "condition"],
+      "merge_array" : ["scope", "variable", "value", "condition"],
+      "decrement" : ["scope", "variable", "value", "condition"],
+      "increment" : ["scope", "variable", "value", "condition"],
+      "initializer" : ["scope", "variable", "value", "condition"],
+      "set_var" : ["scope", "variable", "value", "condition"],
+      "filter" : ["scope", "variable", "value", "condition"],
+      "deduplicate" : ["scope", "variable", "value", "condition"],
+      // system operator
+      "wait": ["timePeriod", "run", "fallback", "provider", "requires"],
+      "run": ["timePeriod", "source", "target", "embedded", "run", "fallback", "provider", "requires"],
+      "delete_file": ["timePeriod", "source", "target", "embedded", "run", "fallback", "provider", "requires"],
+      "move_file":  ["timePeriod", "source", "target", "embedded", "run", "fallback", "provider", "requires"],
+  };
+
   getCategories(): { [key: string]: string[] } {
     return this.categories;
   }
@@ -26,27 +51,9 @@ export class WorkflowService {
     return ''
   }
 
-
-  // Action
-  // Step
-  // Flow
-  // Workflow
-  // Selector
-
-  // interface Action {
-  //   type: string;
-  //   kind: string;
-  //   selector: Select
-  // }
-
-  // interface 
-  // workflow = {
-  //   "name": "",
-  //   "vars": "",
-  //   "entrypoint": "",
-  //   "steps": {},
-  //   "flow": {}
-  // }
+  getOperatorConfig() {
+    return this.operatorConfig;
+  }
 
   workflow: Workflow = {
     "name": "Customer Emails",

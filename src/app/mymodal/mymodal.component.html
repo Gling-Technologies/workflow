@@ -70,72 +70,103 @@
                     }
                 </div>
             }
-            <div class="right-modal">
-<!-- Run Type -->
-                @if (whichCategory(data.dropItem) === 'Control Operators') {
-                    <label for="runType">Run Type:</label>
-                    <select id="runType" [(ngModel)]="selectedRuntype">
-                        <option value="" disabled selected>Select Run Type</option>
-                        @for(option of runtypeOptions; track $index){
-                            <option [value]="option">
-                                {{ option }}
-                            </option>
+            @if (whichCategory(data.dropItem) !== 'Variables Operators') {     
+                <div class="right-modal">
+    <!-- Run Type -->
+                    @if (whichCategory(data.dropItem) === 'Control Operators') {
+                        <label for="runType">Run Type:</label>
+                        <select id="runType" [(ngModel)]="selectedRuntype">
+                            <option value="" disabled selected>Select Run Type</option>
+                            @for(option of runtypeOptions; track $index){
+                                <option [value]="option">
+                                    {{ option }}
+                                </option>
+                            }
+                        </select>
+                    }
+
+    <!-- Run Dropdown -->
+                    <label for="run">Run:</label>
+                    <select id="run" [(ngModel)]="selectedRun">
+                        <option value="" disabled selected>Select Run</option>
+                        @switch (selectedRuntype) {
+                            @case ('flow') {
+                                @for(option of runOptions('flows'); track $index){
+                                    <option [value]="option">
+                                        {{ getFormattedOperator(option) }}
+                                    </option>
+                                }
+                            }
+                            @case ('step') {
+                                @for(option of runOptions('steps'); track $index){
+                                    <option [value]="option">
+                                        {{ getFormattedOperator(option) }}
+                                    </option>
+                                }
+                            }
+                            @default {
+                                <optgroup label="Flows">
+                                    @for (option of runOptions('flows'); track $index) {
+                                        <option [value]="option">
+                                            {{ getFormattedOperator(option) }}
+                                        </option>
+                                    }
+                                </optgroup>
+                                <optgroup label="Steps">
+                                    @for (option of runOptions('steps'); track $index) {
+                                        <option [value]="option">
+                                            {{ getFormattedOperator(option) }}
+                                        </option>
+                                    }
+                                </optgroup>
+                            }
+                    
                         }
                     </select>
-                }
-<!-- Run Dropdown -->
-                <label for="run">Run:</label>
-                <select id="run" [(ngModel)]="selectedRun">
-                    <option value="" disabled selected>Select Run</option>
-                    @for(option of runOptions; track $index){
-                        <option [value]="option">
-                            {{ option }}
-                        </option>
+       
+    <!-- Fallback Dropdown -->
+                    @if (data.dropItem != 'run_until' && data.dropItem != 'for_each') {
+                        <label for="fallback">Fallback:</label>
+                        <select id="fallback" [(ngModel)]="selectedFallback">
+                            <option value="" selected>Select fallback</option>
+                            @for(option of fallbackOptions; track $index){
+                                <option [value]="option">
+                                    {{ option }}
+                                </option>
+                            }
+                        </select>   
+                    } 
+    
+    <!-- toggle container -->
+                    @if (whichCategory(data.dropItem) === 'Control Operators') {
+                        <div class="toggle-container">
+                            @if (data.dropItem === 'for_each' || data.dropItem === 'run_until') {
+                                <!-- Supress -->
+                                <mat-slide-toggle labelPosition="before"><p class="label">Supress</p></mat-slide-toggle>
+                                @if (data.dropItem === 'run_until') {
+                                    <!-- Pre run -->
+                                    <mat-slide-toggle labelPosition="before"><p class="label">Pre run</p></mat-slide-toggle>
+                                }
+                            }
+                        </div>
                     }
-                </select>
-   
-<!-- Fallback Dropdown -->
-                @if (data.dropItem != 'run_until' && data.dropItem != 'for_each') {
-                    <label for="fallback">Fallback:</label>
-                    <select id="fallback" [(ngModel)]="selectedFallback">
-                        <option value="" disabled selected>Select fallback</option>
-                        @for(option of fallbackOptions; track $index){
+    
+    <!-- Provider -->
+                    <label for="provider">Provider:</label>
+                    <select id="provider" [(ngModel)]="selectedProvider">
+                        <option value="" selected>Select Provider</option>
+                        @for(option of providerOptions; track $index){
                             <option [value]="option">
                                 {{ option }}
                             </option>
                         }
-                    </select>   
-                }
-
-<!-- toggle container -->
-                @if (whichCategory(data.dropItem) === 'Control Operators') {
-                    <div class="toggle-container">
-                        @if (data.dropItem === 'for_each' || data.dropItem === 'run_until') {
-                            <!-- Supress -->
-                            <mat-slide-toggle labelPosition="before"><p class="label">Supress</p></mat-slide-toggle>
-                            @if (data.dropItem === 'run_until') {
-                                <!-- Pre run -->
-                                <mat-slide-toggle labelPosition="before"><p class="label">Pre run</p></mat-slide-toggle>
-                            }
-                        }
-                    </div>
-                }
-
-<!-- Provider -->
-                <label for="provider">Provider:</label>
-                <select id="provider" [(ngModel)]="selectedProvider">
-                    <option value="" disabled selected>Select Provider</option>
-                    @for(option of providerOptions; track $index){
-                        <option [value]="option">
-                            {{ option }}
-                        </option>
-                    }
-                </select> 
-        
- <!-- Requires -->
-                <label for="requires" [ngClass]="{ 'disabled-label': !selectedProvider }">Requires:</label>
-                <input type="text" id="requires" [(ngModel)]="selectedRequires" [disabled]="!selectedProvider" placeholder="Please enter requires">
-            </div>
+                    </select>  
+            
+    <!-- Requires -->
+                    <label for="requires" [ngClass]="{ 'disabled-label': !selectedProvider }">Requires:</label>
+                    <input type="text" id="requires" [(ngModel)]="selectedRequires" [disabled]="!selectedProvider" placeholder="Please enter requires"> 
+                </div> 
+            }
         </div>
         
         <div class="button-container">
