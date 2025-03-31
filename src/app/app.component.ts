@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { GridsComponent } from "./grids/grids.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { DragComponent } from "./drag/drag.component";
+import { DraggingComponent } from "./dragging/dragging.component";
 
 @Component({
   selector: 'app-root',
-  imports: [GridsComponent],
+  imports: [ DraggingComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
