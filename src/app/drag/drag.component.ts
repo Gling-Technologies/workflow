@@ -4,22 +4,15 @@ import { Component } from '@angular/core';
 import { CdkDragDrop, copyArrayItem, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { HighchartsChartModule } from 'highcharts-angular';
 import * as Highcharts from "highcharts";
-// import * as Highcharts from 'highcharts/highcharts-gantt';
-// import HighchartsSankey from "highcharts/modules/sankey";
-// import HighchartsOrganization from "highcharts/modules/organization";
-// import ganttChart from 'highcharts/modules/gantt';
-// import sankey from 'highcharts/modules/sankey';
+import HighchartsSankey from "highcharts/modules/sankey";
+import HighchartsOrganization from "highcharts/modules/organization";
 
 // declare var require: any;
-let sankey = require("highcharts/modules/sankey");
-let organization = require("highcharts/modules/organization");
+// let sankey = require("highcharts/modules/sankey");
+// let organization = require("highcharts/modules/organization");
 
-sankey(Highcharts);
-organization(Highcharts);
-
-// import networkgraph from 'highcharts/modules/networkgraph';
-// networkgraph(Highcharts)
-// networkgraph(Highchart)
+HighchartsSankey(Highcharts);
+HighchartsOrganization(Highcharts);
 
 interface DroppedItem {
   id: string;
@@ -231,48 +224,48 @@ export class DragComponent {
     //   ]
     // };
 
-    this.chartOptions = {
-      title: {
-        text: 'Gantt Chart with Progress Indicators',
-      },
-      xAxis: {
-        min: Date.UTC(2014, 10, 17),
-        max: Date.UTC(2014, 10, 30),
-      },
-      series: [
-        {
-          type: 'gantt',
-          name: 'Project 1',
-          data: [
-            {
-              name: 'Start prototype',
-              start: Date.UTC(2014, 10, 18),
-              end: Date.UTC(2014, 10, 25),
-              completed: 0.25,
-            },
-            {
-              name: 'Test prototype',
-              start: Date.UTC(2014, 10, 27),
-              end: Date.UTC(2014, 10, 29),
-            },
-            {
-              name: 'Develop',
-              start: Date.UTC(2014, 10, 20),
-              end: Date.UTC(2014, 10, 25),
-              completed: {
-                amount: 0.12,
-                fill: '#fa0',
-              },
-            },
-            {
-              name: 'Run acceptance tests',
-              start: Date.UTC(2014, 10, 23),
-              end: Date.UTC(2014, 10, 26),
-            },
-          ],
-        },
-      ],
-    };
+    // this.chartOptions = {
+    //   title: {
+    //     text: 'Gantt Chart with Progress Indicators',
+    //   },
+    //   xAxis: {
+    //     min: Date.UTC(2014, 10, 17),
+    //     max: Date.UTC(2014, 10, 30),
+    //   },
+    //   series: [
+    //     {
+    //       type: 'gantt',
+    //       name: 'Project 1',
+    //       data: [
+    //         {
+    //           name: 'Start prototype',
+    //           start: Date.UTC(2014, 10, 18),
+    //           end: Date.UTC(2014, 10, 25),
+    //           completed: 0.25,
+    //         },
+    //         {
+    //           name: 'Test prototype',
+    //           start: Date.UTC(2014, 10, 27),
+    //           end: Date.UTC(2014, 10, 29),
+    //         },
+    //         {
+    //           name: 'Develop',
+    //           start: Date.UTC(2014, 10, 20),
+    //           end: Date.UTC(2014, 10, 25),
+    //           completed: {
+    //             amount: 0.12,
+    //             fill: '#fa0',
+    //           },
+    //         },
+    //         {
+    //           name: 'Run acceptance tests',
+    //           start: Date.UTC(2014, 10, 23),
+    //           end: Date.UTC(2014, 10, 26),
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // };
   }
 
   /** Handle Drop Event */
