@@ -5,14 +5,25 @@ import { MatDialog } from '@angular/material/dialog';
 import { WorkflowService } from '../workflow.service';
 import { MymodalComponent } from '../mymodal/mymodal.component';
 
+import { HighchartsChartModule } from 'highcharts-angular';
+import * as Highcharts from "highcharts";
+import "highcharts/modules/sankey";
+import "highcharts/modules/organization";
+import "highcharts/modules/networkgraph";
+import "highcharts/modules/treemap";
+import "highcharts/modules/treegraph";
+
 @Component({
   selector: 'app-dropbox',
-  imports: [DragDropModule],
+  imports: [DragDropModule, HighchartsChartModule],
   templateUrl: './dropbox.component.html',
   styleUrl: './dropbox.component.css'
 })
 
 export class DropboxComponent {
+  Highcharts: typeof Highcharts = Highcharts;
+  chartOptions: Highcharts.Options = {};
+  
   private dialog = inject(MatDialog)
   private workflowService = inject(WorkflowService)
 
@@ -38,9 +49,6 @@ export class DropboxComponent {
 
   removeItem(index: number){
     this.droppedItems.splice(index, 1);
-    // this.dropedItem = [...this.dropedItem]; it forces Angular to detect changes by creating a new reference to the array.
-    // when using functions like filter(), it returns a entierly new array which force angular change detection so there is no use of this.dropedItem = [...this.dropedItem]; 
-    // Normally, Angular's change detection doesn't detect in-place mutations (using .splice(), .push(), .pop()), but in your case: The component si inside a cdkDropList, which triggers change detection automatically.
   }
 
   getFormattedOperator(operator: string): string {
@@ -55,4 +63,23 @@ export class DropboxComponent {
       data: { dropItem },
     });
   }
+
+  constructor() {
+    this.initChart();
+  }
+
+  initChart() {
+    // Initialize the chart with the desired type
+    this.initOrganizationChart();
+    // this.initNetworkGraph();
+    // this.initTreeGraph();
+  }
+
+  
+  initOrganizationChart() {
+    this.chartOptions = {
+      
+    }
+  }
+
 }

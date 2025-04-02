@@ -4,8 +4,10 @@
     justify-self: center;
     position: absolute;
     flex-wrap: wrap;
-    min-width: 540px;
-    min-height: 540px; 
+    width: 90%;
+    height: 100%;
+    /* min-width: 540px;
+    min-height: 540px;  */
     background-color: transparent;
     top: 0;
     left: 0;

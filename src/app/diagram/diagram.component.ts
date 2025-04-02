@@ -28,9 +28,9 @@ export class DiagramComponent {
 
   initChart() {
     // Initialize the chart with the desired type
-    // this.initOrganizationChart();
+    this.initOrganizationChart();
     // this.initNetworkGraph();
-    this.initTreeGraph();
+    // this.initTreeGraph();
   }
 
   initOrganizationChart() {

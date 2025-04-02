@@ -1,10 +1,12 @@
-<div class="invisble-container" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="droppedItems">
-    @for (dropItem of droppedItems; let index= $index; track dropItem) {
-        <div class="dropped-item" cdkDrag cdkDragBoundary=".invisble-container" 
-        (dblclick)="openModal(dropItem)">
-            {{ getFormattedOperator(dropItem) }}
-            <!-- REPETETIVE CODE -->
-            <span class="close-btn" (click)="removeItem(index)" (keyup)="removeItem(index)">✖</span>
-        </div>
-    }
+<div class="invisble-container" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="droppedItems" >
+    <!-- <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions" style="width: 100%; min-height: 100vh; display: none;"> -->
+        @for (dropItem of droppedItems; let index= $index; track dropItem) {
+            <div class="dropped-item" cdkDrag cdkDragBoundary=".invisble-container" 
+            (dblclick)="openModal(dropItem)">
+                {{ getFormattedOperator(dropItem) }}
+                <!-- REPETETIVE CODE -->
+                <span class="close-btn" (click)="removeItem(index)" (keyup)="removeItem(index)">✖</span>
+            </div>
+        }
+    <!-- </highcharts-chart> -->
 </div>
