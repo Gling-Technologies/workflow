@@ -30,6 +30,9 @@ export class DropboxComponent {
   droppedItems: any = []
   comp: string = '';
 
+  lastClickTime = 0;
+  doubleClickThreshold = 300; 
+
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -37,13 +40,20 @@ export class DropboxComponent {
         event.previousIndex,
         event.currentIndex
       );
-    } else {
-      copyArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+    } 
+    else {
+      const newItem = event.previousContainer.data[event.previousIndex];
+  
+      const parentId = this.droppedItems.length > 0 ? this.droppedItems[this.droppedItems.length - 1].id : null;
+      
+      const newNode = {
+        id: `node-${this.droppedItems.length + 1}`,
+        name: this.getFormattedOperator(newItem),
+        parentId: parentId, 
+      };
+  
+      this.droppedItems.push(newNode);
+      this.initOrganizationChart();
     }
   }
 
@@ -55,7 +65,7 @@ export class DropboxComponent {
     return this.workflowService.getFormatted(operator);
   }
 
-  openModal(dropItem: any): void {
+  openModal(dropItem: any): any{
     this.comp = 'operator'
     this.dialog.open(MymodalComponent, {
       width: "800px", 
@@ -65,21 +75,57 @@ export class DropboxComponent {
   }
 
   constructor() {
-    this.initChart();
+    this.initOrganizationChart();
   }
 
-  initChart() {
+  // initChart() {
     // Initialize the chart with the desired type
-    this.initOrganizationChart();
+    // this.initOrganizationChart();
     // this.initNetworkGraph();
     // this.initTreeGraph();
-  }
+  // }
 
   
   initOrganizationChart() {
     this.chartOptions = {
-      
-    }
+      chart: {
+        type: 'organization',
+        height: '100%',
+        inverted: true,
+        backgroundColor: ""
+      },
+      title: {
+        text: ""
+      },
+      series: [{
+        type: 'organization',
+        name: 'Workflow Chart',
+        keys: ['from', 'to'],
+        cursor: "pointer",
+        link: {
+          lineWidth: 3,
+        },
+        data: this.droppedItems
+          .filter((node: any) => node.parentId) // Only add connections
+          .map((node: any) => [node.parentId, node.id]), // Create links
+        nodes: this.droppedItems.map((node: any) => ({ 
+          id: node.id,
+          name: node.name,
+          events: {
+            click: () => {
+              const currentTime = new Date().getTime();
+              if (currentTime - this.lastClickTime < this.doubleClickThreshold) {
+                this.openModal(node);
+              }
+              this.lastClickTime = currentTime;
+            }          }
+        })),
+
+        colorByPoint: true,
+        borderColor: '#000000',
+      }],
+    };
   }
+  
 
 }

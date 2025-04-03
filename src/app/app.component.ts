@@ -7,7 +7,7 @@ import { DiagramComponent } from "./diagram/diagram.component";
 
 @Component({
   selector: 'app-root',
-  imports: [GridsComponent, DiagramComponent],
+  imports: [GridsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
