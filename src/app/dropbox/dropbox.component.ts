@@ -20,8 +20,9 @@ import "highcharts/modules/treegraph";
   styleUrl: './dropbox.component.css'
 })
 
-export class DropboxComponent {
+export class DropboxComponent{
   Highcharts: typeof Highcharts = Highcharts;
+  chart: Highcharts.Chart | undefined;
   chartOptions: Highcharts.Options = {};
   
   private dialog = inject(MatDialog)
@@ -34,6 +35,10 @@ export class DropboxComponent {
       parentId: null, 
     }
   ];
+
+  ngOnInit() {
+    this.initOrganizationChart();
+  }
 
   comp: string = '';
 
@@ -50,9 +55,7 @@ export class DropboxComponent {
     } 
     else {
       const newItem = event.previousContainer.data[event.previousIndex];
-  
       const parentId = this.droppedItems.length > 0 ? this.droppedItems[this.droppedItems.length - 1].id : null;
-      
       const newNode = { 
         id: `node-${this.droppedItems.length}`,
         name: newItem,
@@ -81,9 +84,9 @@ export class DropboxComponent {
     });
   }
 
-  constructor() {
-    this.initOrganizationChart();
-  }
+//  constructor() {
+//     this.initOrganizationChart();
+//   } 
 
   // initChart() {
     // Initialize the chart with the desired type
@@ -100,9 +103,8 @@ export class DropboxComponent {
         inverted: true,
         backgroundColor: "",
         width: 700,
-        // height: '100%',
-        marginRight: 450,
-        marginTop: 30
+        height: this.updateChartHeight(),
+        marginRight: 500,
       },
       title: {
         text: ""
@@ -110,15 +112,28 @@ export class DropboxComponent {
       tooltip: {
         enabled: false
       },
+      plotOptions: {
+        organization: {
+          borderRadius: 15,
+        },
+        series: {
+            states: {
+                inactive: {
+                    opacity: 1
+                }
+            }
+        }
+    },
       series: [{
         type: 'organization',       
         name: 'Workflow Chart',
         keys: ['from', 'to'],
         cursor: "pointer",
+        // linkLength: 100,
+        nodePadding: 20,
         link: {
           lineWidth: 5,
         },
-        nodePadding: 50,
         data: this.droppedItems
           .filter((node: any) => node.parentId && node.id !== 'node-0') // Only add connections
           .map((node: any) => [node.parentId, node.id]), // Create links
@@ -126,7 +141,7 @@ export class DropboxComponent {
           .map((node: any) => ({ 
             id: node.id,
             name: this.getFormattedOperator(node.name),
-            color:  '#563dff',
+            color:  '#885d99',
             width: 200,
             events: {
               click: () => {
@@ -140,12 +155,13 @@ export class DropboxComponent {
                 }
                 this.lastClickTime = currentTime;
               },
+              
             },
             dataLabels: {
               useHTML: true,
               style: {
                 width: '100px',
-                height: "200px"
+                height: "20px",
               }
             },
         })),
@@ -154,7 +170,18 @@ export class DropboxComponent {
         borderColor: '#000000',
       }],
     };
+
   }
   
-
+  updateChartHeight() {
+    const containerWidth = 700;
+    const baseHeight = containerWidth * 0.25; // 25% of container width
+    if (this.droppedItems.length===2) {
+      return baseHeight;
+    } 
+    const additionalHeight = containerWidth * 0.10; 
+    const newHeight = baseHeight + (this.droppedItems.length - 1) * additionalHeight;
+    return newHeight;
+   
+  }
 }

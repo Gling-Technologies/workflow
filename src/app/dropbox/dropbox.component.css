@@ -87,6 +87,7 @@
 .highcharts-data-label text {
     font-size: 25px;
     font-weight: bold;
+    background: linear-gradient(to right, #7a17a1, #7278c7);
 }
   
 .highcharts-data-label {
