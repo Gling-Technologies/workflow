@@ -1,6 +1,6 @@
 <div class="modal-container">
     <span class="close-badge" (click)="close()" (keyup)="close()">✖</span>
-    <h2>{{ data }}</h2>
+    <h2>{{ getFormattedOperator(data.dropItem) }}</h2>
     
     <div class="dropdown-container">
         <div class="main-content">

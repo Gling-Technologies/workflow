@@ -27,7 +27,14 @@ export class DropboxComponent {
   private dialog = inject(MatDialog)
   private workflowService = inject(WorkflowService)
 
-  droppedItems: any = []
+  droppedItems: any = [
+    {
+      id: 'node-0',
+      name: 'Entry point',
+      parentId: null, 
+    }
+  ];
+
   comp: string = '';
 
   lastClickTime = 0;
@@ -46,9 +53,9 @@ export class DropboxComponent {
   
       const parentId = this.droppedItems.length > 0 ? this.droppedItems[this.droppedItems.length - 1].id : null;
       
-      const newNode = {
-        id: `node-${this.droppedItems.length + 1}`,
-        name: this.getFormattedOperator(newItem),
+      const newNode = { 
+        id: `node-${this.droppedItems.length}`,
+        name: newItem,
         parentId: parentId, 
       };
   
@@ -90,35 +97,57 @@ export class DropboxComponent {
     this.chartOptions = {
       chart: {
         type: 'organization',
-        height: '100%',
         inverted: true,
-        backgroundColor: ""
+        backgroundColor: "",
+        width: 700,
+        // height: '100%',
+        marginRight: 450,
+        marginTop: 30
       },
       title: {
         text: ""
       },
+      tooltip: {
+        enabled: false
+      },
       series: [{
-        type: 'organization',
+        type: 'organization',       
         name: 'Workflow Chart',
         keys: ['from', 'to'],
         cursor: "pointer",
         link: {
-          lineWidth: 3,
+          lineWidth: 5,
         },
+        nodePadding: 50,
         data: this.droppedItems
-          .filter((node: any) => node.parentId) // Only add connections
+          .filter((node: any) => node.parentId && node.id !== 'node-0') // Only add connections
           .map((node: any) => [node.parentId, node.id]), // Create links
-        nodes: this.droppedItems.map((node: any) => ({ 
-          id: node.id,
-          name: node.name,
-          events: {
-            click: () => {
-              const currentTime = new Date().getTime();
-              if (currentTime - this.lastClickTime < this.doubleClickThreshold) {
-                this.openModal(node);
+        nodes: this.droppedItems
+          .map((node: any) => ({ 
+            id: node.id,
+            name: this.getFormattedOperator(node.name),
+            color:  '#563dff',
+            width: 200,
+            events: {
+              click: () => {
+                if (node.name === 'Entry point') {
+                  return;
+                }
+                const currentTime = new Date().getTime();
+                if (currentTime - this.lastClickTime < this.doubleClickThreshold) {
+                  console.log(node); 
+                  this.openModal(node.name);
+                }
+                this.lastClickTime = currentTime;
+              },
+            },
+            dataLabels: {
+              useHTML: true,
+              style: {
+                width: '100px',
+                height: "200px"
               }
-              this.lastClickTime = currentTime;
-            }          }
+            },
         })),
 
         colorByPoint: true,

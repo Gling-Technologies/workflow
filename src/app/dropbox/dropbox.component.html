@@ -4,17 +4,16 @@
    
     <highcharts-chart 
         [Highcharts]="Highcharts" 
-        [options]="chartOptions" 
-        
-        style="width: 100%; min-height: 100vh; max-height: 100%; display: block;">
-        @for (dropItem of droppedItems; let index= $index; track dropItem) {
+        [options]="chartOptions"      
+        style="display: flex;">
+        <!-- @for (dropItem of droppedItems; let index= $index; track dropItem) {
             <div class="dropped-item" cdkDrag cdkDragBoundary=".invisble-container" 
             (dblclick)="openModal(dropItem)">
                 {{ getFormattedOperator(dropItem) }}
-                <!-- REPETETIVE CODE -->
+                REPETETIVE CODE
                 <span class="close-btn" (click)="removeItem(index)" (keyup)="removeItem(index)">✖</span>
             </div>
-        }
+        } -->
     
     </highcharts-chart>
 
