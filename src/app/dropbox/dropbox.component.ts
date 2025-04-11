@@ -24,6 +24,7 @@ export class DropboxComponent{
   Highcharts: typeof Highcharts = Highcharts;
   chart: Highcharts.Chart | undefined;
   chartOptions: Highcharts.Options = {};
+
   
   private dialog = inject(MatDialog)
   private workflowService = inject(WorkflowService)
@@ -32,8 +33,24 @@ export class DropboxComponent{
     {
       id: 'node-0',
       name: 'Entry point',
-      parentId: null, 
-    }
+      parentIds: []
+    },
+    {
+      id: 'node-1',
+      name: 'Entry point',
+      parentIds: ['node-0']
+    },
+    {
+      id: 'node-2',
+      name: 'Entry point',
+      parentIds: ['node-0']
+    },
+    {
+      id: 'node-3',
+      name: 'Entry point',
+      parentIds: ['node-1', 'node-2']    
+    },
+
   ];
 
   ngOnInit() {
@@ -102,9 +119,9 @@ export class DropboxComponent{
         type: 'organization',
         inverted: true,
         backgroundColor: "",
-        width: 700,
+        width: 800,
         height: this.updateChartHeight(),
-        marginRight: 500,
+        // marginRight: 500,
       },
       title: {
         text: ""
@@ -114,7 +131,7 @@ export class DropboxComponent{
       },
       plotOptions: {
         organization: {
-          borderRadius: 15,
+          borderRadius: 5,
         },
         series: {
             states: {
@@ -123,7 +140,7 @@ export class DropboxComponent{
                 }
             }
         }
-    },
+      },
       series: [{
         type: 'organization',       
         name: 'Workflow Chart',
@@ -132,7 +149,9 @@ export class DropboxComponent{
         // linkLength: 100,
         nodePadding: 20,
         link: {
-          lineWidth: 5,
+          lineWidth: 3,
+          color: '#000',
+          
         },
         data: this.droppedItems
           .filter((node: any) => node.parentId && node.id !== 'node-0') // Only add connections
@@ -174,13 +193,9 @@ export class DropboxComponent{
   }
   
   updateChartHeight() {
-    const containerWidth = 700;
-    const baseHeight = containerWidth * 0.25; // 25% of container width
-    if (this.droppedItems.length===2) {
-      return baseHeight;
-    } 
-    const additionalHeight = containerWidth * 0.10; 
-    const newHeight = baseHeight + (this.droppedItems.length - 1) * additionalHeight;
+    const baseHeight = 200; 
+    const additionalHeight = 70; 
+    const newHeight = baseHeight + (this.droppedItems.length - 2) * additionalHeight;
     return newHeight;
    
   }

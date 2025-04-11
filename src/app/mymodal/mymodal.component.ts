@@ -20,6 +20,7 @@ export class MymodalComponent implements OnInit {
   operatorConfig: { [key: string]: string[] } = {};
   categoryType: string = '';
   
+  selectedConName: string = '';
   selectedCondition: string = '';
   selectedRun: string = '';
   selectedFallback: string = '';
@@ -33,7 +34,7 @@ export class MymodalComponent implements OnInit {
   selectedSource: string = '';
   selectedTarget: string = '';
 
-  conditionOptions: string[] = ['equals', 'notEquals', 'greater', 'greaterOrEquals', 'less', 'lessOrEquals', 'x.startswith(y)', 'x.endswith(y)', 'contains', 'notContains'];
+  conditionOptions: string[] = ['Equals', 'Not Equals', 'Greater', 'Greater or Equals', 'less', 'Less or Equals', 'Starts with', 'Ends with', 'Contains', 'Not Contains'];
   // runOptions: string[] = [];
   fallbackOptions: string[] = [];
   providerOptions: string[] = ['identity', 'variable', 'secret', 'date'];
@@ -83,6 +84,7 @@ export class MymodalComponent implements OnInit {
     const isValid = this.inputBox.every(item => 
       item.operand1 !== null && item.operand1 !== undefined && item.operand1 !== '' &&
       item.operand2 !== null && item.operand2 !== undefined && item.operand2 !== '' &&
+      item.operand2 !== null && item.operand2 !== undefined && item.operand2 !== '' &&
       item.selectedCondition !== null && item.selectedCondition !== undefined && item.selectedCondition !== ''
     );
   
@@ -97,6 +99,7 @@ export class MymodalComponent implements OnInit {
       action: {
         type: name,
         kind: this.workflowService.getCategoryByOperator(name),
+        conditionName: this.selectedConName,
         conditions: this.inputBox.map(item => ({
           operand1: item.operand1,
           operator: item.selectedCondition,
