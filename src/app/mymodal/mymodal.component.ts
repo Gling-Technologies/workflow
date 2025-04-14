@@ -114,7 +114,13 @@ export class MymodalComponent implements OnInit {
     };
 
     console.log("Saved Data:", dataToSave);
-    this.dialogRef.close(dataToSave);
+    // when the entire data is going to transfer
+    // this.dialogRef.close(dataToSave);
+
+    // but right now we only need condition name
+    if (this.selectedConName !== '') {
+      this.dialogRef.close(this.selectedConName)
+    }
     this._snackBar.open("Data Saved", "close", {duration: 3000});
   }
 }

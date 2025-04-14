@@ -80,9 +80,28 @@ export class DropboxComponent{
         name: newItem,
         parentId: parentId, 
       };
+ 
+      const len = this.droppedItems.length;
+      if (len >= 2) {
+            const prevNode1 = this.droppedItems[len - 1];
+            const prevNode2 = this.droppedItems[len - 2];
+      
+            if (prevNode1.parentId && prevNode2.parentId) {
+              if (prevNode1.parentId === prevNode2.parentId) {
+                newNode.parentId = [prevNode1.id, prevNode2.id];
+              } else {
+                newNode.parentId = prevNode1.id;
+              }
+            } else {
+              newNode.parentId = prevNode1.id;
+            }
+      }else if (len === 1) {
+        newNode.parentId = this.droppedItems[0].id;
+      }
+      this.droppedItems.push(newNode);
 
       if (newItem === 'condition') {
-        this.droppedItems.push(newNode);
+        // this.droppedItems.push(newNode);
 
         const child1Id = `node-${this.droppedItems.length}`;
         const child2Id = `node-${this.droppedItems.length + 1}`;
@@ -100,28 +119,29 @@ export class DropboxComponent{
         };
         this.droppedItems.push(child1, child2);
       }
-      else{
-        const len = this.droppedItems.length;
-        if (len >= 2) {
-          const prevNode1 = this.droppedItems[len - 1];
-          const prevNode2 = this.droppedItems[len - 2];
+      // else{
+      //   const len = this.droppedItems.length;
+      //   if (len >= 2) {
+      //     const prevNode1 = this.droppedItems[len - 1];
+      //     const prevNode2 = this.droppedItems[len - 2];
     
-          if (prevNode1.parentId && prevNode2.parentId) {
-            if (prevNode1.parentId === prevNode2.parentId) {
-              newNode.parentId = [prevNode1.id, prevNode2.id];
-            } else {
-              newNode.parentId = prevNode1.id;
-            }
-          } else {
-            newNode.parentId = prevNode1.id;
-          }
-        } else if (len === 1) {
-          newNode.parentId = this.droppedItems[0].id;
-        }
-        this.droppedItems.push(newNode);
-    }
+      //     if (prevNode1.parentId && prevNode2.parentId) {
+      //       if (prevNode1.parentId === prevNode2.parentId) {
+      //         newNode.parentId = [prevNode1.id, prevNode2.id];
+      //       } else {
+      //         newNode.parentId = prevNode1.id;
+      //       }
+      //     } else {
+      //       newNode.parentId = prevNode1.id;
+      //     }
+      //   } else if (len === 1) {
+      //     newNode.parentId = this.droppedItems[0].id;
+      //   }
+      //   this.droppedItems.push(newNode);
+      // }
   
       // this.droppedItems.push(newNode);
+      console.log(this.droppedItems);
 
       this.initOrganizationChart();
 
@@ -136,13 +156,31 @@ export class DropboxComponent{
     return this.workflowService.getFormatted(operator);
   }
 
-  openModal(dropItem: any): any{
+  openModal(dropItem: any, nodeId: string): any{
+    const item = this.droppedItems.find((item: any) => item.id === nodeId);
+    if (!item) return;
+
     this.comp = 'operator'
-    this.dialog.open(MymodalComponent, {
+    const dialogRef = this.dialog.open(MymodalComponent, {
       width: "800px", 
       maxWidth: '90vw',  
       data: { dropItem },
     });
+
+    dialogRef.afterClosed().subscribe((conditionName: string) => {
+      if (conditionName) {
+        // console.log('Selected Connection Name:', conditionName);   
+        this.updateItemName(nodeId, conditionName);
+      }
+    })
+  }
+
+  updateItemName(id: string, newName: string): void {
+    const item = this.droppedItems.find((item: any) => item.id === id);
+    if (item) {
+      item.name = newName;
+      this.initOrganizationChart(); // Refresh the chart if necessary
+    }
   }
 
 //  constructor() {
@@ -219,7 +257,7 @@ export class DropboxComponent{
                 const currentTime = new Date().getTime();
                 if (currentTime - this.lastClickTime < this.doubleClickThreshold) {
                   console.log(node); 
-                  this.openModal(node.name);
+                  this.openModal(node.name, node.id);
                 }
                 this.lastClickTime = currentTime;
               },
