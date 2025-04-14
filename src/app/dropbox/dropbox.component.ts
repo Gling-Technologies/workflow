@@ -33,22 +33,22 @@ export class DropboxComponent{
     {
       id: 'node-0',
       name: 'Entry point',
-      parentIds: []
+      parentId: null
     },
     {
       id: 'node-1',
       name: 'Entry point',
-      parentIds: ['node-0']
+      parentId: 'node-0'
     },
     {
       id: 'node-2',
       name: 'Entry point',
-      parentIds: ['node-0']
+      parentId: 'node-0'
     },
     {
       id: 'node-3',
       name: 'Entry point',
-      parentIds: ['node-1', 'node-2']    
+      parentId:  ['node-1', 'node-2'],
     },
 
   ];
@@ -154,8 +154,13 @@ export class DropboxComponent{
           
         },
         data: this.droppedItems
-          .filter((node: any) => node.parentId && node.id !== 'node-0') // Only add connections
-          .map((node: any) => [node.parentId, node.id]), // Create links
+        .filter((node: any) => node.parentId && node.id !== 'node-0')
+        .flatMap((node: any) =>
+          Array.isArray(node.parentId)
+            ? node.parentId.map((pid: string) => [pid, node.id])
+            : [[node.parentId, node.id]]
+        ),
+
         nodes: this.droppedItems
           .map((node: any) => ({ 
             id: node.id,
@@ -184,6 +189,7 @@ export class DropboxComponent{
               }
             },
         })),
+        
 
         colorByPoint: true,
         borderColor: '#000000',
