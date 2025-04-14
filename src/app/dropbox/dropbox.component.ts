@@ -35,21 +35,21 @@ export class DropboxComponent{
       name: 'Entry point',
       parentId: null
     },
-    {
-      id: 'node-1',
-      name: 'Entry point',
-      parentId: 'node-0'
-    },
-    {
-      id: 'node-2',
-      name: 'Entry point',
-      parentId: 'node-0'
-    },
-    {
-      id: 'node-3',
-      name: 'Entry point',
-      parentId:  ['node-1', 'node-2'],
-    },
+    // {
+    //   id: 'node-1',
+    //   name: 'Entry point',
+    //   parentId: 'node-0'
+    // },
+    // {
+    //   id: 'node-2',
+    //   name: 'Entry point',
+    //   parentId: 'node-0'
+    // },
+    // {
+    //   id: 'node-3',
+    //   name: 'Entry point',
+    //   parentId:  ['node-1', 'node-2'],
+    // },
 
   ];
 
@@ -73,14 +73,58 @@ export class DropboxComponent{
     else {
       const newItem = event.previousContainer.data[event.previousIndex];
       const parentId = this.droppedItems.length > 0 ? this.droppedItems[this.droppedItems.length - 1].id : null;
+
+      const newNodeId = `node-${this.droppedItems.length}`;
       const newNode = { 
         id: `node-${this.droppedItems.length}`,
         name: newItem,
         parentId: parentId, 
       };
+
+      if (newItem === 'condition') {
+        this.droppedItems.push(newNode);
+
+        const child1Id = `node-${this.droppedItems.length}`;
+        const child2Id = `node-${this.droppedItems.length + 1}`;
   
-      this.droppedItems.push(newNode);
+        const child1 = {
+          id: child1Id,
+          name: 'True',
+          parentId: newNodeId,
+        };
+  
+        const child2 = {
+          id: child2Id,
+          name: 'False',
+          parentId: newNodeId,
+        };
+        this.droppedItems.push(child1, child2);
+      }
+      else{
+        const len = this.droppedItems.length;
+        if (len >= 2) {
+          const prevNode1 = this.droppedItems[len - 1];
+          const prevNode2 = this.droppedItems[len - 2];
+    
+          if (prevNode1.parentId && prevNode2.parentId) {
+            if (prevNode1.parentId === prevNode2.parentId) {
+              newNode.parentId = [prevNode1.id, prevNode2.id];
+            } else {
+              newNode.parentId = prevNode1.id;
+            }
+          } else {
+            newNode.parentId = prevNode1.id;
+          }
+        } else if (len === 1) {
+          newNode.parentId = this.droppedItems[0].id;
+        }
+        this.droppedItems.push(newNode);
+    }
+  
+      // this.droppedItems.push(newNode);
+
       this.initOrganizationChart();
+
     }
   }
 
