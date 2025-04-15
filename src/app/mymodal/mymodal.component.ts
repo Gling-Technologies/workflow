@@ -1,4 +1,4 @@
-import { Component, inject, Inject, Input } from '@angular/core';
+import { Component, inject, Inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -12,11 +12,12 @@ import { WorkflowService } from '../workflow.service';
   templateUrl: './mymodal.component.html',
   styleUrl: './mymodal.component.css'
 })
-export class MymodalComponent {
+export class MymodalComponent implements OnInit {
   @Input() component: any;
   private workflowService = inject(WorkflowService)
   private _snackBar = inject(MatSnackBar);
 
+  operatorConfig: { [key: string]: string[] } = {};
   categoryType: string = '';
   
   selectedCondition: string = '';
@@ -33,7 +34,7 @@ export class MymodalComponent {
   selectedTarget: string = '';
 
   conditionOptions: string[] = ['equals', 'notEquals', 'greater', 'greaterOrEquals', 'less', 'lessOrEquals', 'x.startswith(y)', 'x.endswith(y)', 'contains', 'notContains'];
-  runOptions: string[] = [];
+  // runOptions: string[] = [];
   fallbackOptions: string[] = [];
   providerOptions: string[] = ['identity', 'variable', 'secret', 'date'];
   runtypeOptions: string[] = ["workflow", "flow", "step"]
@@ -43,6 +44,10 @@ export class MymodalComponent {
     public dialogRef: MatDialogRef<MymodalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
+
+  ngOnInit(): void {
+    this.operatorConfig = this.workflowService.getOperatorConfig();  
+  }
 
   close(): void {
     this.dialogRef.close();
@@ -68,6 +73,10 @@ export class MymodalComponent {
     if(this.inputBox.length > 1){
       this.inputBox.splice(index, 1);
     }
+  }
+
+  runOptions(type: 'steps' | 'flows'){
+    return this.workflowService.getKey(type)
   }
 
   saveData(name: string) {
