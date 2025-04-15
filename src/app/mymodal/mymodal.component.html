@@ -6,6 +6,9 @@
         <div class="main-content">
             @if (data.dropItem != 'for_each') {
                 <div class="left-modal">
+                    <label for="con-name">Condition Name:</label>
+                    <input type="text" id="con-name" [(ngModel)]="selectedConName" placeholder="Please enter Condition Name" required>
+                    
                     @if (whichCategory(data.dropItem) === 'Variables Operators') {
                         <!-- scope?: global | local dropdown -->
                         <label for="scope">Scope:</label>
@@ -48,8 +51,6 @@
                     }
     <!-- Condition -->
                     @if (whichCategory(data.dropItem) !== 'System Operators') {
-                        <label for="con-name">Condition Name:</label>
-                        <input type="text" id="con-name" [(ngModel)]="selectedConName" placeholder="Please enter Condition Name" required>
 
                         <label for="condition">Condition:</label>
                         @for(i of inputBox; let index= $index; track i.id){
@@ -90,8 +91,8 @@
 
     <!-- Run Dropdown -->
                     <label for="run">Run:</label>
-                    <select id="run" [(ngModel)]="selectedRun">
-                        <option value="" disabled selected>Select Run</option>
+                    <select id="run" [(ngModel)]="selectedRun" required>
+                        <option value="" selected>Select Run</option>
                         @switch (selectedRuntype) {
                             @case ('flow') {
                                 @for(option of runOptions('flows'); track $index){
@@ -129,13 +130,41 @@
        
     <!-- Fallback Dropdown -->
                     @if (data.dropItem != 'run_until' && data.dropItem != 'for_each') {
-                        <label for="fallback">Fallback:</label>
-                        <select id="fallback" [(ngModel)]="selectedFallback">
+                        <label for="fallback" [ngClass]="{ 'disabled-label': !selectedRun }">Fallback:</label>
+                        <select id="fallback" [(ngModel)]="selectedFallback" [disabled]="!selectedRun" [ngClass]="{ 'disabled-label': !selectedRun }">
                             <option value="" selected>Select fallback</option>
-                            @for(option of fallbackOptions; track $index){
-                                <option [value]="option">
-                                    {{ option }}
-                                </option>
+                            @switch (selectedRuntype) {
+                                @case ('flow') {
+                                    @for(option of runOptions('flows'); track $index){
+                                        <option [value]="option">
+                                            {{ getFormattedOperator(option) }}
+                                        </option>
+                                    }
+                                }
+                                @case ('step') {
+                                    @for(option of runOptions('steps'); track $index){
+                                        <option [value]="option">
+                                            {{ getFormattedOperator(option) }}
+                                        </option>
+                                    }
+                                }
+                                @default {
+                                    <optgroup label="Flows">
+                                        @for (option of runOptions('flows'); track $index) {
+                                            <option [value]="option">
+                                                {{ getFormattedOperator(option) }}
+                                            </option>
+                                        }
+                                    </optgroup>
+                                    <optgroup label="Steps">
+                                        @for (option of runOptions('steps'); track $index) {
+                                            <option [value]="option">
+                                                {{ getFormattedOperator(option) }}
+                                            </option>
+                                        }
+                                    </optgroup>
+                                }
+                        
                             }
                         </select>   
                     } 

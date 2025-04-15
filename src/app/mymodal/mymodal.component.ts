@@ -82,10 +82,11 @@ export class MymodalComponent implements OnInit {
 
   saveData(name: string) {
     const isValid = this.inputBox.every(item => 
-      item.operand1 !== null && item.operand1 !== undefined && item.operand1 !== '' &&
-      item.operand2 !== null && item.operand2 !== undefined && item.operand2 !== '' &&
-      item.operand2 !== null && item.operand2 !== undefined && item.operand2 !== '' &&
-      item.selectedCondition !== null && item.selectedCondition !== undefined && item.selectedCondition !== ''
+      // item.operand1 !== null && item.operand1 !== undefined && item.operand1 !== '' &&
+      // item.operand2 !== null && item.operand2 !== undefined && item.operand2 !== '' &&
+      // item.selectedCondition !== null && item.selectedCondition !== undefined && item.selectedCondition !== '' &&
+      this.selectedConName !== '' && this.selectedConName !== null && this.selectedConName !== undefined &&
+      this.selectedRun !== '' && this.selectedRun !== null && this.selectedRun !== undefined
     );
   
     if (!isValid) {
@@ -99,28 +100,27 @@ export class MymodalComponent implements OnInit {
       action: {
         type: name,
         kind: this.workflowService.getCategoryByOperator(name),
-        conditionName: this.selectedConName,
         conditions: this.inputBox.map(item => ({
           operand1: item.operand1,
           operator: item.selectedCondition,
           operand2: item.operand2
         })),
-        run: this.selectedRun,
-        fallback: this.selectedFallback
       },
-      // type: run
-      // kind: system
+      conditionName: this.selectedConName,
+      run: this.selectedRun,
+      fallback: this.selectedFallback,
+      
 
     };
 
-    console.log("Saved Data:", dataToSave);
+    // console.log("Saved Data:", dataToSave);
     // when the entire data is going to transfer
-    // this.dialogRef.close(dataToSave);
+    this.dialogRef.close(dataToSave);
 
     // but right now we only need condition name
-    if (this.selectedConName !== '') {
-      this.dialogRef.close(this.selectedConName)
-    }
+    // if (this.selectedConName !== '') {
+    //   this.dialogRef.close(this.selectedConName)
+    // }
     this._snackBar.open("Data Saved", "close", {duration: 3000});
   }
 }

@@ -110,39 +110,19 @@ export class DropboxComponent{
           id: child1Id,
           name: 'True',
           parentId: newNodeId,
+          type: 'conditionChild',
         };
   
         const child2 = {
           id: child2Id,
           name: 'False',
           parentId: newNodeId,
+          type: 'conditionChild',
         };
         this.droppedItems.push(child1, child2);
       }
-      // else{
-      //   const len = this.droppedItems.length;
-      //   if (len >= 2) {
-      //     const prevNode1 = this.droppedItems[len - 1];
-      //     const prevNode2 = this.droppedItems[len - 2];
-    
-      //     if (prevNode1.parentId && prevNode2.parentId) {
-      //       if (prevNode1.parentId === prevNode2.parentId) {
-      //         newNode.parentId = [prevNode1.id, prevNode2.id];
-      //       } else {
-      //         newNode.parentId = prevNode1.id;
-      //       }
-      //     } else {
-      //       newNode.parentId = prevNode1.id;
-      //     }
-      //   } else if (len === 1) {
-      //     newNode.parentId = this.droppedItems[0].id;
-      //   }
-      //   this.droppedItems.push(newNode);
-      // }
-  
-      // this.droppedItems.push(newNode);
-      console.log(this.droppedItems);
 
+      console.log(this.droppedItems);
       this.initOrganizationChart();
 
     }
@@ -158,6 +138,7 @@ export class DropboxComponent{
 
   openModal(dropItem: any, nodeId: string): any{
     const item = this.droppedItems.find((item: any) => item.id === nodeId);
+    const nodeName = item.name;
     if (!item) return;
 
     this.comp = 'operator'
@@ -167,10 +148,15 @@ export class DropboxComponent{
       data: { dropItem },
     });
 
-    dialogRef.afterClosed().subscribe((conditionName: string) => {
-      if (conditionName) {
-        // console.log('Selected Connection Name:', conditionName);   
-        this.updateItemName(nodeId, conditionName);
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if (!data) return;
+      console.log(data);
+      if (data.conditionName) {
+        // console.log('Selected Connection Name:', conditionName);
+        this.updateItemName(nodeId, data.conditionName);
+        if (nodeName === 'condition') {
+          this.updateSubNodeName(nodeId, data)
+        }
       }
     })
   }
@@ -179,21 +165,17 @@ export class DropboxComponent{
     const item = this.droppedItems.find((item: any) => item.id === id);
     if (item) {
       item.name = newName;
-      this.initOrganizationChart(); // Refresh the chart if necessary
+      this.initOrganizationChart();    
     }
   }
 
-//  constructor() {
-//     this.initOrganizationChart();
-//   } 
-
-  // initChart() {
-    // Initialize the chart with the desired type
-    // this.initOrganizationChart();
-    // this.initNetworkGraph();
-    // this.initTreeGraph();
-  // }
-
+  updateSubNodeName(nodeId: string, data: any){
+    const trueNodeId = nodeId.replace(/\d+$/, match => `${+match + 1}`);
+    const falseNodeId = nodeId.replace(/\d+$/, match => `${+match + 2}`);
+    // console.log(trueNodeId, falseNodeId);
+    this.updateItemName(trueNodeId, data.run)
+    this.updateItemName(falseNodeId, data.fallback? data.fallback : 'no fallback')
+  }
   
   initOrganizationChart() {
     this.chartOptions = {
@@ -251,7 +233,7 @@ export class DropboxComponent{
             width: 200,
             events: {
               click: () => {
-                if (node.name === 'Entry point') {
+                if (node.name === 'Entry point' || node.type === 'conditionChild') {
                   return;
                 }
                 const currentTime = new Date().getTime();
