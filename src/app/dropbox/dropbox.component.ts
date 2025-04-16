@@ -63,6 +63,7 @@ export class DropboxComponent{
       const newNode = { 
         id: `node-${this.droppedItems.length}`,
         name: newItem,
+        droppedItemName: newItem,
         parentId: parentId, 
         nodeType: 'operators',
       };
@@ -243,7 +244,7 @@ export class DropboxComponent{
                 const currentTime = new Date().getTime();
                 if (currentTime - this.lastClickTime < this.doubleClickThreshold) {
                   console.log(node); 
-                  this.openModal(node.name, node.id);
+                  this.openModal(node.droppedItemName, node.id);
                 }
                 this.lastClickTime = currentTime;
               },
