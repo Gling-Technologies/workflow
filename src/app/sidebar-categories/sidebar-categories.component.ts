@@ -62,7 +62,8 @@ export class SidebarCategoriesComponent implements OnInit{
     return JSON.parse(JSON.stringify(obj));
   }
 
-  openEditModal(variable: any, varName?: string): void {
+  openEditModal(variable: any, varName?: string,event?: Event): void {
+    event?.stopPropagation();
     const variableCopy = this.deepCopy(variable);
     const dialogRef = this.dialog.open(EditmodalComponent, {
       width: '450px',  
@@ -91,7 +92,8 @@ export class SidebarCategoriesComponent implements OnInit{
     });
   }
 
-  openAddModal(data?: string): void {
+  openAddModal(data?: string, event?: Event): void {
+    event?.stopPropagation();
     const dialogRef = this.dialog.open(AddmodalComponent, {
       width: '450px',  
       maxWidth: '90vw', 

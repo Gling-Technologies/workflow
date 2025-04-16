@@ -62,17 +62,17 @@ export class MymodalComponent implements OnInit {
     return this.categoryType = this.workflowService.getCategoryByOperator(operator);
   }
 
-  inputBox: any[] =  [{id: 1, operand1: null, operand2: null, selectedCondition: '' }]; 
+  ConditionInputBox: any[] =  [{id: 1, operand1: null, operand2: null, selectedCondition: '' }]; 
   idCounter: number = 2;
   errorMessage: string = ''
 
   addCondition(){
-    this.inputBox.push({id: this.idCounter++, selectedCondition: '' }); 
+    this.ConditionInputBox.push({id: this.idCounter++, selectedCondition: '' }); 
   }
 
   removeCondition(index: number){    
-    if(this.inputBox.length > 1){
-      this.inputBox.splice(index, 1);
+    if(this.ConditionInputBox.length > 1){
+      this.ConditionInputBox.splice(index, 1);
     }
   }
 
@@ -81,7 +81,7 @@ export class MymodalComponent implements OnInit {
   }
 
   saveData(name: string) {
-    const isValid = this.inputBox.every(item => 
+    const isValid = this.ConditionInputBox.every(item => 
       // item.operand1 !== null && item.operand1 !== undefined && item.operand1 !== '' &&
       // item.operand2 !== null && item.operand2 !== undefined && item.operand2 !== '' &&
       // item.selectedCondition !== null && item.selectedCondition !== undefined && item.selectedCondition !== '' &&
@@ -95,12 +95,12 @@ export class MymodalComponent implements OnInit {
     }
   
     const dataToSave = {
-      name: "",
-      next: "",
+      // name: "",
+      // next: "",
       action: {
         type: name,
         kind: this.workflowService.getCategoryByOperator(name),
-        conditions: this.inputBox.map(item => ({
+        conditions: this.ConditionInputBox.map(item => ({
           operand1: item.operand1,
           operator: item.selectedCondition,
           operand2: item.operand2
@@ -114,13 +114,7 @@ export class MymodalComponent implements OnInit {
     };
 
     // console.log("Saved Data:", dataToSave);
-    // when the entire data is going to transfer
     this.dialogRef.close(dataToSave);
-
-    // but right now we only need condition name
-    // if (this.selectedConName !== '') {
-    //   this.dialogRef.close(this.selectedConName)
-    // }
     this._snackBar.open("Data Saved", "close", {duration: 3000});
   }
 }

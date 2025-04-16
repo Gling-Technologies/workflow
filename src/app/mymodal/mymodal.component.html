@@ -53,10 +53,10 @@
                     @if (whichCategory(data.dropItem) !== 'System Operators') {
 
                         <label for="condition">Condition:</label>
-                        @for(i of inputBox; let index= $index; track i.id){
+                        @for(i of ConditionInputBox; let index= $index; track i.id){
                             <span class="input-group">
-                                <input type="text" name="" id="" placeholder="operand 1"  [(ngModel)]="inputBox[index].operand1" required>
-                                <select id="condition" [(ngModel)]="inputBox[index].selectedCondition" required>
+                                <input type="text" name="" id="" placeholder="operand 1"  [(ngModel)]="ConditionInputBox[index].operand1" required>
+                                <select id="condition" [(ngModel)]="ConditionInputBox[index].selectedCondition" required>
                                     <option value="" disabled selected>Operators</option>
                                     @for (option of conditionOptions; track $index) {
                                         <option [value]="option">
@@ -64,9 +64,9 @@
                                         </option>
                                     }
                                 </select>
-                                <input type="text" name="" id="" placeholder="operand 2"  [(ngModel)]="inputBox[index].operand2" required>
+                                <input type="text" name="" id="" placeholder="operand 2"  [(ngModel)]="ConditionInputBox[index].operand2" required>
                                 <!-- REPETETIVE CODE -->
-                                <button class="close-btn" (click)="removeCondition(index)" [ngClass]="{'hidden': inputBox.length===1}">x</button>
+                                <button class="close-btn" (click)="removeCondition(index)" [ngClass]="{'hidden': ConditionInputBox.length===1}">x</button>
 
                             </span>
                         }
