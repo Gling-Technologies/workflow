@@ -33,24 +33,9 @@ export class DropboxComponent{
     {
       id: 'node-0',
       name: 'Entry point',
-      parentId: null
+      parentId: null,
+      nodeType: 'entry',
     },
-    // {
-    //   id: 'node-1',
-    //   name: 'Entry point',
-    //   parentId: 'node-0'
-    // },
-    // {
-    //   id: 'node-2',
-    //   name: 'Entry point',
-    //   parentId: 'node-0'
-    // },
-    // {
-    //   id: 'node-3',
-    //   name: 'Entry point',
-    //   parentId:  ['node-1', 'node-2'],
-    // },
-
   ];
 
   ngOnInit() {
@@ -79,6 +64,7 @@ export class DropboxComponent{
         id: `node-${this.droppedItems.length}`,
         name: newItem,
         parentId: parentId, 
+        nodeType: 'operators',
       };
  
       const len = this.droppedItems.length;
@@ -110,14 +96,16 @@ export class DropboxComponent{
           id: child1Id,
           name: 'True',
           parentId: newNodeId,
-          type: 'conditionChild',
+          nodeType: 'conditionChild',
+          label: 'True',
         };
   
         const child2 = {
           id: child2Id,
           name: 'False',
           parentId: newNodeId,
-          type: 'conditionChild',
+          nodeType: 'conditionChild',
+          label: 'False',
         };
         this.droppedItems.push(child1, child2);
       }
@@ -208,7 +196,7 @@ export class DropboxComponent{
       series: [{
         type: 'organization',       
         name: 'Workflow Chart',
-        keys: ['from', 'to'],
+        // keys: ['from', 'to', 'label'],
         cursor: "pointer",
         // linkLength: 100,
         nodePadding: 20,
@@ -221,19 +209,35 @@ export class DropboxComponent{
         .filter((node: any) => node.parentId && node.id !== 'node-0')
         .flatMap((node: any) =>
           Array.isArray(node.parentId)
-            ? node.parentId.map((pid: string) => [pid, node.id])
-            : [[node.parentId, node.id]]
-        ),
-
+            ? node.parentId.map((pid: string) => ({from: pid, to: node.id}))
+            : {from: node.parentId, to: node.id}
+        ),  
+        // dataLabels: {
+        //   // @ts-ignore
+        //   // html: true,
+        //   style: {
+        //     width: '100px',
+        //     height: "100px",
+        //   },
+        //   // linkFormat: '{point.label}',
+        //   linkFormatter: (...args) => {
+        //     console.log("linkFormatter", ...args);
+        //     return "Long label"
+        //   },
+        //   backgroundColor: 'rgba(0,0,0)',
+        //   linkTextPath: {
+        //     enabled: true
+        //   }
+        // },
         nodes: this.droppedItems
           .map((node: any) => ({ 
             id: node.id,
             name: this.getFormattedOperator(node.name),
-            color:  '#885d99',
+            color:  node.nodeType === 'entry' ? '#b22222' : '#885d99',
             width: 200,
             events: {
               click: () => {
-                if (node.name === 'Entry point' || node.type === 'conditionChild') {
+                if (node.nodeType === 'entry' || node.nodeType === 'conditionChild') {
                   return;
                 }
                 const currentTime = new Date().getTime();
@@ -245,13 +249,7 @@ export class DropboxComponent{
               },
               
             },
-            dataLabels: {
-              useHTML: true,
-              style: {
-                width: '100px',
-                height: "20px",
-              }
-            },
+
         })),
         
 
@@ -259,8 +257,10 @@ export class DropboxComponent{
         borderColor: '#000000',
       }],
     };
+    console.log(this.chartOptions.series);
 
   }
+
   
   updateChartHeight() {
     const baseHeight = 200; 
