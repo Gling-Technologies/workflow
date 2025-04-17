@@ -3,7 +3,7 @@ import { DragDropModule, CdkDragDrop, copyArrayItem, moveItemInArray } from '@an
 import { MatDialog } from '@angular/material/dialog';
 
 import { WorkflowService } from '../workflow.service';
-import { MymodalComponent } from '../mymodal/mymodal.component';
+import { OperatormodalComponent } from '../operatormodal/operatormodal.component';
 
 import { HighchartsChartModule } from 'highcharts-angular';
 import * as Highcharts from "highcharts";
@@ -131,7 +131,7 @@ export class DropboxComponent{
     if (!item) return;
 
     this.comp = 'operator'
-    const dialogRef = this.dialog.open(MymodalComponent, {
+    const dialogRef = this.dialog.open(OperatormodalComponent, {
       width: "800px", 
       maxWidth: '90vw',  
       data: { dropItem },

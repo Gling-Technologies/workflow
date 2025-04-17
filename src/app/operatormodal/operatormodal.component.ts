@@ -7,12 +7,12 @@ import { MaterialModule } from '../material.module';
 import { WorkflowService } from '../workflow.service';
 
 @Component({
-  selector: 'app-mymodal',
+  selector: 'app-operatormodal',
   imports: [FormsModule, MaterialModule, CommonModule],
-  templateUrl: './mymodal.component.html',
-  styleUrl: './mymodal.component.css'
+  templateUrl: './operatormodal.component.html',
+  styleUrl: './operatormodal.component.css'
 })
-export class MymodalComponent implements OnInit {
+export class OperatormodalComponent implements OnInit {
   @Input() component: any;
   private workflowService = inject(WorkflowService)
   private _snackBar = inject(MatSnackBar);
@@ -42,7 +42,7 @@ export class MymodalComponent implements OnInit {
   ScopeOptions: string[] = ["global", "local"]
 
   constructor(
-    public dialogRef: MatDialogRef<MymodalComponent>,
+    public dialogRef: MatDialogRef<OperatormodalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
