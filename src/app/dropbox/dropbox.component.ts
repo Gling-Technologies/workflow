@@ -27,6 +27,9 @@ export class DropboxComponent{
   chart: Highcharts.Chart | undefined;
   chartOptions: Highcharts.Options = {};
 
+  lastClickTime = 0;
+  doubleClickThreshold = 500; 
+
   private subscription: Subscription | undefined;
   
   private dialog = inject(MatDialog)
@@ -40,13 +43,6 @@ export class DropboxComponent{
       parentId: null,
       nodeType: 'entry',
     },
-    // {
-    //   id: 'node-1',
-    //   name: 'for each',
-    //   droppedItemName: 'for_each',
-    //   parentId: 'node-0', 
-    //   nodeType: 'operators',
-    // },
   ];
 
   ngOnInit() {
@@ -61,7 +57,7 @@ export class DropboxComponent{
     console.log(`going to find operator ${message.key} of type ${message.type}`);
     const listOfOperator = this.HighchartService.findOperator(message.type, message.key)
     console.log("from dropbox", listOfOperator); 
-    this.createOperatorNodes(listOfOperator) 
+    this.createOperatorNodesOnClickingPanel(listOfOperator) 
   }
 
   ngOnDestroy(): void {
@@ -70,7 +66,7 @@ export class DropboxComponent{
     }
   }
 
-  createOperatorNodes(types: string[]): void {
+  createOperatorNodesOnClickingPanel(types: string[]): void {
     this.droppedItems = [ 
       {
         id: 'node-0',
@@ -79,7 +75,7 @@ export class DropboxComponent{
         nodeType: 'entry',
       },
     ]
-    types.forEach((type: string, index: number) => {
+    types.forEach((type: string) => {
       const currentIndex = this.droppedItems.length;
       const newNode = {
         id: `node-${currentIndex}`,
@@ -89,16 +85,18 @@ export class DropboxComponent{
         nodeType: 'operators'
       };
       this.droppedItems.push(newNode);
+      if (type === "condition") {
+        const newNodeId = `node-${this.droppedItems.length-1}`;
+        this.creatingConditionChilds(newNodeId)
+      }
+      if (currentIndex >= 2) {
+        this.creatingMultipleParents(currentIndex, newNode)
+      }
     });
     console.log("after adding new nodes", this.droppedItems);
     this.initOrganizationChart();
 
   }
-
-  comp: string = '';
-
-  lastClickTime = 0;
-  doubleClickThreshold = 300; 
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -121,52 +119,54 @@ export class DropboxComponent{
         nodeType: 'operators',
       };
  
-      const len = this.droppedItems.length;
+      const len: number = this.droppedItems.length;
       if (len >= 2) {
-            const prevNode1 = this.droppedItems[len - 1];
-            const prevNode2 = this.droppedItems[len - 2];
-      
-            if (prevNode1.parentId && prevNode2.parentId) {
-              if (prevNode1.parentId === prevNode2.parentId) {
-                newNode.parentId = [prevNode1.id, prevNode2.id];
-              } else {
-                newNode.parentId = prevNode1.id;
-              }
-            } else {
-              newNode.parentId = prevNode1.id;
-            }
+            this.creatingMultipleParents(len, newNode)
       }else if (len === 1) {
         newNode.parentId = this.droppedItems[0].id;
       }
       this.droppedItems.push(newNode);
 
       if (newItem === 'condition') {
-        // this.droppedItems.push(newNode);
-
-        const child1Id = `node-${this.droppedItems.length}`;
-        const child2Id = `node-${this.droppedItems.length + 1}`;
-  
-        const child1 = {
-          id: child1Id,
-          name: 'True',
-          parentId: newNodeId,
-          nodeType: 'conditionChild',
-          label: 'True',
-        };
-  
-        const child2 = {
-          id: child2Id,
-          name: 'False',
-          parentId: newNodeId,
-          nodeType: 'conditionChild',
-          label: 'False',
-        };
-        this.droppedItems.push(child1, child2);
+        this.creatingConditionChilds(newNodeId)
       }
-
       console.log(this.droppedItems);
       this.initOrganizationChart();
+    }
+  }
 
+  creatingConditionChilds(newNodeId: any){
+    const child1Id = `node-${this.droppedItems.length}`;
+    const child2Id = `node-${this.droppedItems.length + 1}`;
+
+    const child1 = {
+      id: child1Id,
+      name: 'True',
+      parentId: newNodeId,
+      nodeType: 'conditionChild',
+    };
+
+    const child2 = {
+      id: child2Id,
+      name: 'False',
+      parentId: newNodeId,
+      nodeType: 'conditionChild',
+    };
+    this.droppedItems.push(child1, child2);
+  }
+
+  creatingMultipleParents(len: number, newNode: any){
+    const prevNode1 = this.droppedItems[len - 1];
+    const prevNode2 = this.droppedItems[len - 2];
+
+    if (prevNode1.parentId && prevNode2.parentId) {
+      if (prevNode1.parentId === prevNode2.parentId) {
+        newNode.parentId = [prevNode1.id, prevNode2.id];
+      } else {
+        newNode.parentId = prevNode1.id;
+      }
+    } else {
+      newNode.parentId = prevNode1.id;
     }
   }
 
@@ -183,7 +183,6 @@ export class DropboxComponent{
     const nodeName = item.name;
     if (!item) return;
 
-    this.comp = 'operator'
     const dialogRef = this.dialog.open(OperatormodalComponent, {
       width: "800px", 
       maxWidth: '90vw',  
@@ -314,13 +313,11 @@ export class DropboxComponent{
     // console.log(this.chartOptions.series);
 
   }
-
   
   updateChartHeight() {
     const baseHeight = 200; 
     const additionalHeight = 70; 
     const newHeight = baseHeight + (this.droppedItems.length - 2) * additionalHeight;
     return newHeight;
-   
   }
 }

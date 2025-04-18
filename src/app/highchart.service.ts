@@ -8,8 +8,6 @@ import { WorkflowService } from './workflow.service';
 export class HighchartService {
   private workflowService = inject(WorkflowService)
 
-  constructor() { }
-
   findOperator(type: string, key: string): string[] {
     const result = this.workflowService.findOperators(type, key);
     console.log(result);

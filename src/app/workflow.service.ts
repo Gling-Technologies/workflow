@@ -386,6 +386,11 @@ export class WorkflowService {
             "run": "click_next_record_set_btn",
             "fallback": ""
           }
+          // , {
+          //   "type": "wait",
+          //   "kind": "system",
+          //   "time_period": 5
+          // },
         ]
       },
       "send_email": {
