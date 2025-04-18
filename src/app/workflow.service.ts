@@ -451,10 +451,32 @@ export class WorkflowService {
     }
   }
 
-  findOperators(type: string, key: string){
-
-  }
+  findOperators(operationType: string, key: any): string[] {
+    const result: string[] = [];
   
+    // const item = this.workflow[functionType][key];
+  
+    if (operationType === "steps") {
+      const action = this.workflow[operationType][key].action;
+      if (action?.type) {
+        result.push(action.type);
+      }
+    }
+    
+    if (operationType === "flows") {
+      const actions = this.workflow[operationType][key].actions;
+      if (Array.isArray(actions)) {
+        for (const action of actions) {
+          if (action?.type) {
+            result.push(action.type);
+          }
+        }
+      }
+    }
+
+    return result;
+  }
+
   // getName(type: 'steps' | 'flows'): string[]{
   //   return Object.values(this.workflow[type]).map((item: any) => item.name);
   // }

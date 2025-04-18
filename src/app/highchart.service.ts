@@ -10,7 +10,9 @@ export class HighchartService {
 
   constructor() { }
 
-  findOperator(type: string, key: string){
-    this.workflowService.findOperators(type, key)
+  findOperator(type: string, key: string): string[] {
+    const result = this.workflowService.findOperators(type, key);
+    console.log(result);
+    return result;
   }
 }

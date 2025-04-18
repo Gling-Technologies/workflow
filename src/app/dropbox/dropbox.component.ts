@@ -40,13 +40,13 @@ export class DropboxComponent{
       parentId: null,
       nodeType: 'entry',
     },
-    {
-      id: 'node-1',
-      name: 'for each',
-      droppedItemName: 'for_each',
-      parentId: 'node-0', 
-      nodeType: 'operators',
-    },
+    // {
+    //   id: 'node-1',
+    //   name: 'for each',
+    //   droppedItemName: 'for_each',
+    //   parentId: 'node-0', 
+    //   nodeType: 'operators',
+    // },
   ];
 
   ngOnInit() {
@@ -59,13 +59,40 @@ export class DropboxComponent{
   
   handleFlowSelection(message: any): void {
     console.log(`going to find operator ${message.key} of type ${message.type}`);
-    this.HighchartService.findOperator(message.type, message.key)
+    const listOfOperator = this.HighchartService.findOperator(message.type, message.key)
+    console.log("from dropbox", listOfOperator); 
+    this.createOperatorNodes(listOfOperator) 
   }
 
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  createOperatorNodes(types: string[]): void {
+    this.droppedItems = [ 
+      {
+        id: 'node-0',
+        name: 'Entry point',
+        parentId: null,
+        nodeType: 'entry',
+      },
+    ]
+    types.forEach((type: string, index: number) => {
+      const currentIndex = this.droppedItems.length;
+      const newNode = {
+        id: `node-${currentIndex}`,
+        name: type,
+        droppedItemName: type,
+        parentId: `node-${currentIndex - 1}`,
+        nodeType: 'operators'
+      };
+      this.droppedItems.push(newNode);
+    });
+    console.log("after adding new nodes", this.droppedItems);
+    this.initOrganizationChart();
+
   }
 
   comp: string = '';
