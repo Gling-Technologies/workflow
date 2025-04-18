@@ -110,4 +110,10 @@ export class SidebarCategoriesComponent implements OnInit{
       }
     });
   }
+
+  onPanelClick(type: string, key: string, event: MouseEvent): void {
+    event.stopPropagation(); 
+    console.log(`${type}: ${key}`);
+    this.workflowService.sendMessage({ type: type, key: key });
+  }
 }

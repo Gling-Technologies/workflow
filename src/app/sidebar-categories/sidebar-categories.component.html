@@ -31,6 +31,7 @@
 
         <!-- STEPS -->
             <mat-expansion-panel class="step-flow-expanstion" style="border-radius: 0; margin: 0;">
+                <!-- step -->
                 <mat-expansion-panel-header class="panel-title" style="background-color: #eedcf7;">
                     <mat-panel-title> STEPS </mat-panel-title>
                     <mat-icon aria-hidden="true" aria-label="add icon" fontIcon="add" class="add-icon" (click)="openAddModal('Step', $event)"></mat-icon>                
@@ -39,19 +40,24 @@
                 <div style="margin-bottom: -17px;">
                     @for (step of stepData; track $index) {
                         <mat-expansion-panel class="step-flow-panel" style="width: 250px; border-radius: 0; margin-left: -25px;">
+
+                <!-- step name -->
                             <mat-expansion-panel-header class="expansion-header" style="margin-bottom: 0;"  
-                            [matTooltip]="getFormattedOperator(step.name)" matTooltipPosition="left">
+                            [matTooltip]="getFormattedOperator(step.name)" matTooltipPosition="left" (click)="onPanelClick('step', step.key, $event)">
                                 <div class="expansion-header-content">{{ getFormattedOperator(step.name) }}</div>
                                 <mat-icon aria-hidden="true" aria-label="edit icon" fontIcon="edit" class="edit-icon" (click)="openEditModal(step, 'step', $event)" ></mat-icon>
                             </mat-expansion-panel-header>
+                
                             <div class="step-container" style="margin-bottom: -17px">
+                <!-- step key -->
                                 <span class="step-info">
                                     <strong>KEY:</strong> 
                                     <div class="steps-attribute">
                                         {{ getFormattedOperator(step.key) }}
                                     </div>
                                 </span>
-                            
+                         
+                <!-- step next -->
                                 @if (step.next) {
                                     <span class="step-info">
                                         <strong>NEXT:</strong> 
@@ -68,6 +74,7 @@
 
         <!-- FLOWS -->
             <mat-expansion-panel class="step-flow-expanstion" style="border-radius: 0; margin: 0;">
+                <!-- flow  -->
                 <mat-expansion-panel-header class="panel-title" style="background-color: #eedcf7;">
                     <mat-panel-title> FLOWS </mat-panel-title>
                     <mat-icon aria-hidden="true" aria-label="add icon" fontIcon="add" class="add-icon"  (click)="openAddModal('Flow', $event)"></mat-icon>
@@ -76,12 +83,17 @@
                 <div style="margin-bottom: -17px; ">
                     @for (flow of flowData; track $index) {
                         <mat-expansion-panel class="step-flow-panel" style="width: 250px; border-radius: 0; margin-left: -25px;">
+
+                <!-- flow name -->
                             <mat-expansion-panel-header style="margin-bottom: 0" class="expansion-header" 
-                            [matTooltip]="getFormattedOperator(flow.name)" matTooltipPosition="left">
+                            [matTooltip]="getFormattedOperator(flow.name)" matTooltipPosition="left"
+                            (click)="onPanelClick('flow', flow.key, $event)">
                                 <div class="expansion-header-content">{{ getFormattedOperator(flow.name) }}</div>
                                 <mat-icon aria-hidden="true" aria-label="edit icon" fontIcon="edit" class="edit-icon" (click)="openEditModal(flow, 'flow', $event)" ></mat-icon>
                             </mat-expansion-panel-header>
-                            <div class="step-container" style="margin-bottom: -17px"> 
+
+                            <div class="step-container" style="margin-bottom: -17px">
+                <!-- flow key  -->
                                 <span class="step-info">
                                     <strong>KEY:</strong> 
                                     <div class="steps-attribute">
@@ -89,6 +101,7 @@
                                     </div>
                                 </span>
                             
+                <!-- flow next -->
                                 @if (flow.next) {
                                     <span class="step-info">
                                         <strong>NEXT:</strong> 

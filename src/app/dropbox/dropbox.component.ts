@@ -1,6 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { DragDropModule, CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 import { WorkflowService } from '../workflow.service';
 import { OperatormodalComponent } from '../operatormodal/operatormodal.component';
@@ -12,6 +13,7 @@ import "highcharts/modules/organization";
 import "highcharts/modules/networkgraph";
 import "highcharts/modules/treemap";
 import "highcharts/modules/treegraph";
+import { HighchartService } from '../highchart.service';
 
 @Component({
   selector: 'app-dropbox',
@@ -25,9 +27,11 @@ export class DropboxComponent{
   chart: Highcharts.Chart | undefined;
   chartOptions: Highcharts.Options = {};
 
+  private subscription: Subscription | undefined;
   
   private dialog = inject(MatDialog)
   private workflowService = inject(WorkflowService)
+  private HighchartService = inject(HighchartService)
 
   droppedItems: any = [
     {
@@ -36,10 +40,32 @@ export class DropboxComponent{
       parentId: null,
       nodeType: 'entry',
     },
+    {
+      id: 'node-1',
+      name: 'for each',
+      droppedItemName: 'for_each',
+      parentId: 'node-0', 
+      nodeType: 'operators',
+    },
   ];
 
   ngOnInit() {
     this.initOrganizationChart();
+    this.subscription = this.workflowService.message$.subscribe(message => {
+        this.handleFlowSelection(message); // message = {type: flow/step, key: flow/step key}
+      
+    });
+  }
+  
+  handleFlowSelection(message: any): void {
+    console.log(`going to find operator ${message.key} of type ${message.type}`);
+    this.HighchartService.findOperator(message.type, message.key)
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   comp: string = '';
@@ -258,7 +284,7 @@ export class DropboxComponent{
         borderColor: '#000000',
       }],
     };
-    console.log(this.chartOptions.series);
+    // console.log(this.chartOptions.series);
 
   }
 

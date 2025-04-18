@@ -1,5 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { DragDropModule, CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Subscription } from 'rxjs';
 
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { WorkflowService } from '../workflow.service';
@@ -14,7 +15,6 @@ import { DropboxComponent } from "../dropbox/dropbox.component";
 })
 export class GridSystemComponent implements OnInit {
   // private dialog = inject(MatDialog)
-  private workflowService = inject(WorkflowService)
   comp: string = '';
 
   @Input() outerGridSize: number = 20;

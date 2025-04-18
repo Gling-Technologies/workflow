@@ -1,10 +1,20 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+
 import { Workflow } from './workflow.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkflowService {
+  private messageSource = new Subject<any>();
+  message$ = this.messageSource.asObservable();
+  // private messageSource = new Subject<any>(); creates a private Subject that the service uses to emit messages. The line message$ = this.messageSource.asObservable(); exposes an Observable derived from the Subject, allowing external components to subscribe to it without directly accessing the Subject.
+
+  // By calling asObservable() on the Subject, you expose only the observable aspect of the Subject to external components. This means that components can subscribe to message$ to receive updates but cannot emit new values themselves. This encapsulation ensures that the internal state of the service remains controlled and prevents unintended side effects from external code
+
+  // ​In RxJS and Angular development, appending a dollar sign ($) to the end of a variable name is a widely adopted convention to indicate that the variable is an Observable
+
   categories: { [key: string]: string[] } = {
     "Control Operators": ["condition", "for_each", "run_until", "scope", "switch", "terminate"], 
     "Variables Operators": ["append_to_array", "append_to_string", "merge_array", "decrement", "increment","initializer", "set_var", "filter", "deduplicate"], 
@@ -55,6 +65,10 @@ export class WorkflowService {
     return this.operatorConfig;
   }
 
+  sendMessage(message: any) { // message = {type: flow/step, key: flow/step key}
+    this.messageSource.next(message);
+  }
+
   workflow: Workflow = {
     "name": "Customer Emails",
     "vars": {
@@ -62,9 +76,9 @@ export class WorkflowService {
     },
     "entrypoint": "load_and_login",
     "steps": {
-      "get_date_formula_from_snippet": {
-        "name": "get_date_formula_from_snippet",
-        "next": "wait_till_loading_finish_after_refresh",
+      "get_date_formula_from_snippet": { // key
+        "name": "get_date_formula_from_snippet", // name
+        "next": "wait_till_loading_finish_after_refresh", // next
         "action": {
           "type": "snippet",
           "kind": "web",
@@ -437,6 +451,10 @@ export class WorkflowService {
     }
   }
 
+  findOperators(type: string, key: string){
+
+  }
+  
   // getName(type: 'steps' | 'flows'): string[]{
   //   return Object.values(this.workflow[type]).map((item: any) => item.name);
   // }
@@ -462,4 +480,6 @@ export class WorkflowService {
   getFormatted(operator: string): string {
     return operator ? operator.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase()) : '';
   }
+
+
 }
